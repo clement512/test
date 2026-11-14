@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Bistrot des Pêcheurs — Poisson & fruits de mer à La Rochelle</title>
+<meta name="description" content="Au pied des tours de La Rochelle, sur le vieux port historique, au bord de l'eau, poissons et fruits de mer, en salle ou en terrasse. Tél : 05 46 41 25 16">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d1b26; --ink-2:#132634; --ink-3:#1b3242;
+  --cream:#f6f1e8; --cream-2:#ece4d6; --paper:#fbf8f2;
+  --gold:#c3a165; --gold-2:#a8854a;
+  --text:#1c2730; --muted:#5d6872; --line:rgba(195,161,101,.35);
+  --serif:"Cormorant Garamond",Georgia,serif; --sans:"Manrope",system-ui,sans-serif;
+  --img:"https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/";
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--paper);line-height:1.7;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1200px,100% - 48px);margin:auto}
+.eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600;display:inline-flex;align-items:center;gap:14px}
+.eyebrow::before{content:"";width:34px;height:1px;background:currentColor}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-.005em}
+h2{font-size:clamp(2.3rem,5vw,3.8rem);margin:18px 0 22px}
+h2 em,h1 em{font-style:italic;color:var(--gold)}
+h3{font-size:1.75rem}
+p.lead{font-size:1.08rem;color:var(--muted);max-width:56ch}
+section{padding:clamp(80px,11vw,140px) 0}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 30px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;border:1px solid var(--gold);transition:.35s ease;cursor:pointer}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-gold:hover{background:transparent;color:var(--gold)}
+.btn-line{color:var(--gold)}
+.btn-line:hover{background:var(--gold);color:var(--ink)}
+.btn-dark{border-color:var(--ink);color:var(--ink)}
+.btn-dark:hover{background:var(--ink);color:var(--cream)}
+.arrow{transition:transform .3s}
+a:hover .arrow{transform:translateX(5px)}
+
+/* top bar */
+.topbar{background:var(--ink);color:rgba(246,241,232,.65);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.topbar .wrap{display:flex;justify-content:space-between;gap:20px;padding:10px 0;flex-wrap:wrap}
+.topbar nav{display:flex;gap:22px;flex-wrap:wrap}
+.topbar a:hover{color:var(--gold)}
+.topbar .cur{color:var(--gold)}
+
+/* header */
+header.main{position:sticky;top:0;z-index:50;transition:.4s;background:rgba(13,27,38,0);}
+header.main.scrolled{background:rgba(13,27,38,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+header.main .wrap{display:flex;align-items:center;justify-content:space-between;height:84px}
+.logo{display:flex;align-items:center;gap:14px;color:var(--cream)}
+.logo img{height:46px;width:auto}
+.logo span{font-family:var(--serif);font-size:1.35rem;letter-spacing:.02em;line-height:1.1}
+.logo small{display:block;font-family:var(--sans);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.menu{display:flex;align-items:center;gap:34px}
+.menu a{color:var(--cream);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;position:relative}
+.menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--gold);transition:.3s}
+.menu a:not(.btn):hover::after{width:100%}
+.menu .btn{padding:12px 22px}
+.burger{display:none;background:none;border:0;width:40px;height:40px;cursor:pointer}
+.burger span{display:block;height:1px;background:var(--cream);margin:7px 6px;transition:.3s}
+
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 38px);margin-top:-84px;display:flex;align-items:flex-end;color:var(--cream);overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url("https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507007562d913_IMG_0917.jpg") center/cover;transform:scale(1.08);animation:zoom 14s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,27,38,.7) 0%,rgba(13,27,38,.35) 40%,rgba(13,27,38,.92) 100%)}
+.hero .wrap{position:relative;z-index:2;padding:200px 0 70px}
+.hero h1{font-size:clamp(3rem,8.5vw,7rem);max-width:13ch;margin:22px 0 26px;font-weight:400}
+.hero p{max-width:52ch;color:rgba(246,241,232,.82);font-size:1.1rem}
+.hero .ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:38px}
+.hero-info{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(195,161,101,.35);margin-top:70px;padding-top:28px;gap:30px}
+.hero-info div{font-size:.92rem;color:rgba(246,241,232,.85)}
+.hero-info b{display:block;font-weight:600;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.hero-info a:hover{color:var(--gold)}
+
+/* intro */
+.intro{background:var(--paper)}
+.intro .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,7vw,100px);align-items:center}
+.stack{position:relative;aspect-ratio:4/5}
+.stack img{position:absolute;object-fit:cover;box-shadow:0 30px 60px -20px rgba(13,27,38,.35)}
+.stack .a{inset:0 22% 18% 0;width:78%;height:82%}
+.stack .b{right:0;bottom:0;width:52%;height:52%;border:10px solid var(--paper)}
+.stack .badge{position:absolute;left:-14px;bottom:8%;background:var(--ink);color:var(--cream);padding:22px 26px;font-family:var(--serif);font-size:1.1rem;line-height:1.3}
+.stack .badge em{color:var(--gold);font-size:2.2rem;display:block}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px;padding-top:34px;border-top:1px solid var(--line)}
+.features h4{font-family:var(--serif);font-size:1.4rem;font-weight:500;margin-bottom:6px}
+.features p{color:var(--muted);font-size:.95rem}
+
+/* ardoise */
+.ardoise{background:var(--ink);color:var(--cream);position:relative;overflow:hidden}
+.ardoise .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.ardoise p.lead{color:rgba(246,241,232,.7)}
+.slate{position:relative;aspect-ratio:1;max-width:520px;justify-self:end;width:100%}
+.slate img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05)}
+.slate::before{content:"";position:absolute;inset:-18px 18px 18px -18px;border:1px solid var(--gold);z-index:-0;pointer-events:none}
+.slate .tag{position:absolute;right:-1px;top:30px;background:var(--gold);color:var(--ink);padding:10px 18px;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;font-weight:600}
+
+/* carte */
+.carte{background:var(--cream)}
+.carte .head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:60px}
+.menus{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
+.menu-card{background:var(--paper);padding:56px 48px;position:relative;border:1px solid var(--line);text-align:center;transition:.4s}
+.menu-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(13,27,38,.35)}
+.menu-card::before{content:"";position:absolute;inset:10px;border:1px solid var(--line);pointer-events:none}
+.menu-card .eyebrow::before{display:none}
+.menu-card h3{font-size:2.3rem;margin:14px 0 12px}
+.menu-card .course{color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-size:.78rem}
+.menu-card .price{font-family:var(--serif);font-size:3.6rem;color:var(--ink);margin-top:22px;line-height:1}
+.menu-card .price sup{font-size:1.4rem;color:var(--gold);margin-left:4px}
+.menu-card.featured{background:var(--ink);color:var(--cream)}
+.menu-card.featured .price{color:var(--cream)}
+.menu-card.featured .course{color:rgba(246,241,232,.65)}
+.pdfs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin-top:60px;border:1px solid var(--line)}
+.pdfs a{background:var(--cream);padding:26px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:.3s}
+.pdfs a:hover{background:var(--ink);color:var(--cream)}
+.pdfs a small{display:block;font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.pdfs a span.t{font-family:var(--serif);font-size:1.35rem;line-height:1.15}
+.pdfs .arrow{color:var(--gold);font-size:1.2rem}
+
+/* specialites */
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:30px}
+.spec-card{position:relative;aspect-ratio:4/3;overflow:hidden;color:var(--cream);display:flex;align-items:flex-end}
+.spec-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.spec-card:hover img{transform:scale(1.06)}
+.spec-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(13,27,38,.88))}
+.spec-card div{position:relative;z-index:2;padding:36px}
+.spec-card h3{font-size:2.2rem;margin-bottom:6px}
+.spec-card p{color:rgba(246,241,232,.8);max-width:40ch}
+
+/* plateau */
+.plateau{background:var(--ink);color:var(--cream);padding:0}
+.plateau .grid{display:grid;grid-template-columns:1fr 1fr;min-height:640px}
+.plateau .img{background:url("https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507055462d91d_IMG_1052.jpg") center/cover}
+.plateau .txt{padding:clamp(60px,8vw,110px) clamp(28px,6vw,90px);display:flex;flex-direction:column;justify-content:center}
+.plateau h2{font-size:clamp(2.6rem,5.5vw,4.4rem)}
+.plateau .pp{font-family:var(--serif);font-size:1.6rem;color:var(--gold);font-style:italic}
+.plateau ul{list-style:none;margin:30px 0 36px;columns:2;column-gap:30px}
+.plateau li{padding:11px 0;border-bottom:1px solid rgba(195,161,101,.22);break-inside:avoid;font-size:.95rem;color:rgba(246,241,232,.85);display:flex;gap:12px}
+.plateau li b{color:var(--gold);font-weight:600;min-width:46px}
+.takeaway{border:1px solid var(--line);padding:24px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.takeaway p{font-family:var(--serif);font-size:1.3rem;line-height:1.35}
+.takeaway p em{color:var(--gold)}
+
+/* gallery */
+.gallery{background:var(--paper);padding-bottom:0}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:50px}
+.gal figure{aspect-ratio:1;overflow:hidden;background:#f3eeee}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1s ease}
+.gal figure:hover img{transform:scale(1.07)}
+
+/* groupes */
+.groupes{background:var(--paper)}
+.groupes .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,7vw,100px);align-items:start}
+.groupes .visual{position:sticky;top:110px}
+.groupes .visual img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.groupes .visual .cap{position:absolute;right:-20px;bottom:40px;background:var(--gold);color:var(--ink);padding:26px 30px;font-family:var(--serif);font-size:1.15rem;line-height:1.3;max-width:240px}
+.groupes .visual .cap b{display:block;font-size:3rem;font-weight:500;line-height:1}
+.points{margin-top:40px}
+.point{display:grid;grid-template-columns:70px 1fr;gap:20px;padding:30px 0;border-top:1px solid var(--line)}
+.point:last-child{border-bottom:1px solid var(--line)}
+.point .n{font-family:var(--serif);font-size:2.2rem;color:var(--gold);line-height:1;font-style:italic}
+.point h4{font-family:var(--serif);font-size:1.6rem;font-weight:500;margin-bottom:4px}
+.point p{color:var(--muted)}
+
+/* traiteur */
+.traiteur{background:var(--cream)}
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:60px}
+.tcard{background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;transition:.4s}
+.tcard:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(13,27,38,.35)}
+.tcard .ph{aspect-ratio:4/3;overflow:hidden}
+.tcard .ph img{width:100%;height:100%;object-fit:cover}
+.tcard .ic{aspect-ratio:4/3;background:var(--ink);display:grid;place-items:center}
+.tcard .ic img{width:84px;height:84px;object-fit:contain;opacity:.95}
+.tcard div.b{padding:28px 26px 32px}
+.tcard h3{font-size:1.6rem;margin-bottom:10px}
+.tcard p{color:var(--muted);font-size:.93rem}
+
+/* avis */
+.avis{background:var(--ink);color:var(--cream);text-align:center}
+.avis .quote{font-family:var(--serif);font-size:clamp(1.8rem,3.6vw,2.8rem);font-style:italic;max-width:24ch;margin:22px auto 50px;line-height:1.2}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:auto;text-align:left}
+.acard{border:1px solid var(--line);padding:34px;display:flex;gap:22px;align-items:flex-start;transition:.3s}
+.acard:hover{background:var(--ink-3)}
+.acard img{width:42px;height:42px;object-fit:contain;background:#fff;border-radius:50%;padding:7px;flex:none}
+.acard h4{font-family:var(--serif);font-size:1.45rem;font-weight:500;margin-bottom:6px}
+.acard p{color:rgba(246,241,232,.7);font-size:.93rem}
+.acard .lnk{display:inline-block;margin-top:14px;color:var(--gold);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600}
+.stars{color:var(--gold);letter-spacing:.3em;font-size:.9rem}
+
+/* contact */
+.contact{background:var(--paper)}
+.cgrid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,6vw,80px);align-items:stretch}
+.cblocks{display:grid;gap:0;margin-top:34px}
+.cb{padding:26px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:20px}
+.cb:last-child{border-bottom:1px solid var(--line)}
+.cb b{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;padding-top:6px}
+.cb .v{font-family:var(--serif);font-size:1.45rem;line-height:1.35}
+.cb .v small{display:block;font-family:var(--sans);font-size:.88rem;color:var(--muted);margin-top:4px}
+.cb a.v:hover,.cb .v a:hover{color:var(--gold-2)}
+.map{position:relative;min-height:520px;background:var(--cream-2)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.55) contrast(1.05) sepia(.12)}
+.map .card{position:absolute;left:24px;bottom:24px;right:24px;max-width:340px;background:var(--ink);color:var(--cream);padding:26px}
+.map .card p{font-size:.92rem;color:rgba(246,241,232,.75);margin:8px 0 14px}
+
+/* reserve band */
+.band{position:relative;color:var(--cream);text-align:center;overflow:hidden}
+.band::before{content:"";position:absolute;inset:0;background:url("https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507f26e62d910_IMG_0883.jpg") center/cover}
+.band::after{content:"";position:absolute;inset:0;background:rgba(13,27,38,.82)}
+.band .wrap{position:relative;z-index:2}
+.band h2{max-width:18ch;margin-inline:auto}
+.band p{color:rgba(246,241,232,.75);max-width:56ch;margin:0 auto 36px}
+.band .ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* footer */
+footer{background:#081219;color:rgba(246,241,232,.7);padding:90px 0 30px;font-size:.92rem}
+.fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px}
+footer h5{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px}
+footer ul{list-style:none;display:grid;gap:9px}
+footer a:hover{color:var(--gold)}
+footer .flogo img{height:64px;margin-bottom:20px}
+footer .flogo p{max-width:30ch}
+.fbottom{margin-top:70px;padding-top:24px;border-top:1px solid rgba(195,161,101,.18);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.78rem;letter-spacing:.06em}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease}
+.rv.in{opacity:1;transform:none}
+
+/* mobile reservation */
+.mres{display:none}
+
+@media (max-width:1000px){
+  .menu{position:fixed;inset:0;background:var(--ink);flex-direction:column;justify-content:center;gap:30px;transform:translateX(100%);transition:.5s}
+  .menu.open{transform:none}
+  .menu a{font-size:1rem}
+  .burger{display:block;position:relative;z-index:60}
+  .burger.x span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.x span:nth-child(2){opacity:0}
+  .burger.x span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  .intro .grid,.ardoise .grid,.groupes .grid,.cgrid,.plateau .grid{grid-template-columns:1fr}
+  .plateau .img{min-height:380px}
+  .groupes .visual{position:relative;top:0}
+  .groupes .visual .cap{right:16px}
+  .slate{justify-self:start}
+  .tgrid{grid-template-columns:1fr 1fr}
+  .pdfs{grid-template-columns:1fr 1fr}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .gal{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:680px){
+  .wrap{width:calc(100% - 32px)}
+  .topbar .wrap{justify-content:center}
+  .topbar .lbl{display:none}
+  .hero-info{grid-template-columns:1fr;gap:18px}
+  .menus,.spec,.agrid,.tgrid,.pdfs,.fgrid,.features{grid-template-columns:1fr}
+  .menu-card{padding:46px 26px}
+  .plateau ul{columns:1}
+  .cb{grid-template-columns:1fr;gap:4px}
+  .stack .badge{left:0}
+  .groupes .visual .cap{position:relative;right:auto;bottom:auto;max-width:none}
+  .mres{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:8px}
+  .mres a{flex:1;justify-content:center;padding:15px 10px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+  .mres a.tel{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  footer{padding-bottom:100px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="lbl">Nos maisons à La Rochelle</span>
+    <nav>
+      <a href="#" class="cur">Le Bistrot des Pêcheurs</a>
+      <a href="https://creperielarochelle.wixsite.com/epideble" target="_blank" rel="noopener">L'épi de blé</a>
+      <a href="https://creperielarochelle.wixsite.com/desdames" target="_blank" rel="noopener">La crêperie des dames</a>
+      <a href="https://creperielarochelle.wixsite.com/desdames" target="_blank" rel="noopener">Le Bistrot du port</a>
+      <a href="https://www.facebook.com/profile.php?id=61575353619020" target="_blank" rel="noopener">Chez Jeannot</a>
+    </nav>
+  </div>
+</div>
+
+<header class="main" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo">
+      <img src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b550741a662d916_logo%20bdp%20bllanc.svg" alt="Le Bistrot des Pêcheurs">
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#restaurant">Le restaurant</a>
+      <a href="#carte">La carte</a>
+      <a href="#groupes">Groupes</a>
+      <a href="#traiteur">Le traiteur</a>
+      <a href="#contact">Contact</a>
+      <a href="https://bookings.zenchef.com/results?rid=374797&pid=1001" target="_blank" rel="noopener" class="btn btn-gold">Réserver</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <span class="eyebrow">Vieux port · La Rochelle</span>
+    <h1>Poissons &amp; fruits de mer, <em>au bord de l'eau</em></h1>
+    <p>Au pied des tours de La Rochelle, sur le vieux port historique, le Bistrot des Pêcheurs vous accueille en salle ou en terrasse.</p>
+    <div class="ctas">
+      <a href="https://bookings.zenchef.com/results?rid=374797&pid=1001" target="_blank" rel="noopener" class="btn btn-gold">Réserver une table en ligne <span class="arrow">→</span></a>
+      <a href="#carte" class="btn btn-line">Découvrir la carte</a>
+    </div>
+    <div class="hero-info">
+      <div><b>Horaires</b>Ouvert 7j/7 · 11h30 – 15h &amp; 18h30 – 22h</div>
+      <div><b>Adresse</b><a href="https://www.google.com/maps/place/LES+PECHEURS/@46.1588592,-1.1535426,17z/data=!4m9!1m2!2m1!1srestaurant+les+pecheurs!3m5!1s0x480153a52feceea1:0xaa0007adff313ec9!8m2!3d46.1562535!4d-1.154416!15sChdyZXN0YXVyYW50IGxlcyBwZWNoZXVyc5IBEnNlYWZvb2RfcmVzdGF1cmFudA" target="_blank" rel="noopener">2, place de la Chaîne, 17000 La Rochelle — Voir le plan d'accès</a></div>
+      <div><b>Téléphone</b><a href="tel:+33546412516">05 46 41 25 16</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO / RESTAURANT -->
+<section class="intro" id="restaurant">
+  <div class="wrap grid">
+    <div class="stack rv">
+      <img class="a" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b55072ceb62d941_1000821_681374465212232_1337448160_n.jpg" alt="La terrasse face à la tour de la Chaîne">
+      <img class="b" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b550798b962d923_IMG_0980.jpg" alt="Le banc de fruits de mer">
+      <div class="badge"><em>7j/7</em>midi &amp; soir</div>
+    </div>
+    <div class="rv">
+      <span class="eyebrow">Le restaurant</span>
+      <h2>Restaurant de poissons &amp; fruits de mer <em>à La Rochelle</em></h2>
+      <p class="lead">Le Bistrot se trouve au pied de la tour de la Chaîne, en plein centre du quartier historique. Une table iodée, généreuse et sincère, face au vieux port.</p>
+      <div class="features">
+        <div><h4>Réservez en ligne</h4><p>Cliquez pour réserver une table en ligne avec Zenchef. Pour un groupe de plus de 15 personnes, contactez-nous par téléphone.</p></div>
+        <div><h4>Sur le vieux port</h4><p>En salle ou en terrasse, au bord de l'eau, avec vue sur les tours de La Rochelle.</p></div>
+      </div>
+      <div style="margin-top:38px;display:flex;gap:14px;flex-wrap:wrap">
+        <a href="https://bookings.zenchef.com/results?rid=374797&pid=1001" target="_blank" rel="noopener" class="btn btn-dark">Réserver une table <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARDOISE -->
+<section class="ardoise">
+  <div class="wrap grid">
+    <div class="rv">
+      <span class="eyebrow">Aujourd'hui</span>
+      <h2>Sur notre ardoise, <em>la suggestion du jour</em></h2>
+      <p class="lead">Selon la marée et l'arrivage, le chef vous propose chaque jour une suggestion à découvrir. Retrouvez la photo du jour sur notre Instagram.</p>
+      <div style="margin-top:36px"><a href="https://www.instagram.com/lespecheurs_larochelle/" target="_blank" rel="noopener" class="btn btn-line">Le Bistrot sur Instagram <span class="arrow">→</span></a></div>
+    </div>
+    <div class="slate rv">
+      <img src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b55075df662d9b7_A8.jpg" alt="Suggestion du jour">
+      <span class="tag">Du jour</span>
+    </div>
+  </div>
+</section>
+
+<!-- CARTE -->
+<section class="carte" id="carte">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <span class="eyebrow">La carte</span>
+        <h2>Nos menus</h2>
+      </div>
+      <p class="lead">Entrée, plat &amp; dessert : deux menus pour découvrir la cuisine de la mer du Bistrot.</p>
+    </div>
+    <div class="menus">
+      <div class="menu-card rv">
+        <span class="eyebrow">Le menu</span>
+        <h3>Bistrot</h3>
+        <div class="course">Entrée · Plat · Dessert</div>
+        <div class="price">29,90<sup>€</sup></div>
+      </div>
+      <div class="menu-card featured rv">
+        <span class="eyebrow">Le menu</span>
+        <h3>Spécial Pêcheurs</h3>
+        <div class="course">Entrée · Plat · Dessert</div>
+        <div class="price">38,90<sup>€</sup></div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <a class="spec-card rv" href="#capitaine">
+        <img src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507067762d920_IMG_0887.jpg" alt="Fruits de mer">
+        <div><h3>Les fruits de mer</h3><p>Vous êtes plutôt huîtres, langoustines ou tourteaux ?</p></div>
+      </a>
+      <a class="spec-card rv" href="#galerie">
+        <img src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507ced662d938_a7.jpg" alt="Poissons entiers">
+        <div><h3>Nos poissons entiers</h3><p>Bar, dorade, sole… découvrez nos poissons entiers !</p></div>
+      </a>
+    </div>
+
+    <div class="pdfs rv">
+      <a href="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/69aed2c5b179949e1a2214a3_CARTE%20PRINTEMPS%20BDP%202026-12_compressed.pdf" target="_blank" rel="noopener"><span><small>PDF</small><span class="t">Voir la carte</span></span><span class="arrow">→</span></a>
+      <a href="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/69aed2c5e10f96a4b1383634_CARTE%20DES%20BOISSONS%202026-8_compressed.pdf" target="_blank" rel="noopener"><span><small>PDF</small><span class="t">Carte des boissons</span></span><span class="arrow">→</span></a>
+      <a href="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/69bc11c9c80f0eb0b0404e8b_Bistrot%20des%20pecheurs%20-%20English%20menu%202026-03.pdf" target="_blank" rel="noopener"><span><small>English</small><span class="t">Menu</span></span><span class="arrow">→</span></a>
+      <a href="https://drive.google.com/file/d/1jsZUEUr_RKS2k9d3H1aHn_VUrAwQiTfi/view?usp=sharing" target="_blank" rel="noopener"><span><small>English</small><span class="t">Drinks Menu</span></span><span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- PLATEAU DU CAPITAINE -->
+<section class="plateau" id="capitaine">
+  <div class="grid">
+    <div class="img" role="img" aria-label="Plateau de fruits de mer devant la tour"></div>
+    <div class="txt rv">
+      <span class="eyebrow">Signature</span>
+      <h2>Le plateau du <em>capitaine</em></h2>
+      <div class="pp">Pour 2 personnes — 76,90 €</div>
+      <ul>
+        <li><b>1</b>Tourteau</li>
+        <li><b>10</b>Huîtres n°3</li>
+        <li><b>8</b>Langoustines</li>
+        <li><b>8</b>Crevettes roses</li>
+        <li><b>10</b>Bulots</li>
+        <li><b>100 g</b>Bigorneaux</li>
+        <li><b>6</b>Amandes</li>
+      </ul>
+      <div class="takeaway">
+        <p>Commandez-le à emporter…<br><em>… et repartez avec une bouteille de Muscadet que nous vous offrons !</em></p>
+        <a href="tel:+33546412516" class="btn btn-gold">Commandez par téléphone</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="gallery" id="galerie">
+  <div class="wrap rv" style="text-align:center">
+    <span class="eyebrow">L'assiette</span>
+    <h2>La mer, <em>dans tous ses états</em></h2>
+  </div>
+  <div class="gal">
+    <figure><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b55074aea62d9b5_a1.jpg" alt="Homard et salade"></figure>
+    <figure><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507440562d9b6_a2.jpg" alt="Poisson en croûte de sésame"></figure>
+    <figure><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507321f62d93a_a3.jpg" alt="Poisson grillé"></figure>
+    <figure><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b55072ed362d939_a4.jpg" alt="Entrée de la mer"></figure>
+    <figure><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b55078f9e62d937_a5.jpg" alt="Filet de poisson"></figure>
+    <figure><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507877662d93b_a6.jpg" alt="Risotto de la mer"></figure>
+    <figure><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507ced662d938_a7.jpg" alt="Poisson et légumes"></figure>
+    <figure><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b55075df662d9b7_A8.jpg" alt="Saint-Jacques"></figure>
+  </div>
+</section>
+
+<!-- GROUPES -->
+<section class="groupes" id="groupes">
+  <div class="wrap grid">
+    <div class="visual rv">
+      <img src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507e56b62d91c_Depositphotos_64583371_original.jpg" alt="Groupe à table">
+      <div class="cap"><b>100</b>couverts en saison, 80 hors saison</div>
+    </div>
+    <div class="rv">
+      <span class="eyebrow">Groupes</span>
+      <h2>Le Bistrot des Pêcheurs <em>reçoit les groupes</em></h2>
+      <p class="lead">Nous recevons les groupes toute l'année, jusqu'à 100 couverts en saison et 80 hors saison.</p>
+      <div class="points">
+        <div class="point"><span class="n">i.</span><div><h4>Toute l'année</h4><p>Nous recevons les groupes toute l'année : jusqu'à 100 couverts en saison et 80 hors saison.</p></div></div>
+        <div class="point"><span class="n">ii.</span><div><h4>Un large éventail de menus</h4><p>Plateaux de fruits de mer géants, poissons entiers à l'assiette… nous vous écoutons.</p></div></div>
+        <div class="point"><span class="n">iii.</span><div><h4>Une prestation pour votre groupe</h4><p>À table, autour d'un buffet, sur la terrasse au pied des tours, avec un cocktail…</p></div></div>
+        <div class="point"><span class="n">iv.</span><div><h4>Votre menu</h4><p>Nous composons aussi des menus imaginés autour de vos envies et de votre budget.</p></div></div>
+      </div>
+      <div style="margin-top:38px"><a href="tel:+33546412516" class="btn btn-dark">Organiser un événement · 05 46 41 25 16</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAITEUR -->
+<section class="traiteur" id="traiteur">
+  <div class="wrap">
+    <div class="rv" style="max-width:720px">
+      <span class="eyebrow">Le traiteur</span>
+      <h2>La mer, <em>chez vous</em> ou sur l'eau</h2>
+      <p class="lead">Plateaux composés à votre demande, sur place, livrés ou à emporter — pour vos réceptions et vos événements d'entreprise.</p>
+    </div>
+    <div class="tgrid">
+      <div class="tcard rv">
+        <div class="ph"><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b55073ac662d914_IMG_1201.jpg" alt="Plateau de fruits de mer géant"></div>
+        <div class="b"><h3>Plateaux de fruits de mer</h3><p>Plateaux de fruits de mer géants composés à votre demande. Langoustines, huîtres, tourteaux, bulots : ne reculez devant rien.</p></div>
+      </div>
+      <div class="tcard rv">
+        <div class="ph"><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507f26e62d910_IMG_0883.jpg" alt="Préparation sur commande"></div>
+        <div class="b"><h3>Sur commande</h3><p>Sur place en groupe, livré ou à emporter.</p></div>
+      </div>
+      <div class="tcard rv">
+        <div class="ph"><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b5507007562d913_IMG_0917.jpg" alt="La salle du restaurant"></div>
+        <div class="b"><h3>Comités d'entreprises</h3><p>Petits, moyens et grands groupes.</p></div>
+      </div>
+      <div class="tcard rv">
+        <div class="ph"><img loading="lazy" src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b550750f862d917_IMG_0918-Pano-Edit.jpg" alt="L'Espérance I"></div>
+        <div class="b"><h3>L'Espérance I</h3><p>L'Espérance I est le catamaran spécial événements de la compagnie Inter-Îles. Il est amarré au pied des tours, presque devant le restaurant.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="avis">
+  <div class="wrap">
+    <span class="eyebrow">Vos avis</span>
+    <p class="quote">Vous avez passé un bon moment en notre compagnie&nbsp;? Faites-le savoir.</p>
+    <div class="agrid">
+      <a class="acard rv" href="https://g.page/r/Cck-Mf-tBwCqEAE/review" target="_blank" rel="noopener">
+        <img src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/68ed065aaac7ce64b3d00ba2_Google__G__logo.svg.webp" alt="Google">
+        <div><div class="stars">★★★★★</div><h4>Laissez-nous un avis sur Google</h4><p>Vous avez passé un bon moment en notre compagnie ? Prenez une minute, et faites-le savoir !</p><span class="lnk">Donner mon avis →</span></div>
+      </a>
+      <a class="acard rv" href="https://www.tripadvisor.com/Restaurant_Review-g187206-d2140271-Reviews-Le_Bistrot_des_Pecheurs-La_Rochelle_Charente_Maritime_Nouvelle_Aquitaine.html" target="_blank" rel="noopener">
+        <img src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/68ed08786c882dcbe4502538_tripadvisor-icon.webp" alt="Tripadvisor">
+        <div><div class="stars">★★★★★</div><h4>Leave us a review on Tripadvisor</h4><p>If you had a nice experience with us, we would be thrilled if you could tell the world!</p><span class="lnk">Write a review →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap cgrid">
+    <div class="rv">
+      <span class="eyebrow">Contactez-nous</span>
+      <h2>Pour réserver, <em>pour le service traiteur…</em></h2>
+      <div class="cblocks">
+        <div class="cb"><b>Par téléphone</b><a class="v" href="tel:+33546412516">05 46 41 25 16<small>Réservations, groupes de plus de 15 personnes, traiteur</small></a></div>
+        <div class="cb"><b>En ligne</b><a class="v" href="https://bookings.zenchef.com/results?rid=374797&pid=1001" target="_blank" rel="noopener">Réserver avec Zenchef →<small>Réservation immédiate d'une table</small></a></div>
+        <div class="cb"><b>Adresse</b><div class="v">2, place de la Chaîne<br>17000 La Rochelle, France<small><a href="https://www.google.fr/maps/place/Les+P%C3%AAcheurs/@46.1562695,-1.1562337,17z/data=!4m8!1m2!2m1!1sle+bistro+des+pecheurs+la+rochelle!3m4!1s0x0:0xaa0007adff313ec9!8m2!3d46.1562242!4d-1.1543731?hl=en" target="_blank" rel="noopener" style="color:var(--gold-2)">Voir sur Google Maps →</a></small></div></div>
+        <div class="cb"><b>Horaires</b><div class="v">Ouvert 7j/7<small>11h30 – 15h &amp; 18h30 – 22h</small></div></div>
+        <div class="cb"><b>Instagram</b><a class="v" href="https://www.instagram.com/lespecheurs_larochelle/" target="_blank" rel="noopener">@lespecheurs_larochelle<small>Le Bistrot sur Instagram</small></a></div>
+      </div>
+    </div>
+    <div class="map rv">
+      <iframe title="Plan d'accès" loading="lazy" src="https://maps.google.com/maps?q=46.1562535,-1.154416&z=16&output=embed"></iframe>
+      <div class="card">
+        <span class="eyebrow">Sur le vieux port</span>
+        <p>Le Bistrot se trouve au pied de la tour de la Chaîne, en plein centre du quartier historique.</p>
+        <a href="https://www.google.com/maps/place/LES+PECHEURS/@46.1588592,-1.1535426,17z/data=!4m9!1m2!2m1!1srestaurant+les+pecheurs!3m5!1s0x480153a52feceea1:0xaa0007adff313ec9!8m2!3d46.1562535!4d-1.154416!15sChdyZXN0YXVyYW50IGxlcyBwZWNoZXVyc5IBEnNlYWZvb2RfcmVzdGF1cmFudA" target="_blank" rel="noopener" class="btn btn-gold" style="padding:12px 20px">Voir le plan d'accès</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="band">
+  <div class="wrap rv">
+    <span class="eyebrow">Réservation</span>
+    <h2>Une table face aux tours <em>vous attend</em></h2>
+    <p>Réservez en ligne avec Zenchef, ou contactez-nous par téléphone pour réserver pour un groupe de plus de 15 personnes.</p>
+    <div class="ctas">
+      <a href="https://bookings.zenchef.com/results?rid=374797&pid=1001" target="_blank" rel="noopener" class="btn btn-gold">Réserver une table en ligne</a>
+      <a href="tel:+33546412516" class="btn btn-line">05 46 41 25 16</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="flogo">
+        <img src="https://cdn.prod.website-files.com/638f860c4b5507862e62d8e0/638f860c4b550741a662d916_logo%20bdp%20bllanc.svg" alt="Le Bistrot des Pêcheurs">
+        <p>Poissons et fruits de mer au pied des tours, sur le vieux port historique de La Rochelle.</p>
+      </div>
+      <div>
+        <h5>Nous trouver</h5>
+        <ul>
+          <li>2, place de la Chaîne</li>
+          <li>17000 La Rochelle</li>
+          <li>France</li>
+          <li><a href="tel:+33546412516">Tél : 05 46 41 25 16</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Le Bistrot</h5>
+        <ul>
+          <li><a href="#restaurant">Le restaurant</a></li>
+          <li><a href="#carte">La carte</a></li>
+          <li><a href="#groupes">Groupes</a></li>
+          <li><a href="#traiteur">Le traiteur</a></li>
+          <li><a href="https://bookings.zenchef.com/results?rid=374797&pid=1001" target="_blank" rel="noopener">Réserver en ligne</a></li>
+          <li><a href="https://www.instagram.com/bistrot.des.pecheurs/" target="_blank" rel="noopener">Le Bistrot sur Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Nos autres restaurants</h5>
+        <p style="margin-bottom:12px">Nous vous accueillons également dans nos autres restaurants.</p>
+        <ul>
+          <li><a href="https://creperielarochelle.wixsite.com/epideble" target="_blank" rel="noopener">L'épi de blé</a></li>
+          <li>Le 28</li>
+          <li>Le Saint-Georges (La Flotte)</li>
+          <li><a href="https://www.facebook.com/profile.php?id=61575353619020" target="_blank" rel="noopener">Chez Jeannot</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>© Le Bistrot des Pêcheurs — La Rochelle</span>
+      <span>Design &amp; conception : <a href="http://vincent.polenordstudio.fr" target="_blank" rel="noopener">Vincent Bidaux</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="mres">
+  <a href="tel:+33546412516" class="btn tel">Appeler</a>
+  <a href="https://bookings.zenchef.com/results?rid=374797&pid=1001" target="_blank" rel="noopener" class="btn btn-gold">Réserver</a>
+</div>
+
+<script>
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>60),{passive:true});
+const b=document.getElementById('burger'),m=document.getElementById('menu');
+b.onclick=()=>{m.classList.toggle('open');b.classList.toggle('x')};
+m.querySelectorAll('a').forEach(a=>a.onclick=()=>{m.classList.remove('open');b.classList.remove('x')});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
