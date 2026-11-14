@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L&#x27;Épi de Blé — Crêperie bretonne depuis 1999</title>
+<meta name="description" content="Craquez pour nos galettes 100 % sarrasin, servies à toute heure à deux pas du port de La Rochelle.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1f1414;--ink-3:color-mix(in srgb,#1f1414 85%,#fff);--cream:#f6f1e8;--cream-2:#ece4d6;--paper:#fbf8f2;
+--gold:#c9a46a;--gold-2:#8b2c2c;--text:#1c2226;--muted:#5d666d;--line:color-mix(in srgb,#c9a46a 40%,transparent);
+--serif:"Cormorant Garamond",Georgia,serif;--sans:"Manrope",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--paper);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}a{color:inherit;text-decoration:none}
+.wrap{width:min(1200px,100% - 48px);margin:auto}
+.eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600;display:inline-flex;align-items:center;gap:14px}
+.eyebrow::before{content:"";width:34px;height:1px;background:currentColor}
+.on-light .eyebrow{color:var(--gold-2)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08}
+h2{font-size:clamp(2.3rem,5vw,3.8rem);margin:18px 0 22px}
+h2 em,h1 em{font-style:italic;color:var(--gold)}
+.on-light h2 em{color:var(--gold-2)}
+p.lead{font-size:1.08rem;color:var(--muted);max-width:58ch}
+section{padding:clamp(80px,11vw,140px) 0}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 30px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;border:1px solid var(--gold);transition:.35s;cursor:pointer}
+.btn-gold{background:var(--gold);color:var(--ink)}.btn-gold:hover{background:transparent;color:var(--gold)}
+.btn-line{color:var(--gold)}.btn-line:hover{background:var(--gold);color:var(--ink)}
+.btn-dark{border-color:var(--ink);color:var(--ink)}.btn-dark:hover{background:var(--ink);color:var(--cream)}
+.topbar{background:#000;background:color-mix(in srgb,var(--ink) 70%,#000);color:rgba(246,241,232,.65);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+.topbar .wrap{display:flex;justify-content:space-between;gap:20px;padding:10px 0;flex-wrap:wrap}
+.topbar nav{display:flex;gap:20px;flex-wrap:wrap}.topbar a:hover{color:var(--gold)}.topbar .cur{color:var(--gold)}
+header.main{position:sticky;top:0;z-index:50;transition:.4s}
+header.main.scrolled{background:color-mix(in srgb,var(--ink) 94%,transparent);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+header.main .wrap{display:flex;align-items:center;justify-content:space-between;height:84px}
+.logo{display:flex;align-items:center;gap:14px;color:var(--cream)}
+.logo img{height:58px;width:58px;object-fit:contain;background:#fff;border-radius:50%;padding:3px}
+.logo .mk{width:52px;height:52px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:1.3rem;color:var(--gold);font-style:italic}
+.logo span{font-family:var(--serif);font-size:1.45rem;line-height:1.05}
+.logo small{display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+.menu{display:flex;align-items:center;gap:34px}
+.menu a{color:var(--cream);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;position:relative}
+.menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--gold);transition:.3s}
+.menu a:not(.btn):hover::after{width:100%}.menu .btn{padding:12px 22px}
+.burger{display:none;background:none;border:0;width:40px;height:40px;cursor:pointer}
+.burger span{display:block;height:1px;background:var(--cream);margin:7px 6px;transition:.3s}
+.hero{position:relative;min-height:calc(100vh - 38px);margin-top:-84px;display:flex;align-items:flex-end;color:var(--cream);overflow:hidden;background:var(--ink)}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.08);animation:zoom 14s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--ink) 72%,transparent) 0%,color-mix(in srgb,var(--ink) 35%,transparent) 40%,color-mix(in srgb,var(--ink) 94%,transparent) 100%)}
+.hero.typo::after{background:radial-gradient(ellipse at 75% 30%,color-mix(in srgb,var(--gold-2) 45%,transparent),transparent 60%),linear-gradient(180deg,transparent,var(--ink))}
+.hero .mono{position:absolute;right:-2vw;top:8vh;font-family:var(--serif);font-style:italic;font-size:clamp(14rem,38vw,34rem);line-height:.8;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--gold) 45%,transparent);z-index:1;user-select:none}
+.hero .waves{position:absolute;left:0;right:0;bottom:0;z-index:1;opacity:.25}
+.hero .wrap{position:relative;z-index:2;padding:200px 0 70px}
+.hero h1{font-size:clamp(3rem,8vw,6.6rem);max-width:13ch;margin:22px 0 26px;font-weight:400}
+.hero p{max-width:52ch;color:rgba(246,241,232,.82);font-size:1.1rem}
+.ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:38px}
+.hero-info{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:70px;padding-top:28px;gap:30px}
+.hero-info div{font-size:.92rem;color:rgba(246,241,232,.85)}
+.hero-info b{display:block;font-weight:600;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.hero-info a:hover{color:var(--gold)}
+.intro .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.stack{position:relative;aspect-ratio:4/5}
+.stack img{position:absolute;object-fit:cover;box-shadow:0 30px 60px -20px rgba(0,0,0,.35)}
+.stack .a{top:0;left:0;width:78%;height:82%}.stack .b{right:0;bottom:0;width:52%;height:52%;border:10px solid var(--paper)}
+.stack .badge,.plate .badge{position:absolute;left:-14px;bottom:8%;background:var(--ink);color:var(--cream);padding:22px 26px;font-family:var(--serif);font-size:1.1rem;line-height:1.3;z-index:2}
+.stack .badge em,.plate .badge em{color:var(--gold);font-size:2.2rem;display:block}
+.plate{position:relative;aspect-ratio:4/5;background:var(--ink);display:grid;place-items:center}
+.plate .big{font-family:var(--serif);font-style:italic;font-size:clamp(7rem,16vw,13rem);color:transparent;-webkit-text-stroke:1px var(--gold);line-height:1}
+.plate::before{content:"";position:absolute;inset:18px;border:1px solid var(--line)}
+.plate .cap{position:absolute;top:44px;left:0;right:0;text-align:center;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+.intro p.lead+p.lead{margin-top:16px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px;padding-top:34px;border-top:1px solid var(--line)}
+.features h4{font-family:var(--serif);font-size:1.4rem;font-weight:500;margin-bottom:6px}
+.features p{color:var(--muted);font-size:.95rem}
+.sig{background:var(--ink);color:var(--cream)}
+.sig .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.sig p.lead{color:rgba(246,241,232,.72)}
+.sig .price{font-family:var(--serif);font-size:3.4rem;color:var(--gold);margin-top:18px}
+.frame{position:relative;max-width:520px;justify-self:end;width:100%;aspect-ratio:1}
+.frame img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1}
+.frame::before{content:"";position:absolute;inset:-18px 18px 18px -18px;border:1px solid var(--gold)}
+.carte{background:var(--cream)}
+.carte .head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:40px}
+.tabs{display:flex;gap:0;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:50px}
+.tabs button{background:none;border:0;padding:16px 22px;font-family:var(--sans);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--muted);cursor:pointer;position:relative}
+.tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--gold-2);transform:scaleX(0);transition:.3s}
+.tabs button.on{color:var(--ink)}.tabs button.on::after{transform:none}
+.panel{display:none}.panel.on{display:block;animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+.panel .sub{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--muted);margin-bottom:30px}
+.dishes{display:grid;grid-template-columns:1fr 1fr;column-gap:60px}
+.dish{padding:18px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+.dish .row{display:flex;align-items:baseline;gap:12px}
+.dish .n{font-family:var(--serif);font-size:1.3rem;font-weight:500}
+.dish .dots{flex:1;border-bottom:1px dotted color-mix(in srgb,var(--gold-2) 50%,transparent);transform:translateY(-5px)}
+.dish .p{font-family:var(--serif);font-size:1.25rem;color:var(--gold-2);white-space:nowrap}
+.dish .d{color:var(--muted);font-size:.9rem;margin-top:2px}
+.formulas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.fcard{background:var(--paper);border:1px solid var(--line);padding:40px 30px;text-align:center;position:relative}
+.fcard::before{content:"";position:absolute;inset:8px;border:1px solid var(--line);pointer-events:none}
+.fcard:nth-child(2){background:var(--ink);color:var(--cream)}
+.fcard h3{font-size:1.8rem;margin-bottom:12px}
+.fcard p{font-size:.9rem;color:var(--muted)}.fcard:nth-child(2) p{color:rgba(246,241,232,.7)}
+.fcard .p{font-family:var(--serif);font-size:2.6rem;color:var(--gold-2);margin-top:16px;line-height:1}
+.fcard:nth-child(2) .p{color:var(--gold)}
+.notes{margin-top:50px;font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.gal figure{aspect-ratio:1;overflow:hidden}.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1s}
+.gal figure:hover img{transform:scale(1.07)}
+.quote{background:var(--ink);color:var(--cream);text-align:center;padding:clamp(70px,9vw,110px) 0}
+.quote p{font-family:var(--serif);font-style:italic;font-size:clamp(1.9rem,4vw,3rem);max-width:26ch;margin:20px auto 0;line-height:1.2}
+.contact .cgrid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,6vw,80px);align-items:stretch}
+.cblocks{margin-top:34px}
+.cb{padding:24px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:20px}
+.cb:last-child{border-bottom:1px solid var(--line)}
+.cb b{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-2);font-weight:600;padding-top:6px}
+.cb .v{font-family:var(--serif);font-size:1.4rem;line-height:1.35}
+.cb .v small{display:block;font-family:var(--sans);font-size:.88rem;color:var(--muted);margin-top:4px}
+.cb a.v:hover{color:var(--gold-2)}
+.map{position:relative;min-height:500px;background:var(--cream-2)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.55) sepia(.12)}
+.group{background:var(--cream)}
+.ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:50px}
+.ggrid a{background:var(--cream);padding:30px 28px;display:flex;justify-content:space-between;align-items:center;transition:.3s}
+.ggrid a:hover{background:var(--ink);color:var(--cream)}
+.ggrid a span{font-family:var(--serif);font-size:1.5rem}.ggrid a i{color:var(--gold-2);font-style:normal}
+footer{background:color-mix(in srgb,var(--ink) 75%,#000);color:rgba(246,241,232,.7);padding:80px 0 30px;font-size:.92rem}
+.fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px}
+footer h5{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px}
+footer ul{list-style:none;display:grid;gap:9px}footer a:hover{color:var(--gold)}
+footer .fn{font-family:var(--serif);font-size:2rem;color:var(--cream);margin-bottom:12px}
+.fbottom{margin-top:60px;padding-top:24px;border-top:1px solid color-mix(in srgb,var(--gold) 20%,transparent);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.78rem}
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s,transform 1s}.rv.in{opacity:1;transform:none}
+.mres{display:none}
+@media (max-width:1000px){
+ .menu{position:fixed;inset:0;background:var(--ink);flex-direction:column;justify-content:center;gap:30px;transform:translateX(100%);transition:.5s}
+ .menu.open{transform:none}.menu a{font-size:1rem}
+ .burger{display:block;position:relative;z-index:60}
+ .burger.x span:nth-child(1){transform:translateY(8px) rotate(45deg)}.burger.x span:nth-child(2){opacity:0}.burger.x span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+ .intro .grid,.sig .grid,.contact .cgrid{grid-template-columns:1fr}
+ .frame{justify-self:start}.ggrid{grid-template-columns:1fr 1fr}.gal{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+ .wrap{width:calc(100% - 32px)}.topbar{display:none}
+ .hero-info{grid-template-columns:1fr;gap:18px}
+ .dishes,.features,.ggrid,.fgrid{grid-template-columns:1fr}
+ .cb{grid-template-columns:1fr;gap:4px}.stack .badge,.plate .badge{left:0}
+ .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.tabs button{white-space:nowrap;padding:14px 16px}
+ .logo span{font-size:1.2rem}
+ .mres{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:8px}
+ .mres a{flex:1;justify-content:center;padding:15px 10px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+ footer{padding-bottom:100px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><span class="lbl">Nos maisons</span><nav><a href="bistrot-des-pecheurs.html">Le Bistrot des Pêcheurs</a><a href="epi-de-ble.html" class=cur>L&#x27;Épi de Blé</a><a href="creperie-des-dames.html">La Crêperie des Dames</a><a href="bistrot-du-port.html">Le Bistrot du Port</a><a href="chez-jeannot.html">Chez Jeannot</a><a href="le-28.html">Le 28</a><a href="le-saint-georges.html">Le Saint-Georges</a></nav></div></div>
+<header class="main" id="hdr"><div class="wrap">
+  <a href="#top" class="logo"><img src="https://static.wixstatic.com/media/5cfd4e_672fbc033be44166a8c693e23de9e656~mv2.png" alt="L&#x27;Épi de Blé"><span>L&#x27;Épi de Blé<small>Crêperie</small></span></a>
+  <nav class="menu" id="menu"><a href="#maison">La maison</a><a href="#carte">La carte</a><a href="#contact">Contact</a><a href="#groupe">Nos maisons</a><a href="tel:+33546412685" class="btn btn-gold">Réserver</a></nav>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></header>
+<section class="hero" id="top"><div class="hero-bg" style="background-image:url('https://static.wixstatic.com/media/5cfd4e_82f4a0759504469fa825945ef0749c14~mv2.jpg')"></div>
+  <div class="wrap">
+    <span class="eyebrow">Crêperie bretonne depuis 1999</span>
+    <h1>De l'amour <em>dans vos galettes</em></h1>
+    <p>Craquez pour nos galettes 100 % sarrasin, servies à toute heure à deux pas du port de La Rochelle.</p>
+    <div class="ctas"><a href="tel:+33546412685" class="btn btn-gold">Réserver · 05 46 41 26 85</a><a href="#carte" class="btn btn-line">Découvrir la carte</a></div>
+    <div class="hero-info">
+      <div><b>Horaires</b>Tous les jours 11h00 – 22h00 · Service toute la journée, 7j/7</div>
+      <div><b>Adresse</b>2, rue du Port, 17000 La Rochelle</div>
+      <div><b>Téléphone</b><a href="tel:+33546412685">05 46 41 26 85</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="intro on-light" id="maison">
+  <div class="wrap grid">
+    <div class="stack rv"><img class="a" src="https://static.wixstatic.com/media/5cfd4e_3098b69279d04584bbe103fa00a1475d~mv2.jpg" alt="L&#x27;Épi de Blé"><img class="b" src="https://static.wixstatic.com/media/5cfd4e_9b050d2bb73c4c46b4f774967b68a9eb~mv2.jpg" alt="L&#x27;Épi de Blé"><div class="badge"><em>1999</em>depuis</div></div>
+    <div class="rv">
+      <span class="eyebrow">Bienvenue</span>
+      <h2>Notre plaisir, <em>vous régaler</em></h2>
+      <p class="lead">Service toute la journée, 7 jours sur 7, à deux pas du vieux port.</p><p class="lead">Depuis 1999, nos galettes sont préparées avec une farine de sarrasin biologique, 100 % blé noir. Et pour finir en douceur : la fameuse Breizh, caramel au beurre salé, éclats de spéculos et glace vanille.</p>
+      <div class="features"><div><h4>100 % blé noir</h4><p>Farine de sarrasin biologique.</p></div><div><h4>Sur place &amp; à emporter</h4><p>Repas servis à toute heure, tous les jours.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sig">
+  <div class="wrap grid">
+    <div class="rv"><span class="eyebrow">Signature</span><h2>La fameuse Breizh</h2><p class="lead">Caramel au beurre salé, éclats de spéculos et glace vanille.</p><div class="price">8,10 €</div>
+      <div class="ctas"><a href="#carte" class="btn btn-line">Voir toute la carte →</a></div></div>
+    <div class="frame rv"><img src="https://static.wixstatic.com/media/5cfd4e_82f4a0759504469fa825945ef0749c14~mv2.jpg" alt="La fameuse Breizh"></div>
+  </div>
+</section>
+
+<section class="carte on-light" id="carte">
+  <div class="wrap">
+    <div class="head rv"><div><span class="eyebrow">La carte</span><h2>La carte <em>de l'Épi de Blé</em></h2></div>
+    <p class="lead">Galettes de sarrasin, crêpes de froment et cidres de Bretagne.</p></div>
+    <div class="tabs" role="tablist"><button class="on" data-t="0">Formules</button><button class="" data-t="1">Galettes traditionnelles</button><button class="" data-t="2">Galettes spécialités</button><button class="" data-t="3">Galettes gourmandes</button><button class="" data-t="4">Salades</button><button class="" data-t="5">Crêpes classiques</button><button class="" data-t="6">Crêpes spécialités</button><button class="" data-t="7">Les cidres</button></div>
+    <div class="panel on" data-p="0"><p class="sub">Pour tous les appétits</p><div class="formulas"><div class="fcard"><span class="eyebrow" style="justify-content:center">Formule</span><h3>Formule du midi</h3><p>1 galette complète + salade verte + 1 crêpe chocolat au beurre salé + ¼ de cidre brut pression</p><div class="p">15,40 €</div></div><div class="fcard"><span class="eyebrow" style="justify-content:center">Formule</span><h3>Formule du soir</h3><p>1 coupe de cidre rosé + 1 galette au choix + salade verte + 1 crêpe chocolat au beurre salé + ¼ de cidre brut pression</p><div class="p">26,90 €</div></div><div class="fcard"><span class="eyebrow" style="justify-content:center">Formule</span><h3>Menu enfant</h3><p>1 galette jambon fromage + 1 crêpe bonbons + 1 sirop à l&#x27;eau</p><div class="p">9,90 €</div></div><div class="fcard"><span class="eyebrow" style="justify-content:center">Formule</span><h3>Formule goûter</h3><p>1 crêpe chocolat + ¼ de cidre brut pression ou 1 chocolat chaud</p><div class="p">7,90 €</div></div></div></div><div class="panel" data-p="1"><p class="sub">100 % blé noir · farine de sarrasin biologique</p><div class="dishes"><div class="dish"><div class="row"><span class="n">Beurre</span><span class="dots"></span><span class="p">3,60 €</span></div></div><div class="dish"><div class="row"><span class="n">Fromage</span><span class="dots"></span><span class="p">6,30 €</span></div></div><div class="dish"><div class="row"><span class="n">Œuf</span><span class="dots"></span><span class="p">6,10 €</span></div></div><div class="dish"><div class="row"><span class="n">Œuf, fromage</span><span class="dots"></span><span class="p">7,90 €</span></div></div><div class="dish"><div class="row"><span class="n">Jambon</span><span class="dots"></span><span class="p">7,60 €</span></div></div><div class="dish"><div class="row"><span class="n">Jambon, œuf</span><span class="dots"></span><span class="p">8,70 €</span></div></div><div class="dish"><div class="row"><span class="n">Jambon, fromage</span><span class="dots"></span><span class="p">8,90 €</span></div></div><div class="dish"><div class="row"><span class="n">Jambon, fromage, tomate, salade</span><span class="dots"></span><span class="p">12,50 €</span></div></div><div class="dish"><div class="row"><span class="n">Complète</span><span class="dots"></span><span class="p">9,90 €</span></div><div class="d">jambon, œuf, fromage</div></div><div class="dish"><div class="row"><span class="n">Complète tomate</span><span class="dots"></span><span class="p">11 €</span></div></div><div class="dish"><div class="row"><span class="n">Complète oignons</span><span class="dots"></span><span class="p">11,40 €</span></div></div><div class="dish"><div class="row"><span class="n">Complète champignons</span><span class="dots"></span><span class="p">11,90 €</span></div></div></div></div><div class="panel" data-p="2"><p class="sub">Les recettes de la maison</p><div class="dishes"><div class="dish"><div class="row"><span class="n">La Végétarienne</span><span class="dots"></span><span class="p">13,50 €</span></div><div class="d">Fromage, tomate, champignons, soubise, salade</div></div><div class="dish"><div class="row"><span class="n">Seguin</span><span class="dots"></span><span class="p">14,20 €</span></div><div class="d">Chèvre, miel, noix, salade</div></div><div class="dish"><div class="row"><span class="n">Rennaise</span><span class="dots"></span><span class="p">14,80 €</span></div><div class="d">Jambon, chèvre, salade</div></div><div class="dish"><div class="row"><span class="n">Paysanne</span><span class="dots"></span><span class="p">15 €</span></div><div class="d">Pomme de terre, poitrine fumée, crème fraîche, fromage, salade</div></div><div class="dish"><div class="row"><span class="n">Méditerranée</span><span class="dots"></span><span class="p">15 €</span></div><div class="d">Chèvre, tomates persillées, poitrine fumée, salade</div></div><div class="dish"><div class="row"><span class="n">Provençale</span><span class="dots"></span><span class="p">15,50 €</span></div><div class="d">Ratatouille, fromage, chorizo, œuf, salade</div></div><div class="dish"><div class="row"><span class="n">3 Fromages</span><span class="dots"></span><span class="p">15,90 €</span></div><div class="d">Chèvre, roquefort, fromage, pomme de terre, poitrine fumée, salade</div></div><div class="dish"><div class="row"><span class="n">L&#x27;Épi de Blé</span><span class="dots"></span><span class="p">15,90 €</span></div><div class="d">Camembert, jambon, tomate, crème fraîche, fromage, salade</div></div><div class="dish"><div class="row"><span class="n">Campagnarde</span><span class="dots"></span><span class="p">15,90 €</span></div><div class="d">Andouille, moutarde à l&#x27;ancienne, soubise, salade</div></div><div class="dish"><div class="row"><span class="n">Argoat</span><span class="dots"></span><span class="p">15,90 €</span></div><div class="d">Pomme de terre, fromage, andouille, crème fraîche, salade</div></div><div class="dish"><div class="row"><span class="n">La Super Complète</span><span class="dots"></span><span class="p">16,10 €</span></div><div class="d">Jambon, œuf, fromage, tomate, champignons, soubise, salade</div></div><div class="dish"><div class="row"><span class="n">Raclette</span><span class="dots"></span><span class="p">16,30 €</span></div><div class="d">Fromage à raclette, pomme de terre, crème fraîche, lardons, poitrine fumée, soubise, salade</div></div><div class="dish"><div class="row"><span class="n">Tartiflette</span><span class="dots"></span><span class="p">16,40 €</span></div><div class="d">Reblochon, pomme de terre, crème fraîche, lardons, poitrine fumée, soubise, salade</div></div><div class="dish"><div class="row"><span class="n">Fermière</span><span class="dots"></span><span class="p">16,50 €</span></div><div class="d">Poulet, fromage, champignons, crème fraîche, salade</div></div><div class="dish"><div class="row"><span class="n">Norvégienne</span><span class="dots"></span><span class="p">18,50 €</span></div><div class="d">Saumon fumé, fondue de poireaux, fromage, salade</div></div><div class="dish"><div class="row"><span class="n">L&#x27;IØ</span><span class="dots"></span><span class="p">18,50 €</span></div><div class="d">Saumon fumé, pomme de terre, crème fraîche, ciboulette, fromage, salade</div></div><div class="dish"><div class="row"><span class="n">Champêtre</span><span class="dots"></span><span class="p">18,50 €</span></div><div class="d">Saumon fumé, fondue de poireaux crémée, chèvre, mélange de graines, salade</div></div></div></div><div class="panel" data-p="3"><p class="sub">Champignons, andouille, soubise, chèvre, saumon…</p><div class="dishes"><div class="dish"><div class="row"><span class="n">Champignons</span><span class="dots"></span><span class="p">9,30 €</span></div><div class="d">frais cuisinés ail et persil</div></div><div class="dish"><div class="row"><span class="n">Champignons, ciboulette, crème, salade</span><span class="dots"></span><span class="p">13,50 €</span></div></div><div class="dish"><div class="row"><span class="n">Champignons, œuf</span><span class="dots"></span><span class="p">10,40 €</span></div></div><div class="dish"><div class="row"><span class="n">Champignons, jambon</span><span class="dots"></span><span class="p">10,80 €</span></div></div><div class="dish"><div class="row"><span class="n">Champignons, jambon, œuf</span><span class="dots"></span><span class="p">11,40 €</span></div></div><div class="dish"><div class="row"><span class="n">Andouille</span><span class="dots"></span><span class="p">10,50 €</span></div><div class="d">de Bretagne fumée</div></div><div class="dish"><div class="row"><span class="n">Andouille, pommes (fruits), salade</span><span class="dots"></span><span class="p">14,50 €</span></div></div><div class="dish"><div class="row"><span class="n">Andouille, champignons, fromage</span><span class="dots"></span><span class="p">14,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Andouille, moutarde à l&#x27;ancienne</span><span class="dots"></span><span class="p">11 €</span></div></div><div class="dish"><div class="row"><span class="n">Andouille, œuf, fromage</span><span class="dots"></span><span class="p">13,40 €</span></div></div><div class="dish"><div class="row"><span class="n">Andouille, sauce roquefort, salade</span><span class="dots"></span><span class="p">13,90 €</span></div></div><div class="dish"><div class="row"><span class="n">Ratatouille, œuf, fromage</span><span class="dots"></span><span class="p">11,70 €</span></div></div><div class="dish"><div class="row"><span class="n">Ratatouille, fromage, chorizo</span><span class="dots"></span><span class="p">11,80 €</span></div></div><div class="dish"><div class="row"><span class="n">Soubise</span><span class="dots"></span><span class="p">9,30 €</span></div><div class="d">émincé d&#x27;oignons cuisiné au vin blanc</div></div><div class="dish"><div class="row"><span class="n">Soubise, fromage</span><span class="dots"></span><span class="p">10,50 €</span></div></div><div class="dish"><div class="row"><span class="n">Soubise, jambon</span><span class="dots"></span><span class="p">10,80 €</span></div></div><div class="dish"><div class="row"><span class="n">Soubise, jambon, fromage</span><span class="dots"></span><span class="p">11,40 €</span></div></div><div class="dish"><div class="row"><span class="n">Poitrine fumée</span><span class="dots"></span><span class="p">10,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Poitrine fumée, œuf</span><span class="dots"></span><span class="p">11,30 €</span></div></div><div class="dish"><div class="row"><span class="n">Poitrine fumée, œuf, fromage</span><span class="dots"></span><span class="p">12,50 €</span></div></div><div class="dish"><div class="row"><span class="n">Poitrine fumée, œuf, fromage, tomate</span><span class="dots"></span><span class="p">14,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Poitrine fumée, œuf, fromage, champignons</span><span class="dots"></span><span class="p">14,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Chèvre, salade</span><span class="dots"></span><span class="p">13,30 €</span></div></div><div class="dish"><div class="row"><span class="n">Chèvre, miel</span><span class="dots"></span><span class="p">12 €</span></div></div><div class="dish"><div class="row"><span class="n">Chèvre, noix, salade</span><span class="dots"></span><span class="p">14 €</span></div></div><div class="dish"><div class="row"><span class="n">Chèvre, ratatouille</span><span class="dots"></span><span class="p">14 €</span></div></div><div class="dish"><div class="row"><span class="n">Chèvre, fondue de poireaux</span><span class="dots"></span><span class="p">15,40 €</span></div></div><div class="dish"><div class="row"><span class="n">Poulet, fromage, soubise</span><span class="dots"></span><span class="p">14,30 €</span></div></div><div class="dish"><div class="row"><span class="n">Fondue de poireaux, fromage, œuf</span><span class="dots"></span><span class="p">14,90 €</span></div></div><div class="dish"><div class="row"><span class="n">Fondue de poireaux, chèvre, jambon</span><span class="dots"></span><span class="p">15 €</span></div></div><div class="dish"><div class="row"><span class="n">Fondue de poireaux, fromage, chorizo</span><span class="dots"></span><span class="p">15,40 €</span></div></div><div class="dish"><div class="row"><span class="n">Camembert, salade</span><span class="dots"></span><span class="p">12,70 €</span></div></div><div class="dish"><div class="row"><span class="n">Camembert, jambon, salade</span><span class="dots"></span><span class="p">14,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Camembert, champignons, salade</span><span class="dots"></span><span class="p">14,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Saumon, crème fraîche, ciboulette, salade</span><span class="dots"></span><span class="p">16 €</span></div></div><div class="dish"><div class="row"><span class="n">Saumon, crème fraîche, ciboulette, champignons, salade</span><span class="dots"></span><span class="p">17,50 €</span></div></div></div></div><div class="panel" data-p="4"><p class="sub">Suppléments : ingrédient simple 2,20 € · poulet 3 € · saumon fumé 5 €</p><div class="dishes"><div class="dish"><div class="row"><span class="n">Saladier mixte</span><span class="dots"></span><span class="p">4 €</span></div><div class="d">salade verte &amp; tomates persillées</div></div><div class="dish"><div class="row"><span class="n">Saladier des montagnes</span><span class="dots"></span><span class="p">5 €</span></div><div class="d">salade, noix, fromage</div></div><div class="dish"><div class="row"><span class="n">Salade de chèvre chaud</span><span class="dots"></span><span class="p">16,70 €</span></div><div class="d">Salade verte, galette de chèvre, tomates, poitrine fumée, miel, champignons frais</div></div><div class="dish"><div class="row"><span class="n">Salade nordique</span><span class="dots"></span><span class="p">18,60 €</span></div><div class="d">Salade verte, tomates, champignons, concombre, saumon fumé, crème, ciboulette</div></div><div class="dish"><div class="row"><span class="n">Salade veggie</span><span class="dots"></span><span class="p">voir ardoise</span></div></div></div></div><div class="panel" data-p="5"><p class="sub">Crêpes sucrées</p><div class="dishes"><div class="dish"><div class="row"><span class="n">Sucre</span><span class="dots"></span><span class="p">3 €</span></div></div><div class="dish"><div class="row"><span class="n">Beurre sucre</span><span class="dots"></span><span class="p">3,60 €</span></div></div><div class="dish"><div class="row"><span class="n">Beurre sucre, 1 boule de glace vanille</span><span class="dots"></span><span class="p">6,60 €</span></div></div><div class="dish"><div class="row"><span class="n">Miel</span><span class="dots"></span><span class="p">5,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Miel, citron pressé</span><span class="dots"></span><span class="p">6,30 €</span></div></div><div class="dish"><div class="row"><span class="n">Citron pressé, sucre</span><span class="dots"></span><span class="p">5,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Marrons</span><span class="dots"></span><span class="p">5,60 €</span></div></div><div class="dish"><div class="row"><span class="n">Confiture : fraise, myrtille, abricot</span><span class="dots"></span><span class="p">5 €</span></div></div><div class="dish"><div class="row"><span class="n">Chocolat au beurre salé</span><span class="dots"></span><span class="p">5,60 €</span></div></div><div class="dish"><div class="row"><span class="n">Chocolat au beurre salé, chantilly</span><span class="dots"></span><span class="p">7,10 €</span></div></div><div class="dish"><div class="row"><span class="n">Chocolat au beurre salé, marron</span><span class="dots"></span><span class="p">6,60 €</span></div></div><div class="dish"><div class="row"><span class="n">Chocolat au beurre salé, amandes grillées</span><span class="dots"></span><span class="p">6 €</span></div></div><div class="dish"><div class="row"><span class="n">Chocolat au beurre salé, coco râpée</span><span class="dots"></span><span class="p">6,70 €</span></div></div><div class="dish"><div class="row"><span class="n">Chocolat au beurre salé, palet breton</span><span class="dots"></span><span class="p">6 €</span></div></div><div class="dish"><div class="row"><span class="n">Banane</span><span class="dots"></span><span class="p">5,10 €</span></div></div><div class="dish"><div class="row"><span class="n">Banane, chocolat au beurre salé</span><span class="dots"></span><span class="p">6,40 €</span></div></div><div class="dish"><div class="row"><span class="n">Banane, chocolat au beurre salé, chantilly</span><span class="dots"></span><span class="p">8 €</span></div></div><div class="dish"><div class="row"><span class="n">Compotée de pommes cuites au beurre</span><span class="dots"></span><span class="p">8,30 €</span></div></div><div class="dish"><div class="row"><span class="n">Compotée de pommes cuites au beurre, chantilly</span><span class="dots"></span><span class="p">9,90 €</span></div></div><div class="dish"><div class="row"><span class="n">Poire</span><span class="dots"></span><span class="p">5,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Poire, chocolat au beurre salé</span><span class="dots"></span><span class="p">6,20 €</span></div></div><div class="dish"><div class="row"><span class="n">Poire, chocolat au beurre salé, palet breton</span><span class="dots"></span><span class="p">6,70 €</span></div></div><div class="dish"><div class="row"><span class="n">Poire, chocolat au beurre salé, chantilly</span><span class="dots"></span><span class="p">7,90 €</span></div></div><div class="dish"><div class="row"><span class="n">Poire, caramel</span><span class="dots"></span><span class="p">6,30 €</span></div></div><div class="dish"><div class="row"><span class="n">Poire, caramel, chantilly</span><span class="dots"></span><span class="p">8 €</span></div></div><div class="dish"><div class="row"><span class="n">Frangipane</span><span class="dots"></span><span class="p">8,30 €</span></div></div></div></div><div class="panel" data-p="6"><p class="sub">Supplément chantilly 2,20 € · boule de glace 3,10 € · flambage 5 €</p><div class="dishes"><div class="dish"><div class="row"><span class="n">L&#x27;Épidou</span><span class="dots"></span><span class="p">5,70 €</span></div><div class="d">Caramel au beurre salé</div></div><div class="dish"><div class="row"><span class="n">La Bretonne</span><span class="dots"></span><span class="p">9,30 €</span></div><div class="d">Pomme, caramel au beurre salé</div></div><div class="dish"><div class="row"><span class="n">La Frangichoc</span><span class="dots"></span><span class="p">9,50 €</span></div><div class="d">Frangipane, chocolat au beurre salé</div></div><div class="dish"><div class="row"><span class="n">La Frangicara</span><span class="dots"></span><span class="p">9,50 €</span></div><div class="d">Frangipane, caramel au beurre salé</div></div><div class="dish"><div class="row"><span class="n">La Breizh</span><span class="dots"></span><span class="p">8,10 €</span></div><div class="d">Caramel au beurre salé, spéculoos, glace vanille</div></div><div class="dish"><div class="row"><span class="n">La Tatin</span><span class="dots"></span><span class="p">10,40 €</span></div><div class="d">Pomme, caramel au beurre salé, glace vanille</div></div><div class="dish"><div class="row"><span class="n">La Snickers</span><span class="dots"></span><span class="p">10,40 €</span></div><div class="d">Chocolat au beurre salé, caramel au beurre salé, cacahuètes, glace vanille</div></div><div class="dish"><div class="row"><span class="n">La Forêt Noire</span><span class="dots"></span><span class="p">8,90 €</span></div><div class="d">Chocolat au beurre salé, griottes, chantilly, glace vanille</div></div><div class="dish"><div class="row"><span class="n">La Belle Hélène</span><span class="dots"></span><span class="p">8,90 €</span></div><div class="d">Chocolat au beurre salé, poire, amandes grillées, glace vanille</div></div><div class="dish"><div class="row"><span class="n">La Rochelaise</span><span class="dots"></span><span class="p">10,70 €</span></div><div class="d">Frangipane, caramel au beurre salé, amandes effilées, glace vanille</div></div><div class="dish"><div class="row"><span class="n">L&#x27;Oléronaise</span><span class="dots"></span><span class="p">8,90 €</span></div><div class="d">Caramel, palet breton, glace vanille</div></div><div class="dish"><div class="row"><span class="n">La Cap Malo</span><span class="dots"></span><span class="p">10,70 €</span></div><div class="d">Pomme, caramel au beurre salé, palet breton, glace vanille</div></div><div class="dish"><div class="row"><span class="n">La G&#x27;M</span><span class="dots"></span><span class="p">9 €</span></div><div class="d">Chocolat au beurre salé, flambée au Grand Marnier</div></div><div class="dish"><div class="row"><span class="n">La Griotte</span><span class="dots"></span><span class="p">10 €</span></div><div class="d">Chocolat au beurre salé, griottes, flambée au Grand Marnier</div></div><div class="dish"><div class="row"><span class="n">La Normande</span><span class="dots"></span><span class="p">10 €</span></div><div class="d">Pomme, flambée au Calvados</div></div><div class="dish"><div class="row"><span class="n">L&#x27;Antillaise</span><span class="dots"></span><span class="p">8,40 €</span></div><div class="d">Banane, flambée au rhum</div></div><div class="dish"><div class="row"><span class="n">Flambée Calvados</span><span class="dots"></span><span class="p">8 €</span></div></div><div class="dish"><div class="row"><span class="n">Flambée Grand Marnier</span><span class="dots"></span><span class="p">8 €</span></div></div><div class="dish"><div class="row"><span class="n">Flambée Rhum</span><span class="dots"></span><span class="p">8 €</span></div></div></div></div><div class="panel" data-p="7"><p class="sub">Val de Rance</p><div class="dishes"><div class="dish"><div class="row"><span class="n">Cidre Val de Rance, bouteille 75 cl</span><span class="dots"></span><span class="p">15 €</span></div><div class="d">Brut ou doux</div></div><div class="dish"><div class="row"><span class="n">Cidre brut pression</span><span class="dots"></span><span class="p">16,50 €</span></div><div class="d">Pichet 25 cl 4,40 € · 50 cl 8,40 € · 100 cl</div></div><div class="dish"><div class="row"><span class="n">Cidre rosé</span><span class="dots"></span><span class="p">17 €</span></div><div class="d">La coupe 12 cl 4,20 € · 25 cl 6 € · 50 cl 12 € · bouteille 75 cl</div></div><div class="dish"><div class="row"><span class="n">Cidre doux</span><span class="dots"></span><span class="p">10 €</span></div><div class="d">Pichet 25 cl 5 € · pichet 50 cl</div></div><div class="dish"><div class="row"><span class="n">Cidre bio</span><span class="dots"></span><span class="p">18 €</span></div><div class="d">Bouteille 75 cl</div></div></div></div>
+    <div class="notes"><span>Prix nets, service compris · Modes de règlement : CB (min. 5 €), espèces, ANCV, tickets restaurant · Carte des allergènes auprès de votre serveur · L&#x27;abus d&#x27;alcool est dangereux pour la santé, à consommer avec modération.</span><a class="btn btn-dark" href="https://ccb106d4-031a-47b4-8975-84cb173b7f7b.filesusr.com/ugd/5cfd4e_f59f2904d628473a903a8d3418b45f0e.pdf" target="_blank" rel="noopener">Carte complète (PDF) →</a></div>
+  </div>
+</section>
+<div class="gal"><figure><img src="https://static.wixstatic.com/media/5cfd4e_3098b69279d04584bbe103fa00a1475d~mv2.jpg" alt="L&#x27;Épi de Blé"></figure><figure><img src="https://static.wixstatic.com/media/5cfd4e_9b050d2bb73c4c46b4f774967b68a9eb~mv2.jpg" alt="L&#x27;Épi de Blé"></figure><figure><img src="https://static.wixstatic.com/media/5cfd4e_ab2f36bf88b34f95b9158df3625b67be~mv2.jpg" alt="L&#x27;Épi de Blé"></figure><figure><img src="https://static.wixstatic.com/media/5cfd4e_82f4a0759504469fa825945ef0749c14~mv2.jpg" alt="L&#x27;Épi de Blé"></figure></div>
+<section class="quote"><div class="wrap rv"><span class="eyebrow">L&#x27;Épi de Blé</span><p>Crêperie un jour, crêperie toujours…</p></div></section>
+
+<section class="contact on-light" id="contact">
+  <div class="wrap cgrid">
+    <div class="rv"><span class="eyebrow">Nous trouver</span><h2>Venez nous <em>rendre visite</em></h2><div class="cblocks"><div class="cb"><b>Téléphone</b><a class="v" href="tel:+33546412685">05 46 41 26 85<small>Réservations et renseignements</small></a></div><div class="cb"><b>Adresse</b><div class="v">2, rue du Port<br>17000 La Rochelle<small><a href="https://www.google.com/maps/search/?api=1&query=L%27%C3%89pi%20de%20Bl%C3%A9%2C%202%2C%20rue%20du%20Port%2C%2017000%20La%20Rochelle" target="_blank" rel="noopener" style="color:var(--gold-2)">Voir sur Google Maps →</a></small></div></div><div class="cb"><b>Horaires</b><div class="v" style="font-size:1.2rem">Tous les jours · 11h00 – 22h00<br>Service · toute la journée, 7j/7<br><small>Repas sur place &amp; à emporter</small></div></div><div class="cb"><b>Site actuel</b><a class="v" href="https://creperielarochelle.wixsite.com/epideble" target="_blank" rel="noopener" style="font-size:1.15rem;word-break:break-all">creperielarochelle.wixsite.com/epideble →</a></div></div></div>
+    <div class="map rv"><iframe title="Plan d'accès" loading="lazy" src="https://maps.google.com/maps?q=L%27%C3%89pi%20de%20Bl%C3%A9%2C%202%2C%20rue%20du%20Port%2C%2017000%20La%20Rochelle&z=16&output=embed"></iframe></div>
+  </div>
+</section>
+
+<section class="group on-light" id="groupe">
+  <div class="wrap">
+    <div class="rv" style="max-width:720px"><span class="eyebrow">Nos maisons</span><h2>Nous vous accueillons aussi <em>dans nos autres restaurants</em></h2></div>
+    <div class="ggrid rv"><a href="bistrot-des-pecheurs.html"><span>Le Bistrot des Pêcheurs</span><i>→</i></a><a href="creperie-des-dames.html"><span>La Crêperie des Dames</span><i>→</i></a><a href="bistrot-du-port.html"><span>Le Bistrot du Port</span><i>→</i></a><a href="chez-jeannot.html"><span>Chez Jeannot</span><i>→</i></a><a href="le-28.html"><span>Le 28</span><i>→</i></a><a href="le-saint-georges.html"><span>Le Saint-Georges</span><i>→</i></a></div>
+  </div>
+</section>
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><div class="fn">L&#x27;Épi de Blé</div><p>Craquez pour nos galettes 100 % sarrasin, servies à toute heure à deux pas du port de La Rochelle.</p></div>
+    <div><h5>Nous trouver</h5><ul><li>2, rue du Port</li><li>17000 La Rochelle</li><li><a href="tel:+33546412685">Tél : 05 46 41 26 85</a></li><li>Tous les jours 11h00 – 22h00 · Service toute la journée, 7j/7</li></ul></div>
+    <div><h5>Nos autres restaurants</h5><ul><li><a href="bistrot-des-pecheurs.html">Le Bistrot des Pêcheurs</a></li><li><a href="creperie-des-dames.html">La Crêperie des Dames</a></li><li><a href="bistrot-du-port.html">Le Bistrot du Port</a></li><li><a href="chez-jeannot.html">Chez Jeannot</a></li><li><a href="le-28.html">Le 28</a></li><li><a href="le-saint-georges.html">Le Saint-Georges</a></li></ul></div>
+  </div>
+  <div class="fbottom"><span>© L&#x27;Épi de Blé — une maison du groupe Le Bistrot des Pêcheurs</span><span>Crêperie bretonne depuis 1999</span></div>
+</div></footer>
+<div class="mres"><a href="tel:+33546412685" class="btn btn-gold">Appeler</a><a href="#contact" class="btn" style="background:var(--ink);color:var(--cream);border-color:var(--ink)">Itinéraire</a></div>
+<script>
+const hdr=document.getElementById('hdr');addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>60),{passive:true});
+const b=document.getElementById('burger'),m=document.getElementById('menu');
+b.onclick=()=>{m.classList.toggle('open');b.classList.toggle('x')};
+m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{m.classList.remove('open');b.classList.remove('x')}));
+document.querySelectorAll('.tabs button').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===t));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.p===t.dataset.t));});
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
