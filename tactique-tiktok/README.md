@@ -32,13 +32,32 @@ Repère du terrain, en mètres : `x` va de 0 (touche gauche) à 68 (touche droit
 Dans les sous-titres et les pilules, les mots entre `*astérisques*` sont mis en couleur.
 Une ancre peut être un id de joueur (`"A6"`), un point `{x, y}` ou `{player: "A6", dx, dy}`.
 
-Pour ajouter une deuxième vidéo, on crée un nouvel objet `ScriptData`, puis une `<Composition>` de plus dans `src/Root.tsx`.
+Pour ajouter une deuxième vidéo, on crée un nouvel objet `ScriptData` avec un `meta.id` unique, puis on l'ajoute à `VIDEOS` dans `src/videos.ts`.
+
+## Voix off ElevenLabs
+
+```bash
+npm run voiceover            # génère les répliques manquantes ou modifiées (avec cache)
+npm run voiceover -- --force # régénère tout
+npm run build                # voix off puis rendu MP4
+```
+
+- La voix se règle dans `meta.voice` de `scriptData.ts` : `voiceId`, `modelId`, `speed`, `stability`, `similarityBoost`, `style`, `volume`. Par défaut, c'est Corentin (`IHngRooVccHyPqB4uQkG`).
+- Chaque entrée de `subtitles` devient un clip MP3 dans `public/voiceover/<id>/`. Il est placé à `from` dans la vidéo.
+- Le minutage de chaque mot renvoyé par ElevenLabs sert à faire apparaître chaque groupe de mots des sous-titres au moment exact où il est prononcé.
+- Si une réplique est trop longue pour sa fenêtre `[from, to]`, sa vitesse est augmentée automatiquement, jusqu'à 1.2x. Le script affiche `⚠ DÉBORDE` si cela ne suffit pas : raccourcis alors le texte ou élargis la fenêtre.
+- `speech` permet de faire prononcer un texte différent de celui affiché, par exemple `"4-3-3"` → `"quatre-trois-trois"`. Garde le même nombre de mots pour que le calage reste exact.
+- La clé API est lue dans `ELEVENLABS_API_KEY`. Dans l'environnement cloud Claude Code, c'est le proxy réseau qui l'injecte.
+- Le script npm utilise la syntaxe `VAR=… cmd` : sous Windows, lance `tsx scripts/voiceover.ts` directement.
 
 ## Architecture
 
 ```
 src/
   scriptData.ts        ← le scénario (données uniquement)
+  videos.ts            ← registre des vidéos (une composition par entrée)
+  generated/voiceovers.json ← produit par `npm run voiceover`
+  lib/words.ts         ← découpage en mots partagé (sous-titres et voix off)
   types.ts             ← schéma typé du scénario
   theme.ts             ← couleurs néon, géométrie du terrain, conversion mètres → px
   fonts.ts             ← Montserrat et JetBrains Mono embarquées (pas de réseau nécessaire)

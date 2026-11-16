@@ -1,6 +1,6 @@
 import React from "react";
-import { AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import type { ScriptData } from "./types";
+import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import type { ScriptData, Voiceover } from "./types";
 import { COLORS, WORLD } from "./theme";
 import { ScriptProvider } from "./lib/ScriptContext";
 import { getBallState, getPlayerPos, isActive } from "./lib/timeline";
@@ -91,7 +91,11 @@ const World: React.FC<{ script: ScriptData }> = ({ script }) => {
 };
 
 /** Composition générique : tout est piloté par l'objet `script` (voir scriptData.ts). */
-export const TacticalVideo: React.FC<{ script: ScriptData }> = ({ script }) => {
+export const TacticalVideo: React.FC<{ script: ScriptData; voiceover?: Voiceover | null }> = ({
+  script,
+  voiceover,
+}) => {
+  const fps = script.meta.fps;
   // Validation légère : un id de joueur inconnu lève une erreur explicite au premier rendu
   getPlayerPos(script, script.players[0].id, 0, script.meta.fps);
 
@@ -112,11 +116,18 @@ export const TacticalVideo: React.FC<{ script: ScriptData }> = ({ script }) => {
           <ChapterBanner key={`ch${i}`} def={d} />
         ))}
         {script.outro && <Outro def={script.outro} />}
-        <KineticSubtitles items={script.subtitles} />
+        <KineticSubtitles items={script.subtitles} voice={voiceover?.lines} />
         <TransitionFlash at={script.meta.transitions ?? []} />
         <HUD title={script.meta.title} prefix={script.meta.hudPrefix} />
 
         {script.meta.audio && <Audio src={staticFile(script.meta.audio)} />}
+
+        {/* Voix off : un clip par réplique, placé à son instant de départ */}
+        {voiceover?.lines.map((l) => (
+          <Sequence key={l.file} from={Math.round(l.start * fps)} durationInFrames={Math.ceil((l.duration + 0.6) * fps)} layout="none">
+            <Audio src={staticFile(l.file)} volume={script.meta.voice?.volume ?? 1} />
+          </Sequence>
+        ))}
       </AbsoluteFill>
     </ScriptProvider>
   );

@@ -142,6 +142,11 @@ export type PillDef = Timed & { text: string; color: NeonColor };
 /** Phrase de voix off. Les mots entre *astérisques* passent en jaune. */
 export type SubtitleDef = Timed & {
   text: string;
+  /**
+   * Texte réellement prononcé par la voix off, si différent de l'affichage
+   * (ex: "4-3-3" → "quatre-trois-trois"). Garder le même nombre de mots pour un calage exact.
+   */
+  speech?: string;
   /** Position verticale (px) si on veut déplacer le sous-titre (ex: pendant l'outro). */
   y?: number;
 };
@@ -164,6 +169,8 @@ export type OutroDef = {
 
 export type ScriptData = {
   meta: {
+    /** Identifiant unique (lettres, chiffres, tirets) : id de la composition et dossier audio. */
+    id: string;
     /** Titre affiché dans le HUD : "ANALYSE TACTIQUE · <title>". */
     title: string;
     hudPrefix?: string;
@@ -173,6 +180,8 @@ export type ScriptData = {
     height: number;
     /** Fichier audio optionnel (dans /public), ex: "voixoff.mp3". */
     audio?: string | null;
+    /** Voix off ElevenLabs (générée par `npm run voiceover`). */
+    voice?: VoiceConfig;
     /** Instants (s) où jouer le flash de transition entre séquences. */
     transitions?: number[];
   };
@@ -193,3 +202,34 @@ export type ScriptData = {
   titleCards: TitleCardDef[];
   outro?: OutroDef;
 };
+
+export type VoiceConfig = {
+  provider: "elevenlabs";
+  voiceId: string;
+  /** Défaut : "eleven_multilingual_v2". */
+  modelId?: string;
+  /** Vitesse de base (0.7 → 1.2). Augmentée automatiquement si une réplique déborde. Défaut : 1.05. */
+  speed?: number;
+  stability?: number;
+  similarityBoost?: number;
+  style?: number;
+  /** Volume de la voix dans le mix (0 → 1). Défaut : 1. */
+  volume?: number;
+};
+
+/** Une réplique de voix off générée (fichier produit par scripts/voiceover.ts). */
+export type VoiceLine = {
+  /** Index de la réplique dans `subtitles`. */
+  index: number;
+  hash: string;
+  /** Chemin dans /public. */
+  file: string;
+  /** Début de lecture (s, absolu dans la vidéo). */
+  start: number;
+  duration: number;
+  speed: number;
+  /** Début (s, relatif au clip) de chaque mot affiché, ou null si calage proportionnel. */
+  wordStarts: number[] | null;
+};
+
+export type Voiceover = { voiceId: string; lines: VoiceLine[] };

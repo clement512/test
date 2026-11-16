@@ -1,7 +1,8 @@
 import React from "react";
 import { Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { COLORS, FONT_DISPLAY, neon, SAFE } from "../theme";
-import type { ChapterDef, PillDef, SubtitleDef, TitleCardDef } from "../types";
+import type { ChapterDef, PillDef, SubtitleDef, TitleCardDef, VoiceLine } from "../types";
+import { displayWords } from "../lib/words";
 import { parseHighlights, visibility } from "../lib/timeline";
 
 const glow = (c: string, s = 18) => `0 0 ${s}px ${c}, 0 0 ${s * 2}px ${c}55`;
@@ -190,44 +191,57 @@ const chunkWords = (words: Word[], maxChars = 15, maxWords = 3): Word[][] => {
 };
 
 /**
- * Sous-titres cinétiques : la phrase est découpée en groupes de 1-3 mots, répartis sur
- * [from, to] au prorata de leur longueur. Mots *surlignés* en jaune sur plaque inclinée.
+ * Sous-titres cinétiques : la phrase est découpée en groupes de 1-3 mots. Si une voix off est
+ * générée, chaque groupe apparaît exactement quand son premier mot est prononcé ; sinon les
+ * groupes sont répartis sur [from, to] au prorata de leur longueur.
+ * Mots *surlignés* en jaune sur plaque inclinée.
  */
-export const KineticSubtitles: React.FC<{ items: SubtitleDef[] }> = ({ items }) => {
+export const KineticSubtitles: React.FC<{ items: SubtitleDef[]; voice?: VoiceLine[] }> = ({ items, voice }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const cur = items.find((s) => t >= s.from && t < s.to);
-  if (!cur) return null;
 
-  const words: Word[] = parseHighlights(cur.text.toUpperCase()).flatMap((seg) =>
-    seg.text
-      .split(/\s+/)
-      .filter(Boolean)
-      .map((w) => ({ text: w, hl: seg.hl })),
-  ).reduce<Word[]>((acc, w) => {
-    // La ponctuation isolée (".", ":", "?"...) se colle au mot précédent
+  // Fenêtre d'affichage de chaque réplique (étendue à la durée réelle de l'audio si besoin)
+  const windows = items.map((s, i) => {
+    const v = voice?.find((l) => l.index === i);
+    const next = items[i + 1]?.from ?? Infinity;
+    const from = v ? v.start : s.from;
+    const to = v ? Math.min(Math.max(s.to, v.start + v.duration + 0.25), next) : s.to;
+    return { from, to, v };
+  });
+  const curIdx = windows.findIndex((w) => t >= w.from && t < w.to);
+  if (curIdx < 0) return null;
+  const cur = items[curIdx];
+  const { from, to, v } = windows[curIdx];
+
+  // Mots (avec index d'origine pour le calage), ponctuation isolée collée au mot précédent
+  type W = Word & { i: number };
+  const words = displayWords(cur.text.toUpperCase()).reduce<W[]>((acc, w, i) => {
     if (/^[.,:;!?…]+$/.test(w.text) && acc.length) {
       acc[acc.length - 1] = { ...acc[acc.length - 1], text: acc[acc.length - 1].text + w.text };
-    } else acc.push(w);
+    } else acc.push({ text: w.text, hl: w.hl, i });
     return acc;
   }, []);
-  const chunks = chunkWords(words);
-  const weights = chunks.map((c) => c.reduce((s, w) => s + w.text.length, 0) + 4);
-  const total = weights.reduce((a, b) => a + b, 0);
-  let acc = cur.from;
-  let idx = 0;
-  let start = cur.from;
-  for (let i = 0; i < chunks.length; i++) {
-    const d = ((cur.to - cur.from) * weights[i]) / total;
-    if (t >= acc && t < acc + d) {
-      idx = i;
-      start = acc;
-      break;
-    }
-    acc += d;
+  const chunks = chunkWords(words) as W[][];
+
+  let starts: number[];
+  if (v?.wordStarts) {
+    starts = chunks.map((c) => v.start + v.wordStarts![c[0].i]);
+  } else {
+    const end = v ? v.start + v.duration : to;
+    const weights = chunks.map((c) => c.reduce((s, w) => s + w.text.length, 0) + 4);
+    const total = weights.reduce((a, b) => a + b, 0);
+    let acc = from;
+    starts = weights.map((w) => {
+      const st = acc;
+      acc += ((end - from) * w) / total;
+      return st;
+    });
   }
+  let idx = 0;
+  for (let i = 0; i < chunks.length; i++) if (t >= starts[i]) idx = i;
   const chunk = chunks[idx];
+  const start = Math.max(from, starts[idx]);
   const pop = spring({ frame: frame - Math.round(start * fps), fps, config: { damping: 11, stiffness: 220, mass: 0.6 } });
 
   return (

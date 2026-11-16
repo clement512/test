@@ -1,28 +1,29 @@
 import React from "react";
 import { Composition } from "remotion";
 import { TacticalVideo } from "./TacticalVideo";
-import { demo433vs442 } from "./scriptData";
+import { VIDEOS } from "./videos";
 import { ensureFonts } from "./fonts";
+import voiceovers from "./generated/voiceovers.json";
+import type { Voiceover } from "./types";
 
 ensureFonts();
 
-/**
- * Pour créer une nouvelle vidéo : dupliquer `demo433vs442` dans scriptData.ts (ou un nouveau
- * fichier), puis ajouter une <Composition> ci-dessous pointant sur ce nouvel objet.
- */
-export const RemotionRoot: React.FC = () => {
-  const s = demo433vs442;
-  return (
-    <>
+const VOICEOVERS = voiceovers as Record<string, Voiceover>;
+
+/** Une composition par vidéo déclarée dans src/videos.ts. */
+export const RemotionRoot: React.FC = () => (
+  <>
+    {VIDEOS.map((s) => (
       <Composition
-        id="TactiqueDemo"
+        key={s.meta.id}
+        id={s.meta.id}
         component={TacticalVideo}
         durationInFrames={Math.round(s.meta.durationInSeconds * s.meta.fps)}
         fps={s.meta.fps}
         width={s.meta.width}
         height={s.meta.height}
-        defaultProps={{ script: s }}
+        defaultProps={{ script: s, voiceover: VOICEOVERS[s.meta.id] ?? null }}
       />
-    </>
-  );
-};
+    ))}
+  </>
+);

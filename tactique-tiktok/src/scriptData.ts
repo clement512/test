@@ -101,13 +101,23 @@ const wiperArrows = (at: number, dir: "left" | "right"): ArrowDef[] =>
 
 export const demo433vs442: ScriptData = {
   meta: {
+    id: "TactiqueDemo",
     title: "4-3-3 VS 4-4-2",
     hudPrefix: "ANALYSE TACTIQUE",
     durationInSeconds: 60,
     fps: 60,
     width: 1080,
     height: 1920,
-    audio: null, // ex: "voixoff.mp3" placé dans /public
+    audio: null, // piste audio unique optionnelle (ex: musique "musique.mp3" dans /public)
+    voice: {
+      provider: "elevenlabs",
+      voiceId: "IHngRooVccHyPqB4uQkG", // Corentin - Enthusiastic and Bright (FR)
+      modelId: "eleven_multilingual_v2",
+      speed: 1.08,
+      stability: 0.38,
+      similarityBoost: 0.8,
+      style: 0.4,
+    },
     transitions: [6, 22, 38, 52],
   },
 
@@ -361,26 +371,26 @@ export const demo433vs442: ScriptData = {
 
   // Voix off / sous-titres cinétiques
   subtitles: [
-    { from: 0.3, to: 2.8, text: "4-3-3 contre 4-4-2 : *qui gagne* ?" },
+    { from: 0.3, to: 2.8, text: "4-3-3 contre 4-4-2 : *qui gagne* ?", speech: "Quatre-trois-trois contre quatre-quatre-deux : qui gagne ?" },
     { from: 2.8, to: 6.0, text: "Trois failles vont faire *exploser* ce bloc." },
 
     { from: 6.0, to: 8.6, text: "Chapitre un : *le surnombre*." },
     { from: 8.6, to: 12.4, text: "Au milieu, on joue à *trois contre deux* en permanence." },
     { from: 12.4, to: 16.2, text: "Les deux milieux adverses font l'*essuie-glace*..." },
     { from: 16.2, to: 19.4, text: "...et courent *dans le vide* à chaque passe." },
-    { from: 19.4, to: 22.0, text: "Le 6 reste *libre*. Toujours." },
+    { from: 19.4, to: 22.0, text: "Le 6 reste *libre*. Toujours.", speech: "Le six reste libre. Toujours." },
 
     { from: 22.0, to: 24.6, text: "Chapitre deux : *la géométrie*." },
-    { from: 24.6, to: 27.4, text: "Le 4-4-2 défend en *lignes droites*." },
-    { from: 27.4, to: 31.0, text: "Le 4-3-3 crée des *triangles* partout." },
-    { from: 31.0, to: 34.4, text: "Tu presses le 6 ? Il a *deux options*." },
+    { from: 24.6, to: 27.4, text: "Le 4-4-2 défend en *lignes droites*.", speech: "Le quatre-quatre-deux défend en lignes droites." },
+    { from: 27.4, to: 31.0, text: "Le 4-3-3 crée des *triangles* partout.", speech: "Le quatre-trois-trois crée des triangles partout." },
+    { from: 31.0, to: 34.4, text: "Tu presses le 6 ? Il a *deux options*.", speech: "Tu presses le six ? Il a deux options." },
     { from: 34.4, to: 38.0, text: "Résultat : *pressing cassé*, ligne éliminée." },
 
     { from: 38.0, to: 40.4, text: "Chapitre trois : *les couloirs*." },
     { from: 40.4, to: 43.8, text: "Les ailiers *collent la ligne* et fixent les latéraux." },
     { from: 43.8, to: 47.2, text: "Les milieux adverses *reculent* pour fermer..." },
     { from: 47.2, to: 49.6, text: "...et l'équipe se *coupe en deux*." },
-    { from: 49.6, to: 52.0, text: "*40 mètres* de vide au cœur du jeu." },
+    { from: 49.6, to: 52.0, text: "*40 mètres* de vide au cœur du jeu.", speech: "Quarante mètres de vide au cœur du jeu." },
 
     { from: 52.2, to: 55.2, text: "Tu veux le *playbook complet* ?", y: 1640 },
     { from: 55.2, to: 59.6, text: "*Abonne-toi*, la suite arrive.", y: 1640 },
