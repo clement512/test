@@ -104,20 +104,31 @@ export const demo433vs442: ScriptData = {
     id: "TactiqueDemo",
     title: "4-3-3 VS 4-4-2",
     hudPrefix: "ANALYSE TACTIQUE",
-    durationInSeconds: 60,
+    durationInSeconds: 60, // temps scénario — la vidéo finale suit la durée de la voix
     fps: 60,
     width: 1080,
     height: 1920,
-    audio: null, // piste audio unique optionnelle (ex: musique "musique.mp3" dans /public)
+    audio: null, // piste audio supplémentaire optionnelle (dans /public)
+    // Voix off : eleven_v4 = modèle le plus expressif ; les balises [excited], [dramatic]...
+    // dans `speech` règlent le ton réplique par réplique.
     voice: {
       provider: "elevenlabs",
       voiceId: "IHngRooVccHyPqB4uQkG", // Corentin - Enthusiastic and Bright (FR)
-      modelId: "eleven_multilingual_v2",
-      speed: 1.08,
-      stability: 0.38,
+      modelId: "eleven_v4",
+      speed: 1.12,
+      stability: 0.28,
       similarityBoost: 0.8,
-      style: 0.4,
+      style: 0.7,
+      volume: 1,
     },
+    music: {
+      prompt:
+        "High-energy modern trap drill instrumental for a viral football tactics TikTok video. Hard-hitting 808 bass, crisp fast hi-hats, tense catchy synth hook, stadium energy, 145 BPM, driving and addictive from the first second. Instrumental only, no vocals.",
+      volume: 0.22,
+    },
+    // Rythme : blanc minimal entre deux répliques → narration enchaînée, sans temps mort
+    pacing: { gap: 0.1, endHold: 1.4 },
+    wordPunches: true,
     transitions: [6, 22, 38, 52],
   },
 
@@ -342,9 +353,9 @@ export const demo433vs442: ScriptData = {
   // Habillage écran (hors caméra)
   // -------------------------------------------------------------------------
   chapters: [
-    { from: 6.15, number: "01", title: "Le surnombre", subtitle: "3 contre 2 au cœur du jeu", tags: ["6 · 8 · 10", "2 milieux"], color: "yellow" },
-    { from: 22.15, number: "02", title: "La géométrie", subtitle: "Lignes droites vs triangles", tags: ["4-4-2 rigide", "triangles"], color: "red" },
-    { from: 38.15, number: "03", title: "Les couloirs", subtitle: "Étirer pour couper", tags: ["ailiers à la touche", "40 m"], color: "yellow" },
+    { from: 6.15, duration: 2.2, number: "01", title: "Le surnombre", subtitle: "3 contre 2 au cœur du jeu", tags: ["6 · 8 · 10", "2 milieux"], color: "yellow" },
+    { from: 22.15, duration: 2.2, number: "02", title: "La géométrie", subtitle: "Lignes droites vs triangles", tags: ["4-4-2 rigide", "triangles"], color: "red" },
+    { from: 38.15, duration: 2.2, number: "03", title: "Les couloirs", subtitle: "Étirer pour couper", tags: ["ailiers à la touche", "40 m"], color: "yellow" },
   ],
 
   pills: [
@@ -365,35 +376,84 @@ export const demo433vs442: ScriptData = {
         { text: "VS", color: "white", size: 80 },
         { text: "4-4-2", color: "red" },
       ],
-      pill: "Qui gagne le *duel tactique* ?",
+      pill: "3 failles *mortelles*",
     },
   ],
 
   // Voix off / sous-titres cinétiques
+  // Voix off / sous-titres cinétiques.
+  // `text` = affichage (mots *surlignés* en jaune + punch caméra) ; `speech` = texte prononcé,
+  // avec balises d'émotion ElevenLabs et chiffres écrits en toutes lettres (même nombre de mots).
   subtitles: [
-    { from: 0.3, to: 2.8, text: "4-3-3 contre 4-4-2 : *qui gagne* ?", speech: "Quatre-trois-trois contre quatre-quatre-deux : qui gagne ?" },
-    { from: 2.8, to: 6.0, text: "Trois failles vont faire *exploser* ce bloc." },
+    // Séq. 1 — accroche
+    { from: 0.3, to: 2.4, text: "Le 4-3-3 *détruit* le 4-4-2.", speech: "[excited] Le quatre-trois-trois détruit le quatre-quatre-deux." },
+    { from: 2.4, to: 4.4, text: "Et je vais te prouver *pourquoi*.", speech: "[confident] Et je vais te prouver pourquoi." },
+    { from: 4.4, to: 6.0, text: "*Trois failles*. C'est parti !", speech: "[energetic] Trois failles. C'est parti !", pauseAfter: 0.15 },
 
-    { from: 6.0, to: 8.6, text: "Chapitre un : *le surnombre*." },
-    { from: 8.6, to: 12.4, text: "Au milieu, on joue à *trois contre deux* en permanence." },
-    { from: 12.4, to: 16.2, text: "Les deux milieux adverses font l'*essuie-glace*..." },
-    { from: 16.2, to: 19.4, text: "...et courent *dans le vide* à chaque passe." },
-    { from: 19.4, to: 22.0, text: "Le 6 reste *libre*. Toujours.", speech: "Le six reste libre. Toujours." },
+    // Séq. 2 — le surnombre
+    { from: 6.0, to: 8.6, text: "Faille numéro un : *le surnombre* !", speech: "[excited] Faille numéro un : le surnombre !" },
+    { from: 8.6, to: 12.4, text: "Au milieu ? *Trois contre deux*. Tout le temps.", speech: "Au milieu ? Trois contre deux. Tout le temps." },
+    { from: 12.4, to: 16.0, text: "Regarde les deux milieux... *l'essuie-glace* !", speech: "[amused] Regarde les deux milieux... l'essuie-glace !" },
+    { from: 16.0, to: 19.4, text: "Gauche, droite... ils courent *dans le vide* !", speech: "[laughing] Gauche, droite... ils courent dans le vide !" },
+    { from: 19.4, to: 22.0, text: "Et pendant ce temps ? Le 6 est *libre*.", speech: "[mischievously] Et pendant ce temps ? Le six est libre.", pauseAfter: 0.15 },
 
-    { from: 22.0, to: 24.6, text: "Chapitre deux : *la géométrie*." },
-    { from: 24.6, to: 27.4, text: "Le 4-4-2 défend en *lignes droites*.", speech: "Le quatre-quatre-deux défend en lignes droites." },
-    { from: 27.4, to: 31.0, text: "Le 4-3-3 crée des *triangles* partout.", speech: "Le quatre-trois-trois crée des triangles partout." },
-    { from: 31.0, to: 34.4, text: "Tu presses le 6 ? Il a *deux options*.", speech: "Tu presses le six ? Il a deux options." },
-    { from: 34.4, to: 38.0, text: "Résultat : *pressing cassé*, ligne éliminée." },
+    // Séq. 3 — la géométrie
+    { from: 22.0, to: 24.6, text: "Faille numéro deux : *la géométrie*.", speech: "[excited] Faille numéro deux : la géométrie." },
+    { from: 24.6, to: 27.4, text: "Le 4-4-2 ? Des *lignes droites*. Rigides.", speech: "Le quatre-quatre-deux ? Des lignes droites. Rigides." },
+    { from: 27.4, to: 31.0, text: "Nous ? Des *triangles*. Partout.", speech: "[confident] Nous ? Des triangles. Partout." },
+    { from: 31.0, to: 34.4, text: "Tu presses le 6 ? Il a *deux solutions*.", speech: "Tu presses le six ? Il a deux solutions." },
+    { from: 34.4, to: 38.0, text: "Une passe... et ton pressing est *cassé* !", speech: "[excited] Une passe... et ton pressing est cassé !", pauseAfter: 0.15 },
 
-    { from: 38.0, to: 40.4, text: "Chapitre trois : *les couloirs*." },
-    { from: 40.4, to: 43.8, text: "Les ailiers *collent la ligne* et fixent les latéraux." },
-    { from: 43.8, to: 47.2, text: "Les milieux adverses *reculent* pour fermer..." },
-    { from: 47.2, to: 49.6, text: "...et l'équipe se *coupe en deux*." },
-    { from: 49.6, to: 52.0, text: "*40 mètres* de vide au cœur du jeu.", speech: "Quarante mètres de vide au cœur du jeu." },
+    // Séq. 4 — les couloirs
+    { from: 38.0, to: 40.4, text: "Faille numéro trois : *les couloirs* !", speech: "[excited] Faille numéro trois : les couloirs !" },
+    { from: 40.4, to: 43.8, text: "Les ailiers *collent la ligne*. Les latéraux sont bloqués.", speech: "Les ailiers collent la ligne. Les latéraux sont bloqués." },
+    { from: 43.8, to: 47.2, text: "Le milieu adverse *recule*... et là, c'est le drame.", speech: "[dramatic] Le milieu adverse recule... et là, c'est le drame." },
+    { from: 47.2, to: 49.6, text: "L'équipe est *coupée en deux* !", speech: "[shouting] L'équipe est coupée en deux !" },
+    { from: 49.6, to: 52.0, text: "*40 mètres* de vide. Bon appétit.", speech: "[laughing] Quarante mètres de vide. Bon appétit.", pauseAfter: 0.2 },
 
-    { from: 52.2, to: 55.2, text: "Tu veux le *playbook complet* ?", y: 1640 },
-    { from: 55.2, to: 59.6, text: "*Abonne-toi*, la suite arrive.", y: 1640 },
+    // Séq. 5 — outro
+    { from: 52.2, to: 55.2, text: "Tu veux le *playbook complet* ?", speech: "[excited] Tu veux le playbook complet ?", y: 1640 },
+    { from: 55.2, to: 59.6, text: "*Abonne-toi*. La suite arrive très vite !", speech: "[energetic] Abonne-toi. La suite arrive très vite !", y: 1640 },
+  ],
+
+  // -------------------------------------------------------------------------
+  // Effets sonores (bibliothèque : src/audioLibrary.ts) — recalés avec la voix
+  // -------------------------------------------------------------------------
+  sfx: [
+    { at: 0.05, sound: "impact", volume: 0.7 },
+    { at: 0.35, sound: "whoosh" },
+    { at: 0.8, sound: "scan" },
+    { at: 4.6, sound: "riser" },
+    // Chapitre 1
+    { at: 6.0, sound: "whoosh" },
+    { at: 6.2, sound: "impact" },
+    { at: 9.2, sound: "pop" },
+    { at: 9.6, sound: "pop" },
+    { at: 12.9, sound: "swipe" },
+    { at: 14.5, sound: "swipe" },
+    { at: 16.1, sound: "swipe" },
+    { at: 17.4, sound: "swipe" },
+    { at: 19.6, sound: "pop", volume: 0.4 },
+    // Chapitre 2
+    { at: 22.0, sound: "whoosh" },
+    { at: 22.2, sound: "impact" },
+    { at: 24.8, sound: "scan" },
+    { at: 27.4, sound: "pop", volume: 0.35 },
+    { at: 28.4, sound: "pop", volume: 0.35 },
+    { at: 32.3, sound: "glitch" },
+    { at: 32.5, sound: "impact", volume: 0.5 },
+    // Chapitre 3
+    { at: 38.0, sound: "whoosh" },
+    { at: 38.2, sound: "impact" },
+    { at: 39.4, sound: "swipe", volume: 0.4 },
+    { at: 41.0, sound: "pop" },
+    { at: 45.4, sound: "glitch" },
+    { at: 46.4, sound: "scan" },
+    { at: 50.6, sound: "riser" },
+    // Outro
+    { at: 52.0, sound: "whoosh" },
+    { at: 52.3, sound: "impact" },
+    { at: 56.8, sound: "click" },
   ],
 
   outro: {

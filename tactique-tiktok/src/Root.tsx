@@ -3,27 +3,36 @@ import { Composition } from "remotion";
 import { TacticalVideo } from "./TacticalVideo";
 import { VIDEOS } from "./videos";
 import { ensureFonts } from "./fonts";
-import voiceovers from "./generated/voiceovers.json";
-import type { Voiceover } from "./types";
+import generated from "./generated/audio.json";
+import type { GeneratedAudio } from "./types";
+import { buildTimeMap, retimeScript } from "./lib/retime";
 
 ensureFonts();
 
-const VOICEOVERS = voiceovers as Record<string, Voiceover>;
+const AUDIO = generated as Record<string, GeneratedAudio>;
 
-/** Une composition par vidéo déclarée dans src/videos.ts. */
+/**
+ * Une composition par vidéo déclarée dans src/videos.ts. Si l'audio a été généré
+ * (`npm run audio`), la timeline est recalée sur la voix et la durée suit la narration.
+ */
 export const RemotionRoot: React.FC = () => (
   <>
-    {VIDEOS.map((s) => (
-      <Composition
-        key={s.meta.id}
-        id={s.meta.id}
-        component={TacticalVideo}
-        durationInFrames={Math.round(s.meta.durationInSeconds * s.meta.fps)}
-        fps={s.meta.fps}
-        width={s.meta.width}
-        height={s.meta.height}
-        defaultProps={{ script: s, voiceover: VOICEOVERS[s.meta.id] ?? null }}
-      />
-    ))}
+    {VIDEOS.map((raw) => {
+      const audio = AUDIO[raw.meta.id] ?? null;
+      const { map, duration, placed } = buildTimeMap(raw, audio);
+      const script = retimeScript(raw, map);
+      return (
+        <Composition
+          key={raw.meta.id}
+          id={raw.meta.id}
+          component={TacticalVideo}
+          durationInFrames={Math.ceil(duration * raw.meta.fps)}
+          fps={raw.meta.fps}
+          width={raw.meta.width}
+          height={raw.meta.height}
+          defaultProps={{ script, voice: placed, audio }}
+        />
+      );
+    })}
   </>
 );

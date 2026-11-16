@@ -1,7 +1,7 @@
 import React from "react";
 import { Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { COLORS, FONT_DISPLAY, neon, SAFE } from "../theme";
-import type { ChapterDef, PillDef, SubtitleDef, TitleCardDef, VoiceLine } from "../types";
+import type { ChapterDef, PillDef, SubtitleDef, TitleCardDef, PlacedVoiceLine } from "../types";
 import { displayWords } from "../lib/words";
 import { parseHighlights, visibility } from "../lib/timeline";
 
@@ -196,7 +196,7 @@ const chunkWords = (words: Word[], maxChars = 15, maxWords = 3): Word[][] => {
  * groupes sont répartis sur [from, to] au prorata de leur longueur.
  * Mots *surlignés* en jaune sur plaque inclinée.
  */
-export const KineticSubtitles: React.FC<{ items: SubtitleDef[]; voice?: VoiceLine[] }> = ({ items, voice }) => {
+export const KineticSubtitles: React.FC<{ items: SubtitleDef[]; voice?: PlacedVoiceLine[] }> = ({ items, voice }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;

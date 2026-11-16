@@ -1,6 +1,6 @@
 # Tactique TikTok — générateur Remotion
 
-Ce projet génère des vidéos d'analyse tactique de football au format vertical (1080×1920, 60 fps, 61 s maximum), dans le style « tableau tactique néon ».
+Ce projet génère des vidéos d'analyse tactique de football au format vertical (1080×1920, 60 fps, 61 s maximum), avec voix off, effets sonores et musique ElevenLabs, dans le style « tableau tactique néon ».
 
 ```bash
 npm install
@@ -26,7 +26,8 @@ npm run typecheck
 | `zones` | polygones reliés à des joueurs (ils suivent leurs mouvements) ou rectangles |
 | `callouts` / `icons` / `measures` | textes néon, badges « 2 » / « 3 », cadenas, cotes « 40 MÈTRES » |
 | `chapters` / `pills` / `titleCards` / `outro` | habillage à l'écran |
-| `subtitles` | voix off ; découpée automatiquement en groupes de 1 à 3 mots |
+| `subtitles` | voix off (`text` affiché, `speech` prononcé) ; découpée automatiquement en groupes de 1 à 3 mots |
+| `sfx` | effets sonores ponctuels |
 
 Repère du terrain, en mètres : `x` va de 0 (touche gauche) à 68 (touche droite), `y` de 0 (but adverse, en haut) à 105 (notre but). Les temps sont en secondes.
 Dans les sous-titres et les pilules, les mots entre `*astérisques*` sont mis en couleur.
@@ -34,21 +35,22 @@ Une ancre peut être un id de joueur (`"A6"`), un point `{x, y}` ou `{player: "A
 
 Pour ajouter une deuxième vidéo, on crée un nouvel objet `ScriptData` avec un `meta.id` unique, puis on l'ajoute à `VIDEOS` dans `src/videos.ts`.
 
-## Voix off ElevenLabs
+## Audio ElevenLabs : voix, effets sonores, musique
 
 ```bash
-npm run voiceover            # génère les répliques manquantes ou modifiées (avec cache)
-npm run voiceover -- --force # régénère tout
-npm run build                # voix off puis rendu MP4
+npm run audio            # génère ce qui manque ou a changé (avec cache)
+npm run audio -- --force # régénère tout
+npm run build            # audio puis rendu MP4
 ```
 
-- La voix se règle dans `meta.voice` de `scriptData.ts` : `voiceId`, `modelId`, `speed`, `stability`, `similarityBoost`, `style`, `volume`. Par défaut, c'est Corentin (`IHngRooVccHyPqB4uQkG`).
-- Chaque entrée de `subtitles` devient un clip MP3 dans `public/voiceover/<id>/`. Il est placé à `from` dans la vidéo.
-- Le minutage de chaque mot renvoyé par ElevenLabs sert à faire apparaître chaque groupe de mots des sous-titres au moment exact où il est prononcé.
-- Si une réplique est trop longue pour sa fenêtre `[from, to]`, sa vitesse est augmentée automatiquement, jusqu'à 1.2x. Le script affiche `⚠ DÉBORDE` si cela ne suffit pas : raccourcis alors le texte ou élargis la fenêtre.
-- `speech` permet de faire prononcer un texte différent de celui affiché, par exemple `"4-3-3"` → `"quatre-trois-trois"`. Garde le même nombre de mots pour que le calage reste exact.
-- La clé API est lue dans `ELEVENLABS_API_KEY`. Dans l'environnement cloud Claude Code, c'est le proxy réseau qui l'injecte.
-- Le script npm utilise la syntaxe `VAR=… cmd` : sous Windows, lance `tsx scripts/voiceover.ts` directement.
+**C'est la voix qui donne le rythme.** Le scénario est écrit en « temps scénario ». Une fois la voix générée, `lib/retime.ts` enchaîne les répliques sans blanc et recale tous les instants du scénario sur la durée réelle de chaque réplique : déplacements, flèches, caméra, bannières, effets sonores. La vidéo dure donc exactement le temps de la narration, ici environ 55 s. Le script affiche la durée finale et prévient si elle dépasse 61 s.
+
+- **Voix** (`meta.voice`) : `eleven_v4` avec Corentin (`IHngRooVccHyPqB4uQkG`). Le ton se règle réplique par réplique avec des balises dans `speech` : `[excited]`, `[confident]`, `[dramatic]`, `[laughing]`, `[shouting]`… On peut aussi y écrire les chiffres en toutes lettres (« 4-3-3 » devient « quatre-trois-trois »), en gardant le même nombre de mots que `text`.
+- **Sous-titres** : chaque groupe de mots apparaît au moment exact où il est prononcé, d'après le minutage renvoyé par ElevenLabs. Chaque mot `*surligné*` déclenche en plus un « punch » de caméra (petit zoom et secousse) ; `meta.wordPunches: false` le désactive.
+- **Rythme** (`meta.pacing`) : `gap` est le blanc entre deux répliques, `endHold` la tenue finale. `pauseAfter` sur une réplique ajoute une respiration.
+- **Effets sonores** (`sfx`) : bibliothèque dans `src/audioLibrary.ts` (whoosh, impact, pop, swipe, glitch, click, riser, scan). Chaque son est généré une seule fois par ElevenLabs, dans `public/sfx/`.
+- **Musique** (`meta.music`) : générée par ElevenLabs Music à la durée exacte de la vidéo. Son volume baisse automatiquement quand la voix parle (ducking).
+- **Clé API** : lue dans `ELEVENLABS_API_KEY`. Dans l'environnement cloud Claude Code, c'est le proxy réseau qui l'injecte. Le script npm utilise la syntaxe `VAR=… cmd` ; sous Windows, lance `tsx scripts/audio.ts` directement.
 
 ## Architecture
 
@@ -56,7 +58,9 @@ npm run build                # voix off puis rendu MP4
 src/
   scriptData.ts        ← le scénario (données uniquement)
   videos.ts            ← registre des vidéos (une composition par entrée)
-  generated/voiceovers.json ← produit par `npm run voiceover`
+  audioLibrary.ts      ← bibliothèque d'effets sonores
+  generated/audio.json ← produit par `npm run audio`
+  lib/retime.ts        ← recalage de la timeline sur la voix
   lib/words.ts         ← découpage en mots partagé (sous-titres et voix off)
   types.ts             ← schéma typé du scénario
   theme.ts             ← couleurs néon, géométrie du terrain, conversion mètres → px

@@ -1,6 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import type { ScriptData, Voiceover } from "./types";
+import type { GeneratedAudio, PlacedVoiceLine, ScriptData } from "./types";
+import { resolveSounds } from "./audioLibrary";
+import { displayWords } from "./lib/words";
 import { COLORS, WORLD } from "./theme";
 import { ScriptProvider } from "./lib/ScriptContext";
 import { getBallState, getPlayerPos, isActive } from "./lib/timeline";
@@ -90,19 +92,46 @@ const World: React.FC<{ script: ScriptData }> = ({ script }) => {
   );
 };
 
+/** Instants des mots *surlignés* prononcés → "punchs" de caméra. */
+const wordPunches = (script: ScriptData, voice: PlacedVoiceLine[]) =>
+  voice.flatMap((l) => {
+    if (!l.wordStarts) return [];
+    const words = displayWords(script.subtitles[l.index].text);
+    return words
+      .map((w, i) => ({ w, i }))
+      .filter(({ w, i }) => w.hl && !(i > 0 && words[i - 1].hl))
+      .map(({ i }) => l.start + l.wordStarts![i]);
+  });
+
+/** Musique : fondu d'entrée/sortie et baisse automatique sous la voix (ducking). */
+const useMusicVolume = (voice: PlacedVoiceLine[], base: number, fps: number, total: number) =>
+  (f: number) => {
+    const t = f / fps;
+    const speaking = voice.some((l) => t >= l.start + l.speechStart - 0.1 && t <= l.start + l.duration + 0.15);
+    const level = speaking ? base * 0.62 : base;
+    const fadeIn = Math.min(1, t / 0.4);
+    const fadeOut = Math.min(1, Math.max(0, (total - t) / 1.0));
+    return level * fadeIn * fadeOut;
+  };
+
 /** Composition générique : tout est piloté par l'objet `script` (voir scriptData.ts). */
-export const TacticalVideo: React.FC<{ script: ScriptData; voiceover?: Voiceover | null }> = ({
-  script,
-  voiceover,
-}) => {
-  const fps = script.meta.fps;
+export const TacticalVideo: React.FC<{
+  script: ScriptData;
+  voice?: PlacedVoiceLine[];
+  audio?: GeneratedAudio | null;
+}> = ({ script, voice = [], audio }) => {
+  const { fps, durationInFrames } = useVideoConfig();
+  const sounds = resolveSounds(script.meta.sounds);
+  const punches = script.meta.wordPunches === false ? [] : wordPunches(script, voice);
+  const musicVolume = useMusicVolume(voice, script.meta.music?.volume ?? 0.2, fps, durationInFrames / fps);
+
   // Validation légère : un id de joueur inconnu lève une erreur explicite au premier rendu
   getPlayerPos(script, script.players[0].id, 0, script.meta.fps);
 
   return (
     <ScriptProvider script={script}>
       <AbsoluteFill style={{ backgroundColor: COLORS.bg }}>
-        <CameraRig keyframes={script.camera}>
+        <CameraRig keyframes={script.camera} punches={punches}>
           <World script={script} />
         </CameraRig>
 
@@ -116,18 +145,33 @@ export const TacticalVideo: React.FC<{ script: ScriptData; voiceover?: Voiceover
           <ChapterBanner key={`ch${i}`} def={d} />
         ))}
         {script.outro && <Outro def={script.outro} />}
-        <KineticSubtitles items={script.subtitles} voice={voiceover?.lines} />
+        <KineticSubtitles items={script.subtitles} voice={voice} />
         <TransitionFlash at={script.meta.transitions ?? []} />
         <HUD title={script.meta.title} prefix={script.meta.hudPrefix} />
 
         {script.meta.audio && <Audio src={staticFile(script.meta.audio)} />}
 
-        {/* Voix off : un clip par réplique, placé à son instant de départ */}
-        {voiceover?.lines.map((l) => (
-          <Sequence key={l.file} from={Math.round(l.start * fps)} durationInFrames={Math.ceil((l.duration + 0.6) * fps)} layout="none">
+        {/* Musique de fond */}
+        {audio?.music && <Audio src={staticFile(audio.music.file)} volume={musicVolume} />}
+
+        {/* Voix off : un clip par réplique, placé après recalage */}
+        {voice.map((l) => (
+          <Sequence key={l.file} from={Math.round(l.start * fps)} durationInFrames={Math.ceil((l.duration + 0.8) * fps)} layout="none">
             <Audio src={staticFile(l.file)} volume={script.meta.voice?.volume ?? 1} />
           </Sequence>
         ))}
+
+        {/* Effets sonores */}
+        {(script.sfx ?? []).map((x, i) => {
+          const file = audio?.sounds?.[x.sound]?.file;
+          if (!file) return null;
+          const def = sounds[x.sound];
+          return (
+            <Sequence key={`sfx${i}`} from={Math.max(0, Math.round(x.at * fps))} durationInFrames={Math.ceil((def.duration + 0.5) * fps)} layout="none">
+              <Audio src={staticFile(file)} volume={x.volume ?? def.volume ?? 0.5} />
+            </Sequence>
+          );
+        })}
       </AbsoluteFill>
     </ScriptProvider>
   );

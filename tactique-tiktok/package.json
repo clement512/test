@@ -2,15 +2,15 @@
   "name": "tactique-tiktok",
   "version": "1.0.0",
   "private": true,
-  "description": "Générateur Remotion de vidéos d'analyse tactique foot (style tableau tactique néon, 1080x1920 @60fps)",
+  "description": "G\u00e9n\u00e9rateur Remotion de vid\u00e9os d'analyse tactique foot (style tableau tactique n\u00e9on, 1080x1920 @60fps)",
   "scripts": {
     "start": "remotion studio",
     "studio": "remotion studio",
     "render": "remotion render TactiqueDemo out/tactique-demo.mp4",
     "still": "remotion still TactiqueDemo out/still.png --frame=600",
     "typecheck": "tsc --noEmit",
-    "voiceover": "NODE_USE_ENV_PROXY=1 tsx scripts/voiceover.ts",
-    "build": "npm run voiceover && npm run render"
+    "build": "npm run audio && npm run render",
+    "audio": "NODE_USE_ENV_PROXY=1 tsx scripts/audio.ts"
   },
   "license": "UNLICENSED",
   "dependencies": {

@@ -149,7 +149,12 @@ export type SubtitleDef = Timed & {
   speech?: string;
   /** Position verticale (px) si on veut déplacer le sous-titre (ex: pendant l'outro). */
   y?: number;
+  /** Respiration ajoutée après la réplique (s), en plus de `meta.pacing.gap`. */
+  pauseAfter?: number;
 };
+
+/** Effet sonore ponctuel (nom d'un son de la bibliothèque `meta.sounds` / audioLibrary.ts). */
+export type SfxDef = { at: number; sound: string; volume?: number };
 
 export type TitleCardDef = Timed & {
   lines: { text: string; color: NeonColor; size?: number }[];
@@ -174,14 +179,32 @@ export type ScriptData = {
     /** Titre affiché dans le HUD : "ANALYSE TACTIQUE · <title>". */
     title: string;
     hudPrefix?: string;
+    /**
+     * Durée du scénario en "temps scénario". Si une voix off est générée, toute la timeline est
+     * recalée sur la durée réelle des répliques (voir lib/retime.ts) : la vidéo finale dure
+     * exactement le temps de la narration.
+     */
     durationInSeconds: number;
     fps: number;
     width: number;
     height: number;
-    /** Fichier audio optionnel (dans /public), ex: "voixoff.mp3". */
+    /** Fichier audio optionnel supplémentaire (dans /public). */
     audio?: string | null;
-    /** Voix off ElevenLabs (générée par `npm run voiceover`). */
+    /** Voix off ElevenLabs (générée par `npm run audio`). */
     voice?: VoiceConfig;
+    /** Musique de fond générée par ElevenLabs Music. */
+    music?: MusicConfig;
+    /** Bibliothèque d'effets sonores (s'ajoute à / remplace celle de audioLibrary.ts). */
+    sounds?: Record<string, SoundDef>;
+    /** Rythme de la narration. */
+    pacing?: {
+      /** Blanc entre deux répliques (s). Défaut : 0.12. */
+      gap?: number;
+      /** Temps gardé à la fin après la dernière réplique (s). Défaut : 1.2. */
+      endHold?: number;
+    };
+    /** "Punch" de caméra sur chaque mot *surligné* prononcé. Défaut : true. */
+    wordPunches?: boolean;
     /** Instants (s) où jouer le flash de transition entre séquences. */
     transitions?: number[];
   };
@@ -200,15 +223,15 @@ export type ScriptData = {
   pills: PillDef[];
   subtitles: SubtitleDef[];
   titleCards: TitleCardDef[];
+  sfx?: SfxDef[];
   outro?: OutroDef;
 };
 
 export type VoiceConfig = {
   provider: "elevenlabs";
   voiceId: string;
-  /** Défaut : "eleven_multilingual_v2". */
+  /** Défaut : "eleven_v4" (le plus expressif, accepte les balises [excited], [whispers]...). */
   modelId?: string;
-  /** Vitesse de base (0.7 → 1.2). Augmentée automatiquement si une réplique déborde. Défaut : 1.05. */
   speed?: number;
   stability?: number;
   similarityBoost?: number;
@@ -217,19 +240,35 @@ export type VoiceConfig = {
   volume?: number;
 };
 
-/** Une réplique de voix off générée (fichier produit par scripts/voiceover.ts). */
+export type MusicConfig = {
+  prompt: string;
+  /** Volume de base (0 → 1). Défaut : 0.2. Baissé automatiquement sous la voix. */
+  volume?: number;
+};
+
+export type SoundDef = { prompt: string; duration: number; volume?: number };
+
+/** Une réplique de voix off générée (produite par scripts/audio.ts). */
 export type VoiceLine = {
   /** Index de la réplique dans `subtitles`. */
   index: number;
   hash: string;
   /** Chemin dans /public. */
   file: string;
-  /** Début de lecture (s, absolu dans la vidéo). */
-  start: number;
+  /** Instant (s, relatif au clip) où la parole commence vraiment. */
+  speechStart: number;
+  /** Instant (s, relatif au clip) où la parole se termine. */
   duration: number;
-  speed: number;
   /** Début (s, relatif au clip) de chaque mot affiché, ou null si calage proportionnel. */
   wordStarts: number[] | null;
 };
 
-export type Voiceover = { voiceId: string; lines: VoiceLine[] };
+/** Ligne de voix placée dans la vidéo (après recalage). */
+export type PlacedVoiceLine = VoiceLine & { start: number };
+
+/** Tout l'audio généré pour une vidéo (src/generated/audio.json). */
+export type GeneratedAudio = {
+  voice?: { voiceId: string; modelId: string; lines: VoiceLine[] };
+  sounds?: Record<string, { file: string; hash: string }>;
+  music?: { file: string; hash: string; seconds: number };
+};
