@@ -293,6 +293,8 @@ export type MusicConfig = {
   prompt?: string;
   /** …ou un fichier fourni, placé dans /public (ex: "music/mon-son.mp3"). */
   file?: string;
+  /** Tempo connu du morceau (BPM), pour fiabiliser la détection des temps (±2 %). */
+  bpm?: number;
   /** Instant (s) du morceau qui correspond au début de la vidéo. Défaut : 0. */
   offset?: number;
   /** Volume de base (0 → 1). Défaut : 0.2. */

@@ -86,6 +86,16 @@ export const ep2Numero9: ScriptData = {
     wordPunches: true,
     transitions: [16.8, 36.6, 57.2, 82.3],
     handle: "@clemitch",
+    // Musique : son TikTok fourni (instrumental, 117,4 BPM), prolongé sur les mesures pour couvrir
+    // toute la vidéo. Audible sous la voix, baissé automatiquement quand Corentin parle.
+    music: {
+      file: "music/son-tiktok-etendu.mp3",
+      bpm: 117.4,
+      offset: 0,
+      volume: 0.3,
+      duck: 0.4,
+      beatSync: { lines: true, maxDelay: 0.22, snap: 0.15 },
+    },
     // Bruitages doux : variantes "soft", volume global réduit
     sfxGain: 0.75,
     stampSound: "softHit",

@@ -385,10 +385,11 @@ const run = async () => {
       const mf = publicPath(s.meta.music.file);
       if (!existsSync(mf)) throw new Error(`Musique introuvable : ${mf}`);
       const h = createHash("sha1").update(readFileSync(mf)).digest("hex").slice(0, 12);
-      if (!FORCE && prev.beats?.hash === h) audio.beats = prev.beats;
+      const hh = `${h}-${s.meta.music.bpm ?? "auto"}`;
+      if (!FORCE && prev.beats?.hash === hh) audio.beats = prev.beats;
       else {
-        const b = analyzeBeats(mf);
-        audio.beats = { hash: h, bpm: b.bpm, beats: b.beats };
+        const b = analyzeBeats(mf, s.meta.music.bpm);
+        audio.beats = { hash: hh, bpm: b.bpm, beats: b.beats };
       }
       console.log(`  musique fournie : ${audio.beats.bpm} BPM, ${audio.beats.beats.length} temps détectés`);
       // La durée peut avoir changé avec le calage rythmique

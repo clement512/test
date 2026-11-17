@@ -41,7 +41,7 @@ const fft = (re: Float64Array, im: Float64Array) => {
 
 export type BeatAnalysis = { bpm: number; beats: number[]; duration: number };
 
-export const analyzeBeats = (file: string): BeatAnalysis => {
+export const analyzeBeats = (file: string, bpmHint?: number): BeatAnalysis => {
   const raw = execFileSync("ffmpeg", ["-v", "error", "-i", file, "-ac", "1", "-ar", String(SR), "-f", "f32le", "-"], {
     maxBuffer: 1024 * 1024 * 512,
   });
@@ -85,7 +85,9 @@ export const analyzeBeats = (file: string): BeatAnalysis => {
   // 2. Tempo : autocorrélation pondérée autour de 120 BPM
   let bestLag = 0;
   let bestScore = -Infinity;
-  for (let bpm = 70; bpm <= 180; bpm += 0.25) {
+  const lo = bpmHint ? bpmHint * 0.98 : 70;
+  const hi = bpmHint ? bpmHint * 1.02 : 180;
+  for (let bpm = lo; bpm <= hi; bpm += 0.05) {
     const lag = (60 / bpm) * fps;
     let s = 0;
     for (let f = 0; f + lag < nFrames; f++) {
@@ -99,7 +101,6 @@ export const analyzeBeats = (file: string): BeatAnalysis => {
       bestLag = lag;
     }
   }
-  const bpm = +(60 / (bestLag / fps)).toFixed(2);
 
   // 3. Phase : décalage qui maximise l'énergie des onsets sur la grille
   let bestPhase = 0;
@@ -113,14 +114,22 @@ export const analyzeBeats = (file: string): BeatAnalysis => {
     }
   }
 
-  // 4. Affinage local de chaque temps (±8 % de période)
+  // 4. Suivi : chaque temps est prédit depuis le précédent (déjà recalé) puis affiné sur le pic
+  //    d'onset le plus proche (±10 % de période) → pas de dérive si le tempo estimé est un peu faux
   const beats: number[] = [];
-  const tol = Math.max(1, Math.round(bestLag * 0.08));
-  for (let t = bestPhase; t < nFrames; t += bestLag) {
+  const tol = Math.max(1, Math.round(bestLag * 0.1));
+  let t = bestPhase;
+  while (t < nFrames) {
     const c = Math.round(t);
     let bi = c;
     for (let j = c - tol; j <= c + tol; j++) if ((env[j] ?? -1) > (env[bi] ?? -1)) bi = j;
-    beats.push(+((bi * HOP + WIN / 2) / SR).toFixed(3));
+    // Si aucun onset net, on garde la prédiction
+    const pick = (env[bi] ?? 0) > 0 ? bi : c;
+    beats.push(+((pick * HOP + WIN / 2) / SR).toFixed(3));
+    // Lissage : moitié prédiction, moitié position recalée
+    t = (pick + c) / 2 + bestLag;
   }
+  const ibis = beats.slice(1).map((b, i) => b - beats[i]).sort((x, y) => x - y);
+  const bpm = ibis.length ? +(60 / ibis[Math.floor(ibis.length / 2)]).toFixed(2) : +(60 / (bestLag / fps)).toFixed(2);
   return { bpm, beats, duration };
 };
