@@ -19,8 +19,8 @@
     "render:ep2:sans-musique": "remotion render Ep2Numero9SansMusique out/ep2-numero-9-sans-musique.mp4 && bash scripts/finalize.sh out/ep2-numero-9-sans-musique.mp4",
     "render:ep4": "remotion render Ep4Finale2022 out/ep4-finale-2022.mp4 && bash scripts/finalize.sh out/ep4-finale-2022.mp4",
     "render:ep4:sans-musique": "remotion render Ep4Finale2022SansMusique out/ep4-finale-2022-sans-musique.mp4 && bash scripts/finalize.sh out/ep4-finale-2022-sans-musique.mp4",
-    "render:ep5": "remotion render Ep5_4231 out/ep5-4231.mp4 && bash scripts/finalize.sh out/ep5-4231.mp4",
-    "render:ep5:sans-musique": "remotion render Ep5_4231SansMusique out/ep5-4231-sans-musique.mp4 && bash scripts/finalize.sh out/ep5-4231-sans-musique.mp4"
+    "render:ep5": "remotion render Ep5-4231 out/ep5-4231.mp4 && bash scripts/finalize.sh out/ep5-4231.mp4",
+    "render:ep5:sans-musique": "remotion render Ep5-4231SansMusique out/ep5-4231-sans-musique.mp4 && bash scripts/finalize.sh out/ep5-4231-sans-musique.mp4"
   },
   "license": "UNLICENSED",
   "dependencies": {

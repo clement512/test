@@ -70,7 +70,7 @@ const dots = (f: Record<string, Point>) => Object.values(f);
 
 export const ep5_4231: ScriptData = {
   meta: {
-    id: "Ep5_4231",
+    id: "Ep5-4231",
     title: "ÉP.5 · 4-2-3-1",
     hudPrefix: "ANALYSE TACTIQUE",
     durationInSeconds: 59,
