@@ -6,333 +6,347 @@
       "lines": [
         {
           "index": 0,
-          "hash": "d25e77dcbdf2",
-          "file": "voiceover/TactiqueDemo/00-d25e77dcbdf2.mp3",
-          "speechStart": 0.16,
-          "duration": 2.8,
+          "hash": "715ac1ad4048",
+          "file": "voiceover/TactiqueDemo/00-715ac1ad4048.mp3",
+          "speechStart": 0.069,
+          "duration": 2,
           "wordStarts": [
-            0.16,
-            0.32,
-            1.12,
-            1.68,
-            1.84
+            0.069,
+            0.8,
+            1.2,
+            1.2
           ]
         },
         {
           "index": 1,
-          "hash": "9a910bb72f81",
-          "file": "voiceover/TactiqueDemo/01-9a910bb72f81.mp3",
-          "speechStart": 0.067,
-          "duration": 1.36,
+          "hash": "f1439fd196ee",
+          "file": "voiceover/TactiqueDemo/01-f1439fd196ee.mp3",
+          "speechStart": 0.128,
+          "duration": 3.44,
           "wordStarts": [
-            0.067,
-            0.12,
+            0.128,
             0.24,
-            0.4,
-            0.52,
-            0.96,
-            1.28
+            0.48,
+            1.08,
+            1.28,
+            2.08,
+            2.56,
+            2.72
           ]
         },
         {
           "index": 2,
-          "hash": "28b04f9cb1ee",
-          "file": "voiceover/TactiqueDemo/02-28b04f9cb1ee.mp3",
-          "speechStart": 0.133,
-          "duration": 2,
+          "hash": "ededfeb973a7",
+          "file": "voiceover/TactiqueDemo/02-ededfeb973a7.mp3",
+          "speechStart": 0.08,
+          "duration": 1.28,
           "wordStarts": [
-            0.133,
-            0.32,
-            0.64,
-            1.013,
-            1.24,
-            1.92
+            0.08,
+            0.36,
+            0.96
           ]
         },
         {
           "index": 3,
-          "hash": "940ebddb2605",
-          "file": "voiceover/TactiqueDemo/03-940ebddb2605.mp3",
-          "speechStart": 0.16,
-          "duration": 2.56,
+          "hash": "806fe1f2edfe",
+          "file": "voiceover/TactiqueDemo/03-806fe1f2edfe.mp3",
+          "speechStart": 0,
+          "duration": 1.6,
           "wordStarts": [
-            0.16,
+            0,
             0.4,
+            0.56,
             0.8,
-            1.2,
-            1.253,
-            1.44,
-            2.48
+            1.2
           ]
         },
         {
           "index": 4,
-          "hash": "f62cc7a20882",
-          "file": "voiceover/TactiqueDemo/04-f62cc7a20882.mp3",
-          "speechStart": 0,
-          "duration": 2.8,
+          "hash": "d3784ab6ab0a",
+          "file": "voiceover/TactiqueDemo/04-d3784ab6ab0a.mp3",
+          "speechStart": 0.08,
+          "duration": 2.24,
           "wordStarts": [
-            0,
-            0.2,
-            0.8,
-            0.907,
-            1.12,
-            1.44,
+            0.08,
+            0.72,
+            0.773,
+            0.96,
             1.6,
-            1.96,
-            2.12,
-            2.24
+            2.08
           ]
         },
         {
           "index": 5,
-          "hash": "89d02be38a66",
-          "file": "voiceover/TactiqueDemo/05-89d02be38a66.mp3",
-          "speechStart": 0.16,
-          "duration": 3.12,
+          "hash": "5eea19a9f0ee",
+          "file": "voiceover/TactiqueDemo/05-5eea19a9f0ee.mp3",
+          "speechStart": 0,
+          "duration": 2.8,
           "wordStarts": [
-            0.16,
-            0.72,
-            0.92,
-            1.12,
-            1.8,
-            3.04
+            0,
+            0.24,
+            0.96,
+            1.067,
+            1.2,
+            1.44,
+            1.84,
+            2
           ]
         },
         {
           "index": 6,
-          "hash": "83fa2a8264ae",
-          "file": "voiceover/TactiqueDemo/06-83fa2a8264ae.mp3",
-          "speechStart": 0.96,
-          "duration": 3.76,
+          "hash": "2c1a81e18853",
+          "file": "voiceover/TactiqueDemo/06-2c1a81e18853.mp3",
+          "speechStart": 0,
+          "duration": 3.12,
           "wordStarts": [
+            0,
             0.96,
-            1.6,
-            2.36,
-            2.56,
-            2.76,
-            2.92,
-            3.12,
-            3.68
+            1.067,
+            1.16,
+            1.56,
+            1.84,
+            2.213
           ]
         },
         {
           "index": 7,
-          "hash": "639a98545d1f",
-          "file": "voiceover/TactiqueDemo/07-639a98545d1f.mp3",
-          "speechStart": 0.14,
-          "duration": 2.8,
+          "hash": "4cdcf732a138",
+          "file": "voiceover/TactiqueDemo/07-4cdcf732a138.mp3",
+          "speechStart": 0,
+          "duration": 3.04,
           "wordStarts": [
-            0.14,
-            0.24,
-            0.52,
-            0.68,
-            1.2,
-            1.28,
-            1.52,
+            0,
+            0.32,
+            0.64,
+            0.827,
+            0.88,
+            1.64,
             1.8,
-            1.92,
-            1.92
+            2.027,
+            2.12,
+            2.24,
+            2.48
           ]
         },
         {
           "index": 8,
-          "hash": "ab481aaf88e5",
-          "file": "voiceover/TactiqueDemo/08-ab481aaf88e5.mp3",
-          "speechStart": 0.16,
-          "duration": 2.4,
+          "hash": "d37c502ba7af",
+          "file": "voiceover/TactiqueDemo/08-d37c502ba7af.mp3",
+          "speechStart": 0.2,
+          "duration": 2.72,
           "wordStarts": [
-            0.16,
-            0.48,
+            0.2,
+            0.72,
             0.8,
-            1.36,
-            1.413,
-            1.6,
+            1.04,
+            1.68,
             2.24
           ]
         },
         {
           "index": 9,
-          "hash": "17a44fb9c4e6",
-          "file": "voiceover/TactiqueDemo/09-17a44fb9c4e6.mp3",
+          "hash": "f543a72e9070",
+          "file": "voiceover/TactiqueDemo/09-f543a72e9070.mp3",
+          "speechStart": 0,
+          "duration": 2.88,
+          "wordStarts": [
+            0,
+            0.36,
+            0.96,
+            1.04,
+            1.36,
+            1.84,
+            2.12,
+            2.64
+          ]
+        },
+        {
+          "index": 10,
+          "hash": "b338fb2f7f09",
+          "file": "voiceover/TactiqueDemo/10-b338fb2f7f09.mp3",
           "speechStart": 0,
           "duration": 3.12,
           "wordStarts": [
             0,
             0.24,
-            1.12,
-            1.227,
-            1.333,
-            1.6,
-            1.6,
+            1.2,
+            1.64,
+            1.84,
+            2,
+            2.32,
             2.32
           ]
         },
         {
-          "index": 10,
-          "hash": "d8f631e3e64a",
-          "file": "voiceover/TactiqueDemo/10-d8f631e3e64a.mp3",
-          "speechStart": 0.08,
-          "duration": 2.32,
-          "wordStarts": [
-            0.08,
-            0.72,
-            0.827,
-            1,
-            1.44,
-            1.76
-          ]
-        },
-        {
           "index": 11,
-          "hash": "7adc3a9f37c6",
-          "file": "voiceover/TactiqueDemo/11-7adc3a9f37c6.mp3",
+          "hash": "fbe9d4407c18",
+          "file": "voiceover/TactiqueDemo/11-fbe9d4407c18.mp3",
           "speechStart": 0,
-          "duration": 2.48,
+          "duration": 2.72,
           "wordStarts": [
             0,
-            0.24,
-            0.44,
-            0.56,
-            1.2,
-            1.253,
-            1.36,
-            1.56,
-            1.72,
-            1.72
+            0.16,
+            1.04,
+            1.28,
+            1.48,
+            2.04
           ]
         },
         {
           "index": 12,
-          "hash": "1df95bf55043",
-          "file": "voiceover/TactiqueDemo/12-1df95bf55043.mp3",
-          "speechStart": 0.08,
+          "hash": "901d4ca94511",
+          "file": "voiceover/TactiqueDemo/12-901d4ca94511.mp3",
+          "speechStart": 0,
           "duration": 2.56,
           "wordStarts": [
-            0.08,
+            0,
             0.28,
-            0.907,
-            1.04,
-            1.24,
+            0.64,
+            0.88,
+            1.32,
             1.52,
-            1.64,
-            2.48
+            1.8,
+            1.92
           ]
         },
         {
           "index": 13,
-          "hash": "906f97b10409",
-          "file": "voiceover/TactiqueDemo/13-906f97b10409.mp3",
-          "speechStart": 0.28,
-          "duration": 2.48,
+          "hash": "b808e517de71",
+          "file": "voiceover/TactiqueDemo/13-b808e517de71.mp3",
+          "speechStart": 0.08,
+          "duration": 2.4,
           "wordStarts": [
-            0.28,
+            0.08,
             0.48,
-            0.8,
-            1.28,
-            1.44,
-            1.6,
-            2.4
+            0.96,
+            1.08,
+            1.413
           ]
         },
         {
           "index": 14,
-          "hash": "d6b511298d31",
-          "file": "voiceover/TactiqueDemo/14-d6b511298d31.mp3",
-          "speechStart": 0,
-          "duration": 3.28,
+          "hash": "771f06b8c25a",
+          "file": "voiceover/TactiqueDemo/14-771f06b8c25a.mp3",
+          "speechStart": 0.08,
+          "duration": 2.32,
           "wordStarts": [
-            0,
-            0.32,
-            0.72,
-            0.96,
-            1.24,
-            1.44,
-            1.8,
-            1.96,
-            2.36,
-            2.6
+            0.08,
+            0.8,
+            0.88,
+            1.12,
+            1.6,
+            1.72,
+            2.24
           ]
         },
         {
           "index": 15,
-          "hash": "3419c22d28e0",
-          "file": "voiceover/TactiqueDemo/15-3419c22d28e0.mp3",
-          "speechStart": 0.08,
-          "duration": 3.6,
+          "hash": "e411b96e680c",
+          "file": "voiceover/TactiqueDemo/15-e411b96e680c.mp3",
+          "speechStart": 0,
+          "duration": 2.16,
           "wordStarts": [
-            0.08,
+            0,
             0.24,
-            0.56,
             0.96,
-            1.44,
-            1.92,
-            2.08,
-            2.587,
-            2.72,
-            2.84
+            1.12,
+            1.36,
+            1.52
           ]
         },
         {
           "index": 16,
-          "hash": "a1be428257cf",
-          "file": "voiceover/TactiqueDemo/16-a1be428257cf.mp3",
-          "speechStart": 0.16,
-          "duration": 1.92,
+          "hash": "a6df3c49e294",
+          "file": "voiceover/TactiqueDemo/16-a6df3c49e294.mp3",
+          "speechStart": 0,
+          "duration": 2.72,
           "wordStarts": [
-            0.16,
+            0,
+            0.28,
             0.64,
-            0.8,
+            0.88,
             1.12,
-            1.24,
-            1.84
+            1.36,
+            1.56,
+            1.88,
+            2
           ]
         },
         {
           "index": 17,
-          "hash": "b6c483b9371a",
-          "file": "voiceover/TactiqueDemo/17-b6c483b9371a.mp3",
-          "speechStart": 1.04,
-          "duration": 3.36,
+          "hash": "9e5b9074ffb6",
+          "file": "voiceover/TactiqueDemo/17-9e5b9074ffb6.mp3",
+          "speechStart": 0,
+          "duration": 2.08,
           "wordStarts": [
-            1.04,
-            1.52,
-            1.84,
-            2.08,
-            2.56,
-            2.8
+            0,
+            0.36,
+            0.68,
+            1,
+            1.44,
+            1.56
           ]
         },
         {
           "index": 18,
-          "hash": "412a0b36676a",
-          "file": "voiceover/TactiqueDemo/18-412a0b36676a.mp3",
-          "speechStart": 0.08,
-          "duration": 1.52,
+          "hash": "7dab969f3e3e",
+          "file": "voiceover/TactiqueDemo/18-7dab969f3e3e.mp3",
+          "speechStart": 0,
+          "duration": 1.76,
           "wordStarts": [
-            0.08,
-            0.24,
-            0.36,
-            0.52,
-            0.88,
+            0,
+            0.213,
+            0.64,
+            0.8,
+            1.12,
+            1.24,
             1.44
           ]
         },
         {
           "index": 19,
-          "hash": "67499f074f9f",
-          "file": "voiceover/TactiqueDemo/19-67499f074f9f.mp3",
+          "hash": "a03eca94a83f",
+          "file": "voiceover/TactiqueDemo/19-a03eca94a83f.mp3",
           "speechStart": 0.08,
-          "duration": 2.32,
+          "duration": 3.04,
           "wordStarts": [
             0.08,
-            0.56,
-            0.92,
-            1.04,
-            1.28,
-            1.56,
-            1.72,
-            2.24
+            0.32,
+            1.12,
+            1.227,
+            1.227,
+            1.92,
+            2.04,
+            2.32,
+            2.32
+          ]
+        },
+        {
+          "index": 20,
+          "hash": "02590aac11ac",
+          "file": "voiceover/TactiqueDemo/20-02590aac11ac.mp3",
+          "speechStart": 0,
+          "duration": 1.44,
+          "wordStarts": [
+            0,
+            0.12,
+            0.24,
+            0.4,
+            0.72,
+            1.36
+          ]
+        },
+        {
+          "index": 21,
+          "hash": "2ebbc2e81344",
+          "file": "voiceover/TactiqueDemo/21-2ebbc2e81344.mp3",
+          "speechStart": 0.08,
+          "duration": 1.52,
+          "wordStarts": [
+            0.08,
+            0.64,
+            0.76,
+            0.88
           ]
         }
       ]
@@ -346,21 +360,9 @@
         "file": "sfx/whoosh-29021630aede.mp3",
         "hash": "29021630aede"
       },
-      "scan": {
-        "file": "sfx/scan-bf3e5d47bea4.mp3",
-        "hash": "bf3e5d47bea4"
-      },
-      "riser": {
-        "file": "sfx/riser-36505d38e38c.mp3",
-        "hash": "36505d38e38c"
-      },
-      "pop": {
-        "file": "sfx/pop-dad6fc59e0b0.mp3",
-        "hash": "dad6fc59e0b0"
-      },
-      "swipe": {
-        "file": "sfx/swipe-34bcce6af3b7.mp3",
-        "hash": "34bcce6af3b7"
+      "tick": {
+        "file": "sfx/tick-79a8f27d6bf5.mp3",
+        "hash": "79a8f27d6bf5"
       },
       "glitch": {
         "file": "sfx/glitch-d69c86c65530.mp3",
@@ -369,12 +371,11 @@
       "click": {
         "file": "sfx/click-794e54ceb2c2.mp3",
         "hash": "794e54ceb2c2"
+      },
+      "stamp": {
+        "file": "sfx/stamp-ae15bc197533.mp3",
+        "hash": "ae15bc197533"
       }
-    },
-    "music": {
-      "file": "music/TactiqueDemo-36c6bd410e05.mp3",
-      "hash": "36c6bd410e05",
-      "seconds": 58
     }
   }
 }

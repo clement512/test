@@ -153,8 +153,36 @@ export type SubtitleDef = Timed & {
   pauseAfter?: number;
 };
 
+/**
+ * Repère calé sur la voix : l'instant où le mot `word` de la réplique `line` est prononcé
+ * (+ `offset` secondes). Reste juste même si le texte ou la voix changent.
+ */
+export type Cue = { line: number; word: string; offset?: number };
+
 /** Effet sonore ponctuel (nom d'un son de la bibliothèque `meta.sounds` / audioLibrary.ts). */
-export type SfxDef = { at: number; sound: string; volume?: number };
+export type SfxDef = { at?: number; cue?: Cue; sound: string; volume?: number };
+
+/** Gros mot-tampon incliné qui claque au milieu de l'écran (ex: "DÉTRUIT", "3 CONTRE 2"). */
+export type StampDef = {
+  cue?: Cue;
+  at?: number;
+  /** Durée d'affichage (s). Défaut : 1.3 s. */
+  hold?: number;
+  text: string;
+  color: NeonColor;
+  /** Position verticale (px). Défaut : 560. */
+  y?: number;
+  rotate?: number;
+  /** Son joué à l'impact (défaut "stamp"), ou false. */
+  sound?: string | false;
+};
+
+/** Sommaire des chapitres (pilules empilées). */
+export type AgendaDef = Timed & {
+  items: { number: string; title: string; color: NeonColor }[];
+  stagger?: number;
+  y?: number;
+};
 
 export type TitleCardDef = Timed & {
   lines: { text: string; color: NeonColor; size?: number }[];
@@ -223,6 +251,8 @@ export type ScriptData = {
   pills: PillDef[];
   subtitles: SubtitleDef[];
   titleCards: TitleCardDef[];
+  stamps?: StampDef[];
+  agenda?: AgendaDef[];
   sfx?: SfxDef[];
   outro?: OutroDef;
 };

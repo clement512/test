@@ -167,7 +167,12 @@ const genVoice = async (s: ScriptData, prev?: GeneratedAudio["voice"]) => {
 
 const genSounds = async (s: ScriptData, prev?: GeneratedAudio["sounds"]) => {
   const lib = resolveSounds(s.meta.sounds);
-  const used = [...new Set((s.sfx ?? []).map((x) => x.sound))];
+  const used = [
+    ...new Set([
+      ...(s.sfx ?? []).map((x) => x.sound),
+      ...(s.stamps ?? []).filter((x) => x.sound !== false).map((x) => (x.sound || "stamp") as string),
+    ]),
+  ];
   const out: NonNullable<GeneratedAudio["sounds"]> = {};
   mkdirSync(publicPath("sfx"), { recursive: true });
   for (const name of used) {
@@ -234,11 +239,15 @@ const run = async () => {
       audio.voice = r.voice;
       chars += r.chars;
     }
-    if (s.sfx?.length) audio.sounds = await genSounds(s, prev.sounds);
+    if (s.sfx?.length || s.stamps?.length) audio.sounds = await genSounds(s, prev.sounds);
     const { duration } = buildTimeMap(s, audio);
     console.log(`  durée finale de la vidéo : ${duration.toFixed(2)} s`);
     if (duration > 61) console.warn("  ⚠ plus de 61 s : raccourcis le texte ou retire des répliques.");
     if (s.meta.music) audio.music = await genMusic(s, duration, prev.music);
+    else if (prev.music?.file && existsSync(publicPath(prev.music.file))) {
+      unlinkSync(publicPath(prev.music.file));
+      console.log("  musique retirée (meta.music absent)");
+    }
     result[s.meta.id] = audio;
   }
 

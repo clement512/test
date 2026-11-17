@@ -80,11 +80,14 @@ export const retimeScript = (script: ScriptData, map: (t: number) => number): Sc
     callouts: script.callouts.map(T),
     icons: script.icons.map(T),
     measures: script.measures.map(T),
-    chapters: script.chapters.map((c) => ({ ...c, from: map(c.from), duration: D(c.from, c.duration, 2.6) })),
+    // Les bandeaux de chapitre gardent leur durée en secondes réelles (animation calibrée)
+    chapters: script.chapters.map((c) => ({ ...c, from: map(c.from) })),
     pills: script.pills.map(T),
     subtitles: script.subtitles.map(T),
     titleCards: script.titleCards.map(T),
-    sfx: script.sfx?.map((x) => ({ ...x, at: map(x.at) })),
+    sfx: script.sfx?.map((x) => (x.at === undefined ? x : { ...x, at: map(x.at) })),
+    stamps: script.stamps?.map((x) => (x.at === undefined ? x : { ...x, at: map(x.at) })),
+    agenda: script.agenda?.map(T),
     outro: script.outro && { ...script.outro, from: map(script.outro.from), clickAt: map(script.outro.clickAt) },
   };
 };

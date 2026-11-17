@@ -12,6 +12,8 @@ export const DEFAULT_SOUNDS: Record<string, SoundDef> = {
   glitch: { prompt: "short digital glitch stutter sound effect, cyber, futuristic", duration: 0.7, volume: 0.45 },
   click: { prompt: "crisp mouse click, UI button press, short", duration: 0.5, volume: 0.9 },
   riser: { prompt: "short cinematic tension riser swell, building up, futuristic", duration: 1.6, volume: 0.4 },
+  stamp: { prompt: "short punchy cinematic hit with a quick digital glitch, for big text slamming on screen, tight and dry", duration: 0.6, volume: 0.55 },
+  tick: { prompt: "very short futuristic UI tick blip, clean, subtle", duration: 0.5, volume: 0.35 },
   scan: { prompt: "futuristic hologram scan beep sweep, sci-fi interface, short", duration: 0.8, volume: 0.35 },
 };
 

@@ -141,18 +141,3 @@ export const getCamera = (
   }
   return cam;
 };
-
-/** Découpe "un *mot* clé" en segments {text, hl}. */
-export const parseHighlights = (text: string) => {
-  const out: { text: string; hl: boolean }[] = [];
-  const re = /\*([^*]+)\*/g;
-  let last = 0;
-  let mt: RegExpExecArray | null;
-  while ((mt = re.exec(text))) {
-    if (mt.index > last) out.push({ text: text.slice(last, mt.index), hl: false });
-    out.push({ text: mt[1], hl: true });
-    last = mt.index + mt[0].length;
-  }
-  if (last < text.length) out.push({ text: text.slice(last), hl: false });
-  return out;
-};

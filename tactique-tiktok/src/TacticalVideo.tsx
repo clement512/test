@@ -1,8 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import type { GeneratedAudio, PlacedVoiceLine, ScriptData } from "./types";
+import type { Cue, GeneratedAudio, PlacedVoiceLine, ScriptData } from "./types";
 import { resolveSounds } from "./audioLibrary";
-import { displayWords } from "./lib/words";
+import { displayWords, normWord } from "./lib/words";
 import { COLORS, WORLD } from "./theme";
 import { ScriptProvider } from "./lib/ScriptContext";
 import { getBallState, getPlayerPos, isActive } from "./lib/timeline";
@@ -14,7 +14,7 @@ import { TacticalArrow } from "./components/TacticalArrow";
 import { TacticalZone } from "./components/TacticalZone";
 import { Callout, IconMarker, MeasureLine, PlayerTag } from "./components/Annotations";
 import { HUD } from "./components/HUD";
-import { ChapterBanner, KineticSubtitles, TitleCard, TopPill } from "./components/Typography";
+import { Agenda, ChapterBanner, KeywordStamp, KineticSubtitles, TitleCard, TopPill } from "./components/Typography";
 import { Outro, TransitionFlash } from "./components/Outro";
 
 /** Couche "monde" (dans la caméra) : terrain, zones, flèches, joueurs, annotations. */
@@ -92,19 +92,35 @@ const World: React.FC<{ script: ScriptData }> = ({ script }) => {
   );
 };
 
-/** Instants des mots *surlignés* prononcés → "punchs" de caméra. */
+/** Instant (s, vidéo) d'un repère calé sur la voix : le mot `cue.word` de la réplique `cue.line`. */
+const cueTime = (script: ScriptData, voice: PlacedVoiceLine[], cue: Cue): number => {
+  const sub = script.subtitles[cue.line];
+  if (!sub) throw new Error(`Repère : réplique ${cue.line} inexistante`);
+  const words = displayWords(sub.text);
+  const target = normWord(cue.word);
+  let idx = words.findIndex((w) => normWord(w.text) === target);
+  if (idx < 0) idx = words.findIndex((w) => normWord(w.text).startsWith(target));
+  if (idx < 0) throw new Error(`Repère : mot "${cue.word}" absent de la réplique ${cue.line} ("${sub.text}")`);
+  const v = voice.find((l) => l.index === cue.line);
+  const base = v?.wordStarts
+    ? v.start + v.wordStarts[idx]
+    : sub.from + ((sub.to - sub.from) * idx) / Math.max(1, words.length);
+  return base + (cue.offset ?? 0);
+};
+
+/** Instants des débuts de segments colorés prononcés → "punchs" de caméra. */
 const wordPunches = (script: ScriptData, voice: PlacedVoiceLine[]) =>
   voice.flatMap((l) => {
     if (!l.wordStarts) return [];
     const words = displayWords(script.subtitles[l.index].text);
     return words
       .map((w, i) => ({ w, i }))
-      .filter(({ w, i }) => w.hl && !(i > 0 && words[i - 1].hl))
+      .filter(({ w, i }) => w.color && !(i > 0 && words[i - 1].color === w.color))
       .map(({ i }) => l.start + l.wordStarts![i]);
   });
 
-/** Musique : fondu d'entrée/sortie et baisse automatique sous la voix (ducking). */
-const useMusicVolume = (voice: PlacedVoiceLine[], base: number, fps: number, total: number) =>
+/** Musique éventuelle : fondu d'entrée/sortie et baisse automatique sous la voix (ducking). */
+const musicVolume = (voice: PlacedVoiceLine[], base: number, fps: number, total: number) =>
   (f: number) => {
     const t = f / fps;
     const speaking = voice.some((l) => t >= l.start + l.speechStart - 0.1 && t <= l.start + l.duration + 0.15);
@@ -123,7 +139,16 @@ export const TacticalVideo: React.FC<{
   const { fps, durationInFrames } = useVideoConfig();
   const sounds = resolveSounds(script.meta.sounds);
   const punches = script.meta.wordPunches === false ? [] : wordPunches(script, voice);
-  const musicVolume = useMusicVolume(voice, script.meta.music?.volume ?? 0.2, fps, durationInFrames / fps);
+  const at = (x: { at?: number; cue?: Cue }) => (x.cue ? cueTime(script, voice, x.cue) : (x.at ?? 0));
+
+  const stamps = (script.stamps ?? []).map((st) => {
+    const from = at(st);
+    return { ...st, from, to: from + (st.hold ?? 1.3) };
+  });
+  const sfx = [
+    ...(script.sfx ?? []).map((x) => ({ t: at(x), sound: x.sound, volume: x.volume })),
+    ...stamps.filter((st) => st.sound !== false).map((st) => ({ t: st.from - 0.02, sound: (st.sound || "stamp") as string, volume: undefined })),
+  ];
 
   // Validation légère : un id de joueur inconnu lève une erreur explicite au premier rendu
   getPlayerPos(script, script.players[0].id, 0, script.meta.fps);
@@ -138,8 +163,14 @@ export const TacticalVideo: React.FC<{
         {script.titleCards.map((d, i) => (
           <TitleCard key={`tc${i}`} def={d} />
         ))}
+        {(script.agenda ?? []).map((d, i) => (
+          <Agenda key={`ag${i}`} def={d} />
+        ))}
         {script.pills.map((d, i) => (
           <TopPill key={`p${i}`} def={d} />
+        ))}
+        {stamps.map((st, i) => (
+          <KeywordStamp key={`st${i}`} text={st.text} color={st.color} from={st.from} to={st.to} y={st.y} rotate={st.rotate} />
         ))}
         {script.chapters.map((d, i) => (
           <ChapterBanner key={`ch${i}`} def={d} />
@@ -151,8 +182,10 @@ export const TacticalVideo: React.FC<{
 
         {script.meta.audio && <Audio src={staticFile(script.meta.audio)} />}
 
-        {/* Musique de fond */}
-        {audio?.music && <Audio src={staticFile(audio.music.file)} volume={musicVolume} />}
+        {/* Musique de fond (optionnelle : seulement si meta.music est défini) */}
+        {script.meta.music && audio?.music && (
+          <Audio src={staticFile(audio.music.file)} volume={musicVolume(voice, script.meta.music.volume ?? 0.2, fps, durationInFrames / fps)} />
+        )}
 
         {/* Voix off : un clip par réplique, placé après recalage */}
         {voice.map((l) => (
@@ -161,13 +194,13 @@ export const TacticalVideo: React.FC<{
           </Sequence>
         ))}
 
-        {/* Effets sonores */}
-        {(script.sfx ?? []).map((x, i) => {
+        {/* Bruitages */}
+        {sfx.map((x, i) => {
           const file = audio?.sounds?.[x.sound]?.file;
-          if (!file) return null;
           const def = sounds[x.sound];
+          if (!file || !def) return null;
           return (
-            <Sequence key={`sfx${i}`} from={Math.max(0, Math.round(x.at * fps))} durationInFrames={Math.ceil((def.duration + 0.5) * fps)} layout="none">
+            <Sequence key={`sfx${i}`} from={Math.max(0, Math.round(x.t * fps))} durationInFrames={Math.ceil((def.duration + 0.5) * fps)} layout="none">
               <Audio src={staticFile(file)} volume={x.volume ?? def.volume ?? 0.5} />
             </Sequence>
           );

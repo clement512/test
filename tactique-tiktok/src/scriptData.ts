@@ -109,25 +109,21 @@ export const demo433vs442: ScriptData = {
     width: 1080,
     height: 1920,
     audio: null, // piste audio supplémentaire optionnelle (dans /public)
-    // Voix off : eleven_v4 = modèle le plus expressif ; les balises [excited], [dramatic]...
-    // dans `speech` règlent le ton réplique par réplique.
+    // Voix off : ton "analyste tactique" posé et affirmé, débit régulier (~3 mots/s).
+    // Les balises [confident], [serious]... dans `speech` ajustent l'intention phrase par phrase.
     voice: {
       provider: "elevenlabs",
       voiceId: "IHngRooVccHyPqB4uQkG", // Corentin - Enthusiastic and Bright (FR)
       modelId: "eleven_v4",
-      speed: 1.12,
-      stability: 0.28,
+      speed: 1.15,
+      stability: 0.45,
       similarityBoost: 0.8,
-      style: 0.7,
+      style: 0.45,
       volume: 1,
     },
-    music: {
-      prompt:
-        "High-energy modern trap drill instrumental for a viral football tactics TikTok video. Hard-hitting 808 bass, crisp fast hi-hats, tense catchy synth hook, stadium energy, 145 BPM, driving and addictive from the first second. Instrumental only, no vocals.",
-      volume: 0.22,
-    },
-    // Rythme : blanc minimal entre deux répliques → narration enchaînée, sans temps mort
-    pacing: { gap: 0.1, endHold: 1.4 },
+    // Pas de musique : uniquement voix off + bruitages (ajouter `music: { prompt }` pour en remettre).
+    // Rythme calqué sur la référence : courte respiration (~0,3 s) entre deux phrases.
+    pacing: { gap: 0.26, endHold: 1.1 },
     wordPunches: true,
     transitions: [6, 22, 38, 52],
   },
@@ -218,12 +214,14 @@ export const demo433vs442: ScriptData = {
   // Mises en évidence (cercles pulsants)
   // -------------------------------------------------------------------------
   highlights: [
-    { from: 9.0, to: 12.4, player: "A8" },
-    { from: 9.2, to: 12.4, player: "A10" },
-    { from: 9.0, to: 21.6, player: "A6", color: "cyan" },
+    { from: 10.0, to: 12.0, player: "A8" },
+    { from: 10.0, to: 12.0, player: "A10" },
+    { from: 10.4, to: 21.6, player: "A6", color: "cyan" },
     { from: 31.0, to: 33.0, player: "A6", color: "cyan" },
     { from: 40.0, to: 44.0, player: "A7" },
     { from: 40.0, to: 44.0, player: "A11" },
+    { from: 46.8, to: 51.8, player: "BS1", color: "red" },
+    { from: 46.8, to: 51.8, player: "BS2", color: "red" },
     { from: 47.6, to: 51.8, player: "A10", color: "cyan" },
   ],
 
@@ -326,17 +324,27 @@ export const demo433vs442: ScriptData = {
       color: "cyan" as const,
       fillOpacity: 0.13,
     })),
+    // Séq. 4 — lignes de touche surlignées (ailiers collés à la ligne)
+    { from: 39.6, to: 51.8, shape: { kind: "rect", x: -0.3, y: 0, w: 0.6, h: 105 }, color: "yellow", fillOpacity: 0.9 },
+    { from: 39.6, to: 51.8, shape: { kind: "rect", x: 67.7, y: 0, w: 0.6, h: 105 }, color: "yellow", fillOpacity: 0.9 },
     // Séq. 4 — bande vide entre les lignes
     { from: 45.6, to: 51.8, shape: { kind: "rect", x: 0, y: 35, w: 68, h: 22 }, color: "red", fillOpacity: 0.13, border: false },
   ],
 
   callouts: [
+    // Séq. 1 — étiquettes de formation
+    { from: 2.4, to: 5.8, at: { x: 34, y: 93.5 }, text: "4-3-3", color: "yellow", size: 26 },
+    { from: 2.6, to: 5.8, at: { x: 34, y: 11.5 }, text: "4-4-2", color: "red", size: 26 },
+    // Séq. 2
     { from: 9.2, to: 21.6, at: { x: 52, y: 40 }, text: "2", color: "red", variant: "badge" },
     { from: 9.6, to: 21.6, at: { x: 52, y: 62 }, text: "3", color: "yellow", variant: "badge" },
-    { from: 12.4, to: 21.6, at: { player: "A6", dx: 7.5, dy: 0.5 }, text: "LIBRE", color: "cyan" },
+    { from: 12.0, to: 21.6, at: { player: "A6", dx: 7.5, dy: 0.5 }, text: "LIBRE", color: "cyan" },
     { from: 12.9, to: 19.4, at: { x: 34, y: 33.5 }, text: "ESSUIE-GLACE", color: "red", size: 26 },
+    // Séq. 3
     { from: 25.4, to: 31.0, at: { x: 52, y: 17 }, text: "LIGNES RIGIDES", color: "red", size: 24 },
-    { from: 29.8, to: 37.4, at: { x: 34, y: 76.5 }, text: "TRIANGLES", color: "cyan", size: 26 },
+    { from: 31.2, to: 37.4, at: { player: "A6", dx: 0, dy: 4.8 }, text: "2 OPTIONS", color: "yellow", size: 24 },
+    // Séq. 4
+    { from: 46.8, to: 51.8, at: { x: 34, y: 66.5 }, text: "ISOLÉS", color: "red", size: 26 },
     { from: 48.2, to: 51.8, at: { player: "A10", dx: 7.5, dy: 0.4 }, text: "LIBRE", color: "cyan" },
   ],
 
@@ -346,113 +354,135 @@ export const demo433vs442: ScriptData = {
   ],
 
   measures: [
-    { from: 46.4, to: 51.8, a: { x: 58, y: 32.5 }, b: { x: 58, y: 59.5 }, label: "40 MÈTRES", color: "yellow" },
+    { from: 47.2, to: 51.8, a: { x: 58, y: 32.5 }, b: { x: 58, y: 59.5 }, label: "40 M", color: "white" },
   ],
 
   // -------------------------------------------------------------------------
   // Habillage écran (hors caméra)
   // -------------------------------------------------------------------------
+
+  // Bandeaux de chapitre (glitch, ~1,6 s), calés sur "Un :", "Deux :", "Trois :"
   chapters: [
-    { from: 6.15, duration: 2.2, number: "01", title: "Le surnombre", subtitle: "3 contre 2 au cœur du jeu", tags: ["6 · 8 · 10", "2 milieux"], color: "yellow" },
-    { from: 22.15, duration: 2.2, number: "02", title: "La géométrie", subtitle: "Lignes droites vs triangles", tags: ["4-4-2 rigide", "triangles"], color: "red" },
-    { from: 38.15, duration: 2.2, number: "03", title: "Les couloirs", subtitle: "Étirer pour couper", tags: ["ailiers à la touche", "40 m"], color: "yellow" },
+    { from: 6.0, number: "01", title: "Le surnombre fatal", color: "yellow" },
+    { from: 22.0, number: "02", title: "La géométrie parfaite", color: "cyan" },
+    { from: 38.0, number: "03", title: "Paralysie des couloirs", color: "red" },
+  ],
+
+  // Sommaire affiché pendant "Voici les trois failles"
+  agenda: [
+    {
+      from: 4.4,
+      to: 6.0,
+      y: 330,
+      items: [
+        { number: "01", title: "Le surnombre", color: "yellow" },
+        { number: "02", title: "La géométrie", color: "cyan" },
+        { number: "03", title: "Les couloirs", color: "red" },
+      ],
+    },
   ],
 
   pills: [
-    { from: 9.0, to: 15.6, text: "*3 contre 2* permanent", color: "yellow" },
-    { from: 15.8, to: 21.6, text: "Ils courent *dans le vide*", color: "red" },
-    { from: 24.8, to: 29.6, text: "*Lignes droites* vs triangles", color: "red" },
-    { from: 29.8, to: 37.6, text: "Toujours *2 options* de passe", color: "cyan" },
-    { from: 40.4, to: 44.6, text: "Ailiers *collés à la touche*", color: "yellow" },
+    { from: 8.8, to: 12.9, text: "*3 contre 2* permanent", color: "yellow" },
+    { from: 12.9, to: 21.6, text: "Ils courent *dans le vide*", color: "red" },
+    { from: 23.6, to: 30.6, text: "~Lignes droites~ vs ^triangles^", color: "red" },
+    { from: 30.8, to: 37.6, text: "Toujours *2 options* de passe", color: "cyan" },
+    { from: 39.3, to: 44.6, text: "Ailiers *collés à la touche*", color: "yellow" },
     { from: 44.8, to: 51.8, text: "Le 4-4-2 *coupé en deux*", color: "red" },
   ],
 
   titleCards: [
     {
       from: 0.3,
-      to: 5.7,
+      to: 4.4,
       lines: [
         { text: "4-3-3", color: "yellow" },
-        { text: "VS", color: "white", size: 80 },
+        { text: "VS", color: "white", size: 76 },
         { text: "4-4-2", color: "red" },
       ],
-      pill: "3 failles *mortelles*",
+      pill: "Qui gagne le *duel tactique* ?",
     },
   ],
 
-  // Voix off / sous-titres cinétiques
+  // Mots-tampons : gros mots qui claquent à l'écran, calés sur le mot prononcé (son "stamp" auto)
+  stamps: [
+    { cue: { line: 1, word: "détruit" }, text: "Détruit", color: "red", y: 470 },
+    { cue: { line: 2, word: "mathématique" }, text: "Mathématique", color: "yellow", y: 470 },
+    { cue: { line: 5, word: "3" }, text: "3 contre 2", color: "yellow", y: 520 },
+    { cue: { line: 6, word: "joueur" }, text: "Joueur libre", color: "cyan", y: 520 },
+    { cue: { line: 14, word: "couloirs", offset: 0.35 }, text: "Écartèlement", color: "red", y: 520 },
+    { cue: { line: 18, word: "coupée" }, text: "Coupé en deux", color: "red", y: 480 },
+    { cue: { line: 19, word: "40" }, text: "40 mètres", color: "red", y: 480 },
+  ],
+
   // Voix off / sous-titres cinétiques.
-  // `text` = affichage (mots *surlignés* en jaune + punch caméra) ; `speech` = texte prononcé,
-  // avec balises d'émotion ElevenLabs et chiffres écrits en toutes lettres (même nombre de mots).
+  // `text` = affichage : *jaune* (emphase), ^cyan^ (nous), ~rose~ (adversaire) + punch caméra.
+  // `speech` = texte prononcé (balises d'intention ElevenLabs, chiffres en lettres, même nombre de mots).
   subtitles: [
     // Séq. 1 — accroche
-    { from: 0.3, to: 2.4, text: "Le 4-3-3 *détruit* le 4-4-2.", speech: "[excited] Le quatre-trois-trois détruit le quatre-quatre-deux." },
-    { from: 2.4, to: 4.4, text: "Et je vais te prouver *pourquoi*.", speech: "[confident] Et je vais te prouver pourquoi." },
-    { from: 4.4, to: 6.0, text: "*Trois failles*. C'est parti !", speech: "[energetic] Trois failles. C'est parti !", pauseAfter: 0.15 },
+    /* 0 */ { from: 0.3, to: 2.2, text: "^4-3-3^ contre ~4-4-2~.", speech: "[confident] Quatre-trois-trois contre quatre-quatre-deux." },
+    /* 1 */ { from: 2.2, to: 3.4, text: "À niveau égal, le 4-3-3 ~détruit~ le 4-4-2.", speech: "[serious] À niveau égal, le quatre-trois-trois détruit le quatre-quatre-deux." },
+    /* 2 */ { from: 3.4, to: 4.4, text: "C'est *mathématique*.", speech: "[confident] C'est mathématique." },
+    /* 3 */ { from: 4.4, to: 6.0, text: "Voici les *trois failles*.", speech: "Voici les trois failles.", pauseAfter: 0.08 },
 
     // Séq. 2 — le surnombre
-    { from: 6.0, to: 8.6, text: "Faille numéro un : *le surnombre* !", speech: "[excited] Faille numéro un : le surnombre !" },
-    { from: 8.6, to: 12.4, text: "Au milieu ? *Trois contre deux*. Tout le temps.", speech: "Au milieu ? Trois contre deux. Tout le temps." },
-    { from: 12.4, to: 16.0, text: "Regarde les deux milieux... *l'essuie-glace* !", speech: "[amused] Regarde les deux milieux... l'essuie-glace !" },
-    { from: 16.0, to: 19.4, text: "Gauche, droite... ils courent *dans le vide* !", speech: "[laughing] Gauche, droite... ils courent dans le vide !" },
-    { from: 19.4, to: 22.0, text: "Et pendant ce temps ? Le 6 est *libre*.", speech: "[mischievously] Et pendant ce temps ? Le six est libre.", pauseAfter: 0.15 },
+    /* 4 */ { from: 6.0, to: 8.8, text: "Un : *le surnombre fatal*.", speech: "[confident] Un : le surnombre fatal.", pauseAfter: 0.08 },
+    /* 5 */ { from: 8.8, to: 10.0, text: "La faille : un *3 contre 2* permanent.", speech: "La faille : un trois contre deux permanent." },
+    /* 6 */ { from: 10.6, to: 12.9, text: "Résultat : un ^joueur libre^. Toujours.", speech: "Résultat : un joueur libre. Toujours." },
+    /* 7 */ { from: 12.9, to: 22.0, text: "Leurs milieux font l'*essuie-glace* et courent ~dans le vide~.", speech: "Leurs milieux font l'essuie-glace et courent dans le vide.", pauseAfter: 0.08 },
 
     // Séq. 3 — la géométrie
-    { from: 22.0, to: 24.6, text: "Faille numéro deux : *la géométrie*.", speech: "[excited] Faille numéro deux : la géométrie." },
-    { from: 24.6, to: 27.4, text: "Le 4-4-2 ? Des *lignes droites*. Rigides.", speech: "Le quatre-quatre-deux ? Des lignes droites. Rigides." },
-    { from: 27.4, to: 31.0, text: "Nous ? Des *triangles*. Partout.", speech: "[confident] Nous ? Des triangles. Partout." },
-    { from: 31.0, to: 34.4, text: "Tu presses le 6 ? Il a *deux solutions*.", speech: "Tu presses le six ? Il a deux solutions." },
-    { from: 34.4, to: 38.0, text: "Une passe... et ton pressing est *cassé* !", speech: "[excited] Une passe... et ton pressing est cassé !", pauseAfter: 0.15 },
+    /* 8 */ { from: 22.0, to: 23.6, text: "Deux : *la géométrie parfaite*.", speech: "[confident] Deux : la géométrie parfaite.", pauseAfter: 0.08 },
+    /* 9 */ { from: 23.6, to: 24.8, text: "La faille : ~lignes droites~ contre ^triangles^.", speech: "La faille : lignes droites contre triangles." },
+    /* 10 */ { from: 24.8, to: 27.4, text: "Le 4-4-2 défend sur deux lignes ~rigides~.", speech: "Le quatre-quatre-deux défend sur deux lignes rigides." },
+    /* 11 */ { from: 27.4, to: 31.0, text: "Le 4-3-3 crée des ^triangles^ partout.", speech: "Le quatre-trois-trois crée des triangles partout." },
+    /* 12 */ { from: 31.0, to: 33.6, text: "Ton porteur a toujours ^deux options^ de passe.", speech: "Ton porteur a toujours deux options de passe." },
+    /* 13 */ { from: 33.6, to: 38.0, text: "Leur pressing est ~cassé~ d'avance.", speech: "[serious] Leur pressing est cassé d'avance.", pauseAfter: 0.08 },
 
     // Séq. 4 — les couloirs
-    { from: 38.0, to: 40.4, text: "Faille numéro trois : *les couloirs* !", speech: "[excited] Faille numéro trois : les couloirs !" },
-    { from: 40.4, to: 43.8, text: "Les ailiers *collent la ligne*. Les latéraux sont bloqués.", speech: "Les ailiers collent la ligne. Les latéraux sont bloqués." },
-    { from: 43.8, to: 47.2, text: "Le milieu adverse *recule*... et là, c'est le drame.", speech: "[dramatic] Le milieu adverse recule... et là, c'est le drame." },
-    { from: 47.2, to: 49.6, text: "L'équipe est *coupée en deux* !", speech: "[shouting] L'équipe est coupée en deux !" },
-    { from: 49.6, to: 52.0, text: "*40 mètres* de vide. Bon appétit.", speech: "[laughing] Quarante mètres de vide. Bon appétit.", pauseAfter: 0.2 },
+    /* 14 */ { from: 38.0, to: 39.3, text: "Trois : *la paralysie des couloirs*.", speech: "[confident] Trois : la paralysie des couloirs.", pauseAfter: 0.08 },
+    /* 15 */ { from: 39.3, to: 40.4, text: "La faille : ^fixer^ la défense.", speech: "La faille : fixer la défense." },
+    /* 16 */ { from: 40.4, to: 43.6, text: "Tes ailiers *collent la ligne* et bloquent les latéraux.", speech: "Tes ailiers collent la ligne et bloquent les latéraux." },
+    /* 17 */ { from: 43.6, to: 45.3, text: "Leurs milieux doivent ~reculer~ pour aider,", speech: "Leurs milieux doivent reculer pour aider," },
+    /* 18 */ { from: 45.3, to: 46.6, text: "et l'équipe est ~coupée en deux~.", speech: "et l'équipe est coupée en deux." },
+    /* 19 */ { from: 46.6, to: 52.0, text: "Leurs attaquants ? ~Isolés~, à *40 mètres*.", speech: "[serious] Leurs attaquants ? Isolés, à quarante mètres.", pauseAfter: 0.08 },
 
     // Séq. 5 — outro
-    { from: 52.2, to: 55.2, text: "Tu veux le *playbook complet* ?", speech: "[excited] Tu veux le playbook complet ?", y: 1640 },
-    { from: 55.2, to: 59.6, text: "*Abonne-toi*. La suite arrive très vite !", speech: "[energetic] Abonne-toi. La suite arrive très vite !", y: 1640 },
+    /* 20 */ { from: 52.2, to: 55.0, text: "Tu veux le *playbook complet* ?", speech: "Tu veux le playbook complet ?", y: 1640 },
+    /* 21 */ { from: 55.0, to: 59.6, text: "^Abonne-toi^ pour la suite.", speech: "[confident] Abonne-toi pour la suite.", y: 1640 },
   ],
 
   // -------------------------------------------------------------------------
-  // Effets sonores (bibliothèque : src/audioLibrary.ts) — recalés avec la voix
+  // Bruitages — sobres, comme la référence : impact d'ouverture, whoosh + glitch sur chaque
+  // chapitre, "tick" discret à l'apparition des étiquettes. Les mots-tampons ont leur "stamp".
   // -------------------------------------------------------------------------
   sfx: [
-    { at: 0.05, sound: "impact", volume: 0.7 },
-    { at: 0.35, sound: "whoosh" },
-    { at: 0.8, sound: "scan" },
-    { at: 4.6, sound: "riser" },
-    // Chapitre 1
-    { at: 6.0, sound: "whoosh" },
-    { at: 6.2, sound: "impact" },
-    { at: 9.2, sound: "pop" },
-    { at: 9.6, sound: "pop" },
-    { at: 12.9, sound: "swipe" },
-    { at: 14.5, sound: "swipe" },
-    { at: 16.1, sound: "swipe" },
-    { at: 17.4, sound: "swipe" },
-    { at: 19.6, sound: "pop", volume: 0.4 },
-    // Chapitre 2
-    { at: 22.0, sound: "whoosh" },
-    { at: 22.2, sound: "impact" },
-    { at: 24.8, sound: "scan" },
-    { at: 27.4, sound: "pop", volume: 0.35 },
-    { at: 28.4, sound: "pop", volume: 0.35 },
-    { at: 32.3, sound: "glitch" },
-    { at: 32.5, sound: "impact", volume: 0.5 },
-    // Chapitre 3
-    { at: 38.0, sound: "whoosh" },
-    { at: 38.2, sound: "impact" },
-    { at: 39.4, sound: "swipe", volume: 0.4 },
-    { at: 41.0, sound: "pop" },
-    { at: 45.4, sound: "glitch" },
-    { at: 46.4, sound: "scan" },
-    { at: 50.6, sound: "riser" },
+    { at: 0.02, sound: "impact", volume: 0.55 },
+    { at: 0.25, sound: "whoosh", volume: 0.45 },
+    { at: 0.9, sound: "tick" },
+    // Sommaire
+    { cue: { line: 3, word: "voici" }, sound: "tick" },
+    { cue: { line: 3, word: "voici", offset: 0.22 }, sound: "tick" },
+    { cue: { line: 3, word: "voici", offset: 0.44 }, sound: "tick" },
+    // Chapitres
+    { cue: { line: 4, word: "un", offset: -0.12 }, sound: "whoosh" },
+    { cue: { line: 4, word: "un", offset: -0.02 }, sound: "glitch", volume: 0.35 },
+    { cue: { line: 8, word: "deux", offset: -0.12 }, sound: "whoosh" },
+    { cue: { line: 8, word: "deux", offset: -0.02 }, sound: "glitch", volume: 0.35 },
+    { cue: { line: 14, word: "trois", offset: -0.12 }, sound: "whoosh" },
+    { cue: { line: 14, word: "trois", offset: -0.02 }, sound: "glitch", volume: 0.35 },
+    // Étiquettes / pilules
+    { at: 9.2, sound: "tick" },
+    { at: 9.6, sound: "tick" },
+    { at: 12.9, sound: "tick" },
+    { at: 23.6, sound: "tick" },
+    { at: 30.8, sound: "tick" },
+    { at: 32.5, sound: "glitch", volume: 0.4 },
+    { at: 39.3, sound: "tick" },
+    { at: 41.0, sound: "tick" },
+    { at: 44.8, sound: "tick" },
     // Outro
-    { at: 52.0, sound: "whoosh" },
-    { at: 52.3, sound: "impact" },
+    { at: 52.0, sound: "whoosh", volume: 0.5 },
     { at: 56.8, sound: "click" },
   ],
 
