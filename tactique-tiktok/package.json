@@ -12,7 +12,8 @@
     "build": "npm run audio && npm run render",
     "audio": "NODE_USE_ENV_PROXY=1 tsx scripts/audio.ts",
     "render:demo": "remotion render TactiqueDemo out/tactique-demo.mp4",
-    "render:ep2": "remotion render Ep2Numero9 out/ep2-numero-9.mp4"
+    "render:ep2": "remotion render Ep2Numero9 out/ep2-numero-9.mp4 && bash scripts/finalize.sh out/ep2-numero-9.mp4",
+    "finalize": "bash scripts/finalize.sh"
   },
   "license": "UNLICENSED",
   "dependencies": {
