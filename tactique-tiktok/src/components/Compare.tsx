@@ -6,8 +6,8 @@ import { visibility } from "../lib/timeline";
 
 const glow = (c: string, s = 18) => `0 0 ${s}px ${c}, 0 0 ${s * 2}px ${c}55`;
 
-const W = 440;
-const H = 640;
+const W = 400;
+const H = 600;
 
 /** Mini-terrain avec la formation en points. */
 const Panel: React.FC<{ p: ComparePanel; start: number; side: "left" | "right" }> = ({ p, start, side }) => {
@@ -92,14 +92,14 @@ export const Compare: React.FC<{ def: CompareDef }> = ({ def }) => {
   return (
     <AbsoluteFill style={{ opacity: vis }}>
       <AbsoluteFill style={{ background: "rgba(3,8,16,0.86)" }} />
-      <div style={{ position: "absolute", top: 260, left: 0, right: 0, display: "flex", justifyContent: "center", alignItems: "center", gap: 40 }}>
+      <div style={{ position: "absolute", top: 260, left: 0, right: 0, display: "flex", justifyContent: "center", alignItems: "center", gap: 120 }}>
         <Panel p={def.left} start={def.from} side="left" />
         <Panel p={def.right} start={def.from + 0.15} side="right" />
       </div>
       <div
         style={{
           position: "absolute",
-          top: 680,
+          top: 640,
           left: 0,
           right: 0,
           textAlign: "center",
@@ -122,7 +122,7 @@ export const Compare: React.FC<{ def: CompareDef }> = ({ def }) => {
               opacity: Math.min(1, cap * 3),
               fontFamily: FONT_DISPLAY,
               fontWeight: 900,
-              fontSize: Math.min(92, Math.floor(1500 / def.caption.length)),
+              fontSize: Math.min(96, Math.floor(1480 / def.caption.length)),
               color: neon(def.captionColor ?? "yellow"),
               WebkitTextStroke: "4px #050a12",
               paintOrder: "stroke fill",

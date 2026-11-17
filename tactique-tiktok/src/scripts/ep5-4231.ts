@@ -174,7 +174,7 @@ export const ep5_4231: ScriptData = {
     ...morphArrows(2.3, 4.6),
 
     // Problème — la ligne de 5 trop basse, le soutien trop lent
-    { from: 15.6, to: 21.0, start: { x: 3, y: 66.5 }, end: { x: 65, y: 66.5 }, color: "red", head: false, width: 4, drawDuration: 0.6, label: "LIGNE DE 5 TROP BASSE", labelColor: "red" },
+    { from: 15.6, to: 21.0, start: { x: 3, y: 66.5 }, end: { x: 65, y: 66.5 }, color: "red", head: false, width: 4, drawDuration: 0.6 },
     ...[[21, 64], [34, 65], [47, 64]].map(([x, y], i) => ({
       from: 18.2 + i * 0.15,
       to: 21.0,
@@ -215,7 +215,7 @@ export const ep5_4231: ScriptData = {
     { from: 0.9, to: 2.3, at: { x: 34, y: 93.5 }, text: "4-5-1", color: "yellow", size: 28 },
     { from: 3.4, to: 7.6, at: { x: 34, y: 93.5 }, text: "4-2-3-1", color: "cyan", size: 28 },
     { from: 14.0, to: 21.0, at: { x: 34, y: 28 }, text: "ISOLÉ", color: "red", size: 26 },
-    { from: 18.6, to: 21.0, at: { x: 52, y: 52 }, text: "TROP LOIN", color: "yellow", size: 22 },
+    { from: 18.6, to: 21.0, at: { x: 16, y: 52 }, text: "TROP LOIN", color: "yellow", size: 22 },
     { from: 31.0, to: 35.0, at: { x: 34, y: 30 }, text: "UNE TOUCHE", color: "cyan", size: 22 },
   ],
 
@@ -224,7 +224,7 @@ export const ep5_4231: ScriptData = {
   ],
 
   measures: [
-    { from: 17.2, to: 21.0, a: { x: 62, y: 38 }, b: { x: 62, y: 65 }, label: "TROP BAS", color: "red" },
+    { from: 17.2, to: 21.0, a: { x: 55, y: 38 }, b: { x: 55, y: 62 }, label: "TROP BAS", color: "red" },
   ],
 
   chapters: [
