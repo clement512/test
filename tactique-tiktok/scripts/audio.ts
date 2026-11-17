@@ -305,7 +305,7 @@ const genSounds = async (s: ScriptData, prev?: GeneratedAudio["sounds"]) => {
   const used = [
     ...new Set([
       ...(s.sfx ?? []).map((x) => x.sound),
-      ...(s.stamps ?? []).filter((x) => x.sound !== false).map((x) => (x.sound || "stamp") as string),
+      ...(s.stamps ?? []).filter((x) => x.sound !== false).map((x) => (x.sound || s.meta.stampSound || "stamp") as string),
     ]),
   ];
   const out: NonNullable<GeneratedAudio["sounds"]> = {};

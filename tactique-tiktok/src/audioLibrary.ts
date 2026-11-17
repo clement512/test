@@ -14,6 +14,10 @@ export const DEFAULT_SOUNDS: Record<string, SoundDef> = {
   riser: { prompt: "short cinematic tension riser swell, building up, futuristic", duration: 1.6, volume: 0.4 },
   stamp: { prompt: "short punchy cinematic hit with a quick digital glitch, for big text slamming on screen, tight and dry", duration: 0.6, volume: 0.55 },
   tick: { prompt: "very short futuristic UI tick blip, clean, subtle", duration: 0.5, volume: 0.35 },
+  // Variantes douces (moins agressives)
+  softWhoosh: { prompt: "soft gentle airy whoosh, smooth and subtle transition, warm, no harsh highs", duration: 0.9, volume: 0.32 },
+  softHit: { prompt: "soft muffled low thump, gentle warm accent for text appearing, subtle, no distortion", duration: 0.6, volume: 0.35 },
+  softTick: { prompt: "very soft subtle UI tick, gentle wooden click, quiet and warm", duration: 0.5, volume: 0.22 },
   scan: { prompt: "futuristic hologram scan beep sweep, sci-fi interface, short", duration: 0.8, volume: 0.35 },
 };
 

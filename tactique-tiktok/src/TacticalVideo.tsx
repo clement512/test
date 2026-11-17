@@ -147,7 +147,7 @@ export const TacticalVideo: React.FC<{
   });
   const sfx = [
     ...(script.sfx ?? []).map((x) => ({ t: at(x), sound: x.sound, volume: x.volume })),
-    ...stamps.filter((st) => st.sound !== false).map((st) => ({ t: st.from - 0.02, sound: (st.sound || "stamp") as string, volume: undefined })),
+    ...stamps.filter((st) => st.sound !== false).map((st) => ({ t: st.from - 0.02, sound: (st.sound || script.meta.stampSound || "stamp") as string, volume: undefined })),
   ];
 
   // Validation légère : un id de joueur inconnu lève une erreur explicite au premier rendu
@@ -201,7 +201,7 @@ export const TacticalVideo: React.FC<{
           if (!file || !def) return null;
           return (
             <Sequence key={`sfx${i}`} from={Math.max(0, Math.round(x.t * fps))} durationInFrames={Math.ceil((def.duration + 0.5) * fps)} layout="none">
-              <Audio src={staticFile(file)} volume={x.volume ?? def.volume ?? 0.5} />
+              <Audio src={staticFile(file)} volume={(x.volume ?? def.volume ?? 0.5) * (script.meta.sfxGain ?? 1)} />
             </Sequence>
           );
         })}

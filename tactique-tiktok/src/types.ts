@@ -237,6 +237,10 @@ export type ScriptData = {
     wordPunches?: boolean;
     /** Instants (s) où jouer le flash de transition entre séquences. */
     transitions?: number[];
+    /** Volume global des bruitages (multiplicateur). Défaut : 1. */
+    sfxGain?: number;
+    /** Son joué sur les mots-tampons. Défaut : "stamp". */
+    stampSound?: string;
     /** Pseudo affiché en filigrane (ex: "@clemitch"). */
     handle?: string;
   };

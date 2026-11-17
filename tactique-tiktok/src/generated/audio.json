@@ -1358,29 +1358,21 @@
       ]
     },
     "sounds": {
-      "impact": {
-        "file": "sfx/impact-b3caf5db1754.mp3",
-        "hash": "b3caf5db1754"
+      "softHit": {
+        "file": "sfx/softHit-15324694023e.mp3",
+        "hash": "15324694023e"
       },
-      "whoosh": {
-        "file": "sfx/whoosh-29021630aede.mp3",
-        "hash": "29021630aede"
+      "softWhoosh": {
+        "file": "sfx/softWhoosh-99b2a87a740e.mp3",
+        "hash": "99b2a87a740e"
       },
-      "tick": {
-        "file": "sfx/tick-79a8f27d6bf5.mp3",
-        "hash": "79a8f27d6bf5"
-      },
-      "glitch": {
-        "file": "sfx/glitch-d69c86c65530.mp3",
-        "hash": "d69c86c65530"
+      "softTick": {
+        "file": "sfx/softTick-34311ac44630.mp3",
+        "hash": "34311ac44630"
       },
       "click": {
         "file": "sfx/click-794e54ceb2c2.mp3",
         "hash": "794e54ceb2c2"
-      },
-      "stamp": {
-        "file": "sfx/stamp-ae15bc197533.mp3",
-        "hash": "ae15bc197533"
       }
     }
   }
