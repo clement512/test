@@ -3432,5 +3432,327 @@
         "hash": "794e54ceb2c2"
       }
     }
+  },
+  "Ep7Mental": {
+    "voice": {
+      "voiceId": "IHngRooVccHyPqB4uQkG",
+      "modelId": "eleven_v4",
+      "lines": [
+        {
+          "index": 0,
+          "hash": "a5e62731e006",
+          "file": "voiceover/Ep7Mental/00-a5e62731e006.mp3",
+          "speechStart": 0.08,
+          "duration": 2.56,
+          "wordStarts": [
+            0.08,
+            0.24,
+            0.4,
+            0.76,
+            0.92,
+            1.28,
+            1.52,
+            1.84,
+            2,
+            2.48
+          ]
+        },
+        {
+          "index": 1,
+          "hash": "46ce1c43d78c",
+          "file": "voiceover/Ep7Mental/01-46ce1c43d78c.mp3",
+          "speechStart": 0.16,
+          "duration": 3.36,
+          "wordStarts": [
+            0.16,
+            0.32,
+            0.4,
+            1.12,
+            1.28,
+            1.6,
+            2.08,
+            2.24,
+            2.533,
+            2.8
+          ]
+        },
+        {
+          "index": 2,
+          "hash": "1fb72727c1e1",
+          "file": "voiceover/Ep7Mental/02-1fb72727c1e1.mp3",
+          "speechStart": 0.16,
+          "duration": 3.04,
+          "wordStarts": [
+            0.16,
+            0.56,
+            0.72,
+            0.96,
+            1.36,
+            1.76,
+            1.96,
+            2.24
+          ]
+        },
+        {
+          "index": 3,
+          "hash": "cded53c50418",
+          "file": "voiceover/Ep7Mental/03-cded53c50418.mp3",
+          "speechStart": 0.08,
+          "duration": 2.24,
+          "wordStarts": [
+            0.08,
+            0.56,
+            0.64,
+            0.8,
+            1.2,
+            1.36,
+            1.6,
+            2
+          ]
+        },
+        {
+          "index": 4,
+          "hash": "fb496bc5730b",
+          "file": "voiceover/Ep7Mental/04-fb496bc5730b.mp3",
+          "speechStart": 0,
+          "duration": 2.4,
+          "wordStarts": [
+            0,
+            0.2,
+            0.36,
+            0.48,
+            0.96,
+            1.2,
+            1.36,
+            1.6,
+            1.787,
+            2.32
+          ]
+        },
+        {
+          "index": 5,
+          "hash": "1765894a6c20",
+          "file": "voiceover/Ep7Mental/05-1765894a6c20.mp3",
+          "speechStart": 0,
+          "duration": 2.96,
+          "wordStarts": [
+            0,
+            0.24,
+            0.4,
+            0.72,
+            1.04,
+            1.16,
+            1.72,
+            1.88,
+            2,
+            2.16,
+            2.64
+          ]
+        },
+        {
+          "index": 6,
+          "hash": "bbf2dc99c8c5",
+          "file": "voiceover/Ep7Mental/06-bbf2dc99c8c5.mp3",
+          "speechStart": 0.08,
+          "duration": 3.44,
+          "wordStarts": [
+            0.08,
+            0.2,
+            0.56,
+            0.693,
+            0.92,
+            1.04,
+            1.28,
+            1.653,
+            1.84,
+            2,
+            2.2,
+            2.4,
+            2.587,
+            2.8
+          ]
+        },
+        {
+          "index": 7,
+          "hash": "cc93ecd44045",
+          "file": "voiceover/Ep7Mental/07-cc93ecd44045.mp3",
+          "speechStart": 0.14,
+          "duration": 1.92,
+          "wordStarts": [
+            0.14,
+            0.64,
+            0.72,
+            1.28,
+            1.68
+          ]
+        },
+        {
+          "index": 8,
+          "hash": "e24d84dcd262",
+          "file": "voiceover/Ep7Mental/08-e24d84dcd262.mp3",
+          "speechStart": 0,
+          "duration": 2.48,
+          "wordStarts": [
+            0,
+            0.16,
+            0.48,
+            0.76,
+            1.12,
+            1.52,
+            2.08
+          ]
+        },
+        {
+          "index": 9,
+          "hash": "13af5f5bd051",
+          "file": "voiceover/Ep7Mental/09-13af5f5bd051.mp3",
+          "speechStart": 0,
+          "duration": 5.28,
+          "wordStarts": [
+            0,
+            0.4,
+            0.76,
+            1.04,
+            1.44,
+            2.16,
+            2.213,
+            2.52,
+            2.92,
+            3.28,
+            3.44,
+            3.76,
+            3.92,
+            4.04,
+            4.16,
+            4.28
+          ]
+        },
+        {
+          "index": 10,
+          "hash": "ba7af523e2c9",
+          "file": "voiceover/Ep7Mental/10-ba7af523e2c9.mp3",
+          "speechStart": 0.133,
+          "duration": 2.56,
+          "wordStarts": [
+            0.133,
+            0.72,
+            0.88,
+            1,
+            1.28,
+            1.64,
+            1.8,
+            1.92,
+            2.16
+          ]
+        },
+        {
+          "index": 11,
+          "hash": "8662b1b4086e",
+          "file": "voiceover/Ep7Mental/11-8662b1b4086e.mp3",
+          "speechStart": 0,
+          "duration": 4.24,
+          "wordStarts": [
+            0,
+            0.16,
+            0.32,
+            0.68,
+            0.8,
+            0.96,
+            1.12,
+            1.76,
+            1.88,
+            2.08,
+            2.28,
+            2.52,
+            2.8,
+            3.16,
+            3.28,
+            4.16
+          ]
+        },
+        {
+          "index": 12,
+          "hash": "02179e23d7a3",
+          "file": "voiceover/Ep7Mental/12-02179e23d7a3.mp3",
+          "speechStart": 0,
+          "duration": 2.8,
+          "wordStarts": [
+            0,
+            0.24,
+            0.72,
+            1.16,
+            1.28,
+            1.68,
+            1.787,
+            2,
+            2.72
+          ]
+        },
+        {
+          "index": 13,
+          "hash": "1682b7d50e98",
+          "file": "voiceover/Ep7Mental/13-1682b7d50e98.mp3",
+          "speechStart": 0.16,
+          "duration": 3.92,
+          "wordStarts": [
+            0.16,
+            0.48,
+            0.92,
+            1.013,
+            1.2,
+            1.32,
+            1.44,
+            1.92,
+            1.973,
+            2.08,
+            2.56,
+            2.84,
+            3,
+            3.12
+          ]
+        },
+        {
+          "index": 14,
+          "hash": "74d93f3d859e",
+          "file": "voiceover/Ep7Mental/14-74d93f3d859e.mp3",
+          "speechStart": 0.133,
+          "duration": 3.36,
+          "wordStarts": [
+            0.133,
+            0.24,
+            0.613,
+            0.76,
+            0.88,
+            1.04,
+            1.48,
+            1.64,
+            1.84,
+            2.32,
+            2.373,
+            2.6,
+            2.8,
+            3.2
+          ]
+        }
+      ]
+    },
+    "sounds": {
+      "softHit": {
+        "file": "sfx/softHit-15324694023e.mp3",
+        "hash": "15324694023e"
+      },
+      "softWhoosh": {
+        "file": "sfx/softWhoosh-99b2a87a740e.mp3",
+        "hash": "99b2a87a740e"
+      },
+      "softTick": {
+        "file": "sfx/softTick-34311ac44630.mp3",
+        "hash": "34311ac44630"
+      },
+      "click": {
+        "file": "sfx/click-794e54ceb2c2.mp3",
+        "hash": "794e54ceb2c2"
+      }
+    }
   }
 }
