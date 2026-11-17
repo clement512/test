@@ -21,17 +21,21 @@ export const RemotionRoot: React.FC = () => (
       const audio = AUDIO[raw.meta.id] ?? null;
       const { map, duration, placed } = buildTimeMap(raw, audio);
       const script = retimeScript(raw, map);
+      const common = {
+        component: TacticalVideo,
+        durationInFrames: Math.ceil(duration * raw.meta.fps),
+        fps: raw.meta.fps,
+        width: raw.meta.width,
+        height: raw.meta.height,
+      };
       return (
-        <Composition
-          key={raw.meta.id}
-          id={raw.meta.id}
-          component={TacticalVideo}
-          durationInFrames={Math.ceil(duration * raw.meta.fps)}
-          fps={raw.meta.fps}
-          width={raw.meta.width}
-          height={raw.meta.height}
-          defaultProps={{ script, voice: placed, audio }}
-        />
+        <React.Fragment key={raw.meta.id}>
+          <Composition id={raw.meta.id} {...common} defaultProps={{ script, voice: placed, audio, noMusic: false }} />
+          {/* Variante sans musique (même minutage) pour ajouter le son directement dans TikTok */}
+          {raw.meta.music && (
+            <Composition id={`${raw.meta.id}SansMusique`} {...common} defaultProps={{ script, voice: placed, audio, noMusic: true }} />
+          )}
+        </React.Fragment>
       );
     })}
   </>

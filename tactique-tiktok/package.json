@@ -14,7 +14,9 @@
     "render:demo": "remotion render TactiqueDemo out/tactique-demo.mp4",
     "render:ep2": "remotion render Ep2Numero9 out/ep2-numero-9.mp4 && bash scripts/finalize.sh out/ep2-numero-9.mp4",
     "finalize": "bash scripts/finalize.sh",
-    "render:ep3": "remotion render Ep3Pressing out/ep3-pressing.mp4 && bash scripts/finalize.sh out/ep3-pressing.mp4"
+    "render:ep3": "remotion render Ep3Pressing out/ep3-pressing.mp4 && bash scripts/finalize.sh out/ep3-pressing.mp4",
+    "render:ep3:sans-musique": "remotion render Ep3PressingSansMusique out/ep3-pressing-sans-musique.mp4 && bash scripts/finalize.sh out/ep3-pressing-sans-musique.mp4",
+    "render:ep2:sans-musique": "remotion render Ep2Numero9SansMusique out/ep2-numero-9-sans-musique.mp4 && bash scripts/finalize.sh out/ep2-numero-9-sans-musique.mp4"
   },
   "license": "UNLICENSED",
   "dependencies": {

@@ -145,7 +145,9 @@ export const TacticalVideo: React.FC<{
   script: ScriptData;
   voice?: PlacedVoiceLine[];
   audio?: GeneratedAudio | null;
-}> = ({ script, voice = [], audio }) => {
+  /** Coupe la musique (même minutage) : version à publier avec le son ajouté dans TikTok. */
+  noMusic?: boolean;
+}> = ({ script, voice = [], audio, noMusic = false }) => {
   const { fps, durationInFrames } = useVideoConfig();
   const sounds = resolveSounds(script.meta.sounds);
   const rawPunches = script.meta.wordPunches === false ? [] : wordPunches(script, voice);
@@ -201,7 +203,7 @@ export const TacticalVideo: React.FC<{
         {script.meta.audio && <Audio src={staticFile(script.meta.audio)} />}
 
         {/* Musique de fond (optionnelle) : fichier fourni ou morceau généré, avec ducking sous la voix */}
-        {music && (music.file || audio?.music) && (
+        {!noMusic && music && (music.file || audio?.music) && (
           <Audio
             src={staticFile(music.file ?? audio!.music!.file)}
             trimBefore={Math.round((music.file ? (music.offset ?? 0) : 0) * fps)}
