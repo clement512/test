@@ -3079,5 +3079,358 @@
         85.844
       ]
     }
+  },
+  "Ep6Ailiers": {
+    "voice": {
+      "voiceId": "IHngRooVccHyPqB4uQkG",
+      "modelId": "eleven_v4",
+      "lines": [
+        {
+          "index": 0,
+          "hash": "0cb52fdbf765",
+          "file": "voiceover/Ep6Ailiers/00-0cb52fdbf765.mp3",
+          "speechStart": 0.08,
+          "duration": 2.08,
+          "wordStarts": [
+            0.08,
+            0.32,
+            0.64,
+            0.933,
+            1.12,
+            1.24,
+            1.4,
+            1.6,
+            2
+          ]
+        },
+        {
+          "index": 1,
+          "hash": "99da2cf73303",
+          "file": "voiceover/Ep6Ailiers/01-99da2cf73303.mp3",
+          "speechStart": 0,
+          "duration": 3.52,
+          "wordStarts": [
+            0,
+            0.24,
+            0.84,
+            0.92,
+            1.08,
+            1.2,
+            1.44,
+            2.053,
+            2.24,
+            2.4,
+            2.64,
+            2.76,
+            3.2
+          ]
+        },
+        {
+          "index": 2,
+          "hash": "b416a7d1a8d9",
+          "file": "voiceover/Ep6Ailiers/02-b416a7d1a8d9.mp3",
+          "speechStart": 0.16,
+          "duration": 2.4,
+          "wordStarts": [
+            0.16,
+            0.533,
+            1.16,
+            1.48,
+            1.6,
+            1.733
+          ]
+        },
+        {
+          "index": 3,
+          "hash": "bc69b94a9fd8",
+          "file": "voiceover/Ep6Ailiers/03-bc69b94a9fd8.mp3",
+          "speechStart": 0,
+          "duration": 5.52,
+          "wordStarts": [
+            0,
+            0.16,
+            0.4,
+            0.68,
+            1.2,
+            1.307,
+            1.4,
+            2.28,
+            2.4,
+            2.8,
+            2.987,
+            3.12,
+            3.4,
+            3.52,
+            3.92,
+            4.32,
+            4.48,
+            4.6,
+            4.72,
+            4.84
+          ]
+        },
+        {
+          "index": 4,
+          "hash": "429af0940193",
+          "file": "voiceover/Ep6Ailiers/04-429af0940193.mp3",
+          "speechStart": 0,
+          "duration": 4.8,
+          "wordStarts": [
+            0,
+            0.16,
+            0.56,
+            0.88,
+            1.08,
+            1.52,
+            1.8,
+            1.92,
+            2.56,
+            2.84,
+            3,
+            3.2,
+            3.56,
+            3.68,
+            4.04
+          ]
+        },
+        {
+          "index": 5,
+          "hash": "a3531d2e1b65",
+          "file": "voiceover/Ep6Ailiers/05-a3531d2e1b65.mp3",
+          "speechStart": 0.133,
+          "duration": 2.08,
+          "wordStarts": [
+            0.133,
+            0.48,
+            0.96,
+            1.04,
+            1.44,
+            1.76
+          ]
+        },
+        {
+          "index": 6,
+          "hash": "92dd80aaf80d",
+          "file": "voiceover/Ep6Ailiers/06-92dd80aaf80d.mp3",
+          "speechStart": 0,
+          "duration": 4.08,
+          "wordStarts": [
+            0,
+            0.24,
+            0.52,
+            0.64,
+            0.96,
+            1.28,
+            1.4,
+            1.52,
+            2.24,
+            2.4,
+            2.88,
+            2.96,
+            3.12,
+            3.68
+          ]
+        },
+        {
+          "index": 7,
+          "hash": "ba7b92caf2f2",
+          "file": "voiceover/Ep6Ailiers/07-ba7b92caf2f2.mp3",
+          "speechStart": 0.133,
+          "duration": 1.6,
+          "wordStarts": [
+            0.133,
+            0.4,
+            0.96,
+            1.013,
+            1.2,
+            1.44
+          ]
+        },
+        {
+          "index": 8,
+          "hash": "20ea42dd93d1",
+          "file": "voiceover/Ep6Ailiers/08-20ea42dd93d1.mp3",
+          "speechStart": 0,
+          "duration": 5.36,
+          "wordStarts": [
+            0,
+            0.2,
+            0.32,
+            0.88,
+            1.28,
+            1.4,
+            1.84,
+            2.04,
+            2.48,
+            2.96,
+            3.067,
+            4.02,
+            4.06,
+            4.24,
+            4.4,
+            5.28
+          ]
+        },
+        {
+          "index": 9,
+          "hash": "f27dc3f9f6b8",
+          "file": "voiceover/Ep6Ailiers/09-f27dc3f9f6b8.mp3",
+          "speechStart": 0,
+          "duration": 5.04,
+          "wordStarts": [
+            0,
+            0.2,
+            0.32,
+            0.96,
+            1.2,
+            1.28,
+            2.08,
+            2.6,
+            2.84,
+            3,
+            3.4,
+            3.52,
+            4,
+            4.12,
+            4.24,
+            4.56,
+            4.64
+          ]
+        },
+        {
+          "index": 10,
+          "hash": "9e939750c673",
+          "file": "voiceover/Ep6Ailiers/10-9e939750c673.mp3",
+          "speechStart": 0.133,
+          "duration": 1.92,
+          "wordStarts": [
+            0.133,
+            0.4,
+            0.88,
+            0.96,
+            1.2,
+            1.76
+          ]
+        },
+        {
+          "index": 11,
+          "hash": "36af9ab6781f",
+          "file": "voiceover/Ep6Ailiers/11-36af9ab6781f.mp3",
+          "speechStart": 0,
+          "duration": 5.04,
+          "wordStarts": [
+            0,
+            0.48,
+            0.64,
+            0.88,
+            1.04,
+            1.2,
+            1.6,
+            1.92,
+            2.12,
+            2.32,
+            2.76,
+            2.92,
+            3.2,
+            3.4,
+            3.8,
+            3.92,
+            4.08,
+            4.4,
+            4.64
+          ]
+        },
+        {
+          "index": 12,
+          "hash": "409380082d74",
+          "file": "voiceover/Ep6Ailiers/12-409380082d74.mp3",
+          "speechStart": 0.08,
+          "duration": 3.6,
+          "wordStarts": [
+            0.08,
+            0.24,
+            0.64,
+            0.88,
+            1.12,
+            1.6,
+            1.707,
+            1.92,
+            2.24,
+            2.84,
+            2.96
+          ]
+        },
+        {
+          "index": 13,
+          "hash": "4062454f1158",
+          "file": "voiceover/Ep6Ailiers/13-4062454f1158.mp3",
+          "speechStart": 0,
+          "duration": 1.76,
+          "wordStarts": [
+            0,
+            0.187,
+            0.56,
+            0.64,
+            1.08,
+            1.68
+          ]
+        },
+        {
+          "index": 14,
+          "hash": "d0f7b138b73c",
+          "file": "voiceover/Ep6Ailiers/14-d0f7b138b73c.mp3",
+          "speechStart": 0.08,
+          "duration": 3.52,
+          "wordStarts": [
+            0.08,
+            0.4,
+            0.6,
+            0.8,
+            0.96,
+            1.56,
+            1.72,
+            1.88,
+            2.16,
+            2.56,
+            3.2
+          ]
+        },
+        {
+          "index": 15,
+          "hash": "400cb5b5ddce",
+          "file": "voiceover/Ep6Ailiers/15-400cb5b5ddce.mp3",
+          "speechStart": 0.08,
+          "duration": 2.56,
+          "wordStarts": [
+            0.08,
+            0.6,
+            0.72,
+            1.12,
+            1.28,
+            1.44,
+            1.76,
+            2.32
+          ]
+        }
+      ]
+    },
+    "sounds": {
+      "softHit": {
+        "file": "sfx/softHit-15324694023e.mp3",
+        "hash": "15324694023e"
+      },
+      "softWhoosh": {
+        "file": "sfx/softWhoosh-99b2a87a740e.mp3",
+        "hash": "99b2a87a740e"
+      },
+      "softTick": {
+        "file": "sfx/softTick-34311ac44630.mp3",
+        "hash": "34311ac44630"
+      },
+      "click": {
+        "file": "sfx/click-794e54ceb2c2.mp3",
+        "hash": "794e54ceb2c2"
+      }
+    }
   }
 }

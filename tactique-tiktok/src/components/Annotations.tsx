@@ -32,7 +32,8 @@ export const Callout: React.FC<{ def: CalloutDef }> = ({ def }) => {
     const s = size * 1.45;
     return (
       <g transform={`translate(${p.x} ${p.y}) scale(${pop})`} opacity={vis}>
-        <rect x={-s / 2} y={-s / 2} width={s} height={s} rx={6} fill={color} filter="url(#glow-md)" />
+        {/* Largeur automatique : carré pour un chiffre, pastille élargie pour un texte plus long */}
+        <rect x={-Math.max(s, def.text.length * size * 0.68 + 26) / 2} y={-s / 2} width={Math.max(s, def.text.length * size * 0.68 + 26)} height={s} rx={6} fill={color} filter="url(#glow-md)" />
         <text textAnchor="middle" dominantBaseline="central" y={2} fontFamily={FONT_DISPLAY} fontWeight={900} fontSize={size} fill="#08111d">
           {def.text}
         </text>
