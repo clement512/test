@@ -5,6 +5,7 @@ import { resolveSounds } from "./audioLibrary";
 import { displayWords, normWord } from "./lib/words";
 import { COLORS, WORLD } from "./theme";
 import { ScriptProvider } from "./lib/ScriptContext";
+import { snapToBeat, videoBeats } from "./lib/retime";
 import { getBallState, getPlayerPos, isActive } from "./lib/timeline";
 import { toPx } from "./theme";
 import { CameraRig } from "./components/CameraRig";
@@ -119,14 +120,23 @@ const wordPunches = (script: ScriptData, voice: PlacedVoiceLine[]) =>
       .map(({ i }) => l.start + l.wordStarts![i]);
   });
 
-/** Musique éventuelle : fondu d'entrée/sortie et baisse automatique sous la voix (ducking). */
-const musicVolume = (voice: PlacedVoiceLine[], base: number, fps: number, total: number) =>
+/**
+ * Volume de la musique : fondus d'entrée/sortie et ducking progressif sous la voix
+ * (rampe de 0,15 s avant/après chaque phrase, pour ne pas "pomper" brutalement).
+ */
+const musicVolume = (voice: PlacedVoiceLine[], base: number, duck: number, fps: number, total: number) =>
   (f: number) => {
     const t = f / fps;
-    const speaking = voice.some((l) => t >= l.start + l.speechStart - 0.1 && t <= l.start + l.duration + 0.15);
-    const level = speaking ? base * 0.62 : base;
-    const fadeIn = Math.min(1, t / 0.4);
-    const fadeOut = Math.min(1, Math.max(0, (total - t) / 1.0));
+    let amount = 0;
+    for (const l of voice) {
+      const a = l.start + l.speechStart - 0.08;
+      const b = l.start + l.duration + 0.12;
+      const d = t < a ? a - t : t > b ? t - b : 0;
+      amount = Math.max(amount, Math.max(0, 1 - d / 0.15));
+    }
+    const level = base * (1 - (1 - duck) * amount);
+    const fadeIn = Math.min(1, t / 0.3);
+    const fadeOut = Math.min(1, Math.max(0, (total - t) / 1.2));
     return level * fadeIn * fadeOut;
   };
 
@@ -138,15 +148,23 @@ export const TacticalVideo: React.FC<{
 }> = ({ script, voice = [], audio }) => {
   const { fps, durationInFrames } = useVideoConfig();
   const sounds = resolveSounds(script.meta.sounds);
-  const punches = script.meta.wordPunches === false ? [] : wordPunches(script, voice);
+  const rawPunches = script.meta.wordPunches === false ? [] : wordPunches(script, voice);
   const at = (x: { at?: number; cue?: Cue }) => (x.cue ? cueTime(script, voice, x.cue) : (x.at ?? 0));
 
+  // Calage rythmique (musique fournie) : événements aimantés au temps le plus proche
+  const music = script.meta.music;
+  const beats = music?.file && music.beatSync ? videoBeats(script, audio) : [];
+  const snapWin = music?.beatSync?.snap ?? 0.15;
+  const snap = (t: number) => (beats.length ? snapToBeat(t, beats, snapWin) : t);
+  const punches = rawPunches.map(snap);
+  const chapters = script.chapters.map((c) => ({ ...c, from: snap(c.from) }));
+
   const stamps = (script.stamps ?? []).map((st) => {
-    const from = at(st);
+    const from = snap(at(st));
     return { ...st, from, to: from + (st.hold ?? 1.3) };
   });
   const sfx = [
-    ...(script.sfx ?? []).map((x) => ({ t: at(x), sound: x.sound, volume: x.volume })),
+    ...(script.sfx ?? []).map((x) => ({ t: snap(at(x)), sound: x.sound, volume: x.volume })),
     ...stamps.filter((st) => st.sound !== false).map((st) => ({ t: st.from - 0.02, sound: (st.sound || script.meta.stampSound || "stamp") as string, volume: undefined })),
   ];
 
@@ -172,7 +190,7 @@ export const TacticalVideo: React.FC<{
         {stamps.map((st, i) => (
           <KeywordStamp key={`st${i}`} text={st.text} color={st.color} from={st.from} to={st.to} y={st.y} rotate={st.rotate} />
         ))}
-        {script.chapters.map((d, i) => (
+        {chapters.map((d, i) => (
           <ChapterBanner key={`ch${i}`} def={d} />
         ))}
         {script.outro && <Outro def={script.outro} handle={script.meta.handle} />}
@@ -182,9 +200,13 @@ export const TacticalVideo: React.FC<{
 
         {script.meta.audio && <Audio src={staticFile(script.meta.audio)} />}
 
-        {/* Musique de fond (optionnelle : seulement si meta.music est défini) */}
-        {script.meta.music && audio?.music && (
-          <Audio src={staticFile(audio.music.file)} volume={musicVolume(voice, script.meta.music.volume ?? 0.2, fps, durationInFrames / fps)} />
+        {/* Musique de fond (optionnelle) : fichier fourni ou morceau généré, avec ducking sous la voix */}
+        {music && (music.file || audio?.music) && (
+          <Audio
+            src={staticFile(music.file ?? audio!.music!.file)}
+            trimBefore={Math.round((music.file ? (music.offset ?? 0) : 0) * fps)}
+            volume={musicVolume(voice, music.volume ?? 0.2, music.duck ?? 0.35, fps, durationInFrames / fps)}
+          />
         )}
 
         {/* Voix off : un clip par réplique, placé après recalage */}

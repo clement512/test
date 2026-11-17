@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 import { VIDEOS } from "../src/videos";
 import { resolveSounds } from "../src/audioLibrary";
 import { buildTimeMap } from "../src/lib/retime";
+import { analyzeBeats } from "./beats";
 import { displayWords, normWord, plainText, spaceTokens } from "../src/lib/words";
 import type { GeneratedAudio, ScriptData, SubtitleDef, VoiceLine } from "../src/types";
 
@@ -338,7 +339,7 @@ const genSounds = async (s: ScriptData, prev?: GeneratedAudio["sounds"]) => {
 // ---------------------------------------------------------------------------
 
 const genMusic = async (s: ScriptData, seconds: number, prev?: GeneratedAudio["music"]) => {
-  const m = s.meta.music!;
+  const m = s.meta.music! as { prompt: string };
   const len = Math.ceil(seconds + 1);
   const hash = hashOf([m.prompt, len]);
   const file = `music/${s.meta.id}-${hash}.mp3`;
@@ -379,8 +380,21 @@ const run = async () => {
     const { duration } = buildTimeMap(s, audio);
     console.log(`  durée finale de la vidéo : ${duration.toFixed(2)} s`);
     if (duration > 61) console.warn("  ⚠ plus de 61 s : raccourcis le texte ou retire des répliques.");
-    if (s.meta.music) audio.music = await genMusic(s, duration, prev.music);
-    else if (prev.music?.file && existsSync(publicPath(prev.music.file))) {
+    if (s.meta.music?.file) {
+      // Morceau fourni : analyse du rythme (mise en cache par contenu du fichier)
+      const mf = publicPath(s.meta.music.file);
+      if (!existsSync(mf)) throw new Error(`Musique introuvable : ${mf}`);
+      const h = createHash("sha1").update(readFileSync(mf)).digest("hex").slice(0, 12);
+      if (!FORCE && prev.beats?.hash === h) audio.beats = prev.beats;
+      else {
+        const b = analyzeBeats(mf);
+        audio.beats = { hash: h, bpm: b.bpm, beats: b.beats };
+      }
+      console.log(`  musique fournie : ${audio.beats.bpm} BPM, ${audio.beats.beats.length} temps détectés`);
+      // La durée peut avoir changé avec le calage rythmique
+      console.log(`  durée finale (calée sur le rythme) : ${buildTimeMap(s, audio).duration.toFixed(2)} s`);
+    } else if (s.meta.music?.prompt) audio.music = await genMusic(s, duration, prev.music);
+    if (!s.meta.music?.prompt && prev.music?.file && existsSync(publicPath(prev.music.file))) {
       unlinkSync(publicPath(prev.music.file));
       console.log("  musique retirée (meta.music absent)");
     }

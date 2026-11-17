@@ -289,9 +289,22 @@ export type VoiceConfig = {
 };
 
 export type MusicConfig = {
-  prompt: string;
-  /** Volume de base (0 → 1). Défaut : 0.2. Baissé automatiquement sous la voix. */
+  /** Musique générée par ElevenLabs Music à partir de ce prompt… */
+  prompt?: string;
+  /** …ou un fichier fourni, placé dans /public (ex: "music/mon-son.mp3"). */
+  file?: string;
+  /** Instant (s) du morceau qui correspond au début de la vidéo. Défaut : 0. */
+  offset?: number;
+  /** Volume de base (0 → 1). Défaut : 0.2. */
   volume?: number;
+  /** Facteur appliqué quand la voix parle (ducking). Défaut : 0.35. */
+  duck?: number;
+  /**
+   * Calage sur le rythme du morceau (fichier `file` uniquement) :
+   * - `lines` : chaque phrase démarre sur un temps si cela demande au plus `maxDelay` s de décalage ;
+   * - `snap` : mots-tampons, bandeaux, punchs et bruitages aimantés au temps le plus proche (± `snap` s).
+   */
+  beatSync?: { lines?: boolean; maxDelay?: number; snap?: number };
 };
 
 export type SoundDef = { prompt: string; duration: number; volume?: number };
@@ -321,4 +334,6 @@ export type GeneratedAudio = {
   voice?: { voiceId: string; modelId: string; lines: VoiceLine[] };
   sounds?: Record<string, { file: string; hash: string }>;
   music?: { file: string; hash: string; seconds: number };
+  /** Grille rythmique du morceau (instants dans le morceau, en s). */
+  beats?: { hash: string; bpm: number; beats: number[] };
 };

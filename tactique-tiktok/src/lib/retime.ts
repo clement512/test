@@ -12,6 +12,26 @@ import type { GeneratedAudio, PlacedVoiceLine, ScriptData, Timed } from "../type
 
 type Knot = { s: number; v: number };
 
+/** Temps du morceau ramenés au temps vidéo (offset retiré). */
+export const videoBeats = (script: ScriptData, audio?: GeneratedAudio | null) => {
+  const off = script.meta.music?.offset ?? 0;
+  return (audio?.beats?.beats ?? []).map((t) => t - off).filter((t) => t >= 0);
+};
+
+/** Aimante un instant au temps le plus proche (± window s). */
+export const snapToBeat = (t: number, beats: number[], window: number) => {
+  let best = t;
+  let d = window;
+  for (const b of beats) {
+    const x = Math.abs(b - t);
+    if (x <= d) {
+      d = x;
+      best = b;
+    }
+  }
+  return best;
+};
+
 export const buildTimeMap = (script: ScriptData, audio?: GeneratedAudio | null) => {
   const lines = audio?.voice?.lines ?? [];
   const subs = script.subtitles;
@@ -37,9 +57,18 @@ export const buildTimeMap = (script: ScriptData, audio?: GeneratedAudio | null) 
   // le "temps scénario" de la réplique est calé sur le début réel de la parole.
   let cursor = Math.max(0, subs[0].from - lines.find((l) => l.index === 0)!.speechStart);
   let v = 0;
+  const bs = script.meta.music?.beatSync;
+  const beats = bs?.lines !== false ? videoBeats(script, audio) : [];
+  const maxDelay = bs?.maxDelay ?? 0.22;
   for (let i = 0; i < subs.length; i++) {
     const line = lines.find((l) => l.index === i)!;
-    const start = cursor;
+    let start = cursor;
+    // Calage rythmique : la parole démarre sur le prochain temps s'il est proche
+    if (beats.length) {
+      const sp = start + line.speechStart;
+      const b = beats.find((t) => t >= sp - 0.02);
+      if (b !== undefined && b - sp <= maxDelay) start += Math.max(0, b - sp);
+    }
     v = start + line.speechStart;
     knots.push({ s: subs[i].from, v });
     placed.push({ ...line, start });
