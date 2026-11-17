@@ -17,6 +17,7 @@ import { Callout, IconMarker, MeasureLine, PlayerTag } from "./components/Annota
 import { HUD } from "./components/HUD";
 import { Agenda, ChapterBanner, KeywordStamp, KineticSubtitles, TitleCard, TopPill } from "./components/Typography";
 import { Outro, TransitionFlash } from "./components/Outro";
+import { Compare } from "./components/Compare";
 
 /** Couche "monde" (dans la caméra) : terrain, zones, flèches, joueurs, annotations. */
 const World: React.FC<{ script: ScriptData }> = ({ script }) => {
@@ -191,6 +192,9 @@ export const TacticalVideo: React.FC<{
         ))}
         {stamps.map((st, i) => (
           <KeywordStamp key={`st${i}`} text={st.text} color={st.color} from={st.from} to={st.to} y={st.y} rotate={st.rotate} />
+        ))}
+        {(script.compare ?? []).map((d, i) => (
+          <Compare key={`cmp${i}`} def={d} />
         ))}
         {chapters.map((d, i) => (
           <ChapterBanner key={`ch${i}`} def={d} />

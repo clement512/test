@@ -177,6 +177,18 @@ export type StampDef = {
   sound?: string | false;
 };
 
+/** Un panneau de l'écran partagé : titre, formation en points (mètres), sous-titre. */
+export type ComparePanel = { title: string; subtitle?: string; color: NeonColor; dots: Point[] };
+
+/** Écran partagé comparant deux formations, avec une légende en gros. */
+export type CompareDef = Timed & {
+  left: ComparePanel;
+  right: ComparePanel;
+  caption?: string;
+  captionColor?: NeonColor;
+  captionAt?: number;
+};
+
 /** Sommaire des chapitres (pilules empilées). */
 export type AgendaDef = Timed & {
   items: { number: string; title: string; color: NeonColor }[];
@@ -261,6 +273,7 @@ export type ScriptData = {
   titleCards: TitleCardDef[];
   stamps?: StampDef[];
   agenda?: AgendaDef[];
+  compare?: CompareDef[];
   sfx?: SfxDef[];
   outro?: OutroDef;
 };

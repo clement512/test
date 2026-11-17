@@ -124,6 +124,7 @@ export const retimeScript = (script: ScriptData, map: (t: number) => number): Sc
     sfx: script.sfx?.map((x) => (x.at === undefined ? x : { ...x, at: map(x.at) })),
     stamps: script.stamps?.map((x) => (x.at === undefined ? x : { ...x, at: map(x.at) })),
     agenda: script.agenda?.map(T),
+    compare: script.compare?.map((c) => ({ ...T(c), captionAt: c.captionAt === undefined ? undefined : map(c.captionAt) })),
     outro: script.outro && { ...script.outro, from: map(script.outro.from), clickAt: map(script.outro.clickAt) },
   };
 };
