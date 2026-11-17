@@ -315,8 +315,9 @@ const genSounds = async (s: ScriptData, prev?: GeneratedAudio["sounds"]) => {
     if (!def) throw new Error(`Son inconnu dans sfx : "${name}" (voir src/audioLibrary.ts)`);
     const hash = hashOf([def.prompt, def.duration]);
     const file = `sfx/${name}-${hash}.mp3`;
-    if (!FORCE && prev?.[name]?.hash === hash && existsSync(publicPath(file))) {
-      out[name] = prev[name];
+    // Bibliothèque partagée entre vidéos : un son déjà généré (même hash) est réutilisé
+    if (!FORCE && existsSync(publicPath(file))) {
+      out[name] = { file, hash };
       console.log(`  sfx ${name} (cache)`);
       continue;
     }

@@ -945,5 +945,443 @@
         "hash": "ae15bc197533"
       }
     }
+  },
+  "Ep2Numero9": {
+    "voice": {
+      "voiceId": "IHngRooVccHyPqB4uQkG",
+      "modelId": "eleven_v4",
+      "lines": [
+        {
+          "index": 0,
+          "hash": "d5754b665813",
+          "file": "voiceover/Ep2Numero9/00-d5754b665813.mp3",
+          "speechStart": 0.069,
+          "duration": 2.72,
+          "wordStarts": [
+            0.069,
+            0.2,
+            0.32,
+            0.52,
+            0.8,
+            1.08,
+            1.2,
+            1.52,
+            1.76,
+            1.92,
+            2,
+            2.64
+          ]
+        },
+        {
+          "index": 1,
+          "hash": "0b7d084b15ca",
+          "file": "voiceover/Ep2Numero9/01-0b7d084b15ca.mp3",
+          "speechStart": 0,
+          "duration": 2.88,
+          "wordStarts": [
+            0,
+            0.4,
+            0.693,
+            0.88,
+            1.2,
+            1.72,
+            1.84,
+            2.16,
+            2.347,
+            2.56
+          ]
+        },
+        {
+          "index": 2,
+          "hash": "4c75e0f03329",
+          "file": "voiceover/Ep2Numero9/02-4c75e0f03329.mp3",
+          "speechStart": 0.16,
+          "duration": 0.96,
+          "wordStarts": [
+            0.16,
+            0.4,
+            0.64
+          ]
+        },
+        {
+          "index": 3,
+          "hash": "be145426a2af",
+          "file": "voiceover/Ep2Numero9/03-be145426a2af.mp3",
+          "speechStart": 0.16,
+          "duration": 4.08,
+          "wordStarts": [
+            0.16,
+            0.28,
+            0.4,
+            0.64,
+            1.227,
+            1.36,
+            1.6,
+            2,
+            2.32,
+            2.44,
+            2.56,
+            3.093,
+            3.28,
+            3.44
+          ]
+        },
+        {
+          "index": 4,
+          "hash": "3c565ee62e5f",
+          "file": "voiceover/Ep2Numero9/04-3c565ee62e5f.mp3",
+          "speechStart": 0,
+          "duration": 3.12,
+          "wordStarts": [
+            0,
+            0.48,
+            0.64,
+            1,
+            1.44,
+            1.8,
+            1.92,
+            2.08
+          ]
+        },
+        {
+          "index": 5,
+          "hash": "5a8bd4b464fa",
+          "file": "voiceover/Ep2Numero9/05-5a8bd4b464fa.mp3",
+          "speechStart": 0.08,
+          "duration": 2.32,
+          "wordStarts": [
+            0.08,
+            0.64,
+            0.72,
+            0.88,
+            1.44,
+            1.56,
+            2.16
+          ]
+        },
+        {
+          "index": 6,
+          "hash": "8d44c2ca7cda",
+          "file": "voiceover/Ep2Numero9/06-8d44c2ca7cda.mp3",
+          "speechStart": 0,
+          "duration": 5.28,
+          "wordStarts": [
+            0,
+            0.16,
+            0.64,
+            0.96,
+            1.12,
+            1.44,
+            1.8,
+            1.92,
+            2.4,
+            2.56,
+            3.2,
+            3.4,
+            3.52,
+            4.08,
+            4.4
+          ]
+        },
+        {
+          "index": 7,
+          "hash": "c18d1f4963a7",
+          "file": "voiceover/Ep2Numero9/07-c18d1f4963a7.mp3",
+          "speechStart": 0,
+          "duration": 4.88,
+          "wordStarts": [
+            0,
+            0.16,
+            0.32,
+            0.72,
+            1.36,
+            1.6,
+            1.84,
+            1.92,
+            2.08,
+            2.24,
+            2.56,
+            2.76,
+            3.16,
+            3.28,
+            3.48,
+            3.88,
+            4.12,
+            4.24
+          ]
+        },
+        {
+          "index": 8,
+          "hash": "adf90a13cc50",
+          "file": "voiceover/Ep2Numero9/08-adf90a13cc50.mp3",
+          "speechStart": 0,
+          "duration": 5.12,
+          "wordStarts": [
+            0,
+            0.8,
+            0.907,
+            1,
+            1.2,
+            1.4,
+            1.56,
+            1.68,
+            2.16,
+            2.72,
+            3.04,
+            3.36,
+            3.6,
+            3.76,
+            3.92,
+            4.16,
+            4.72
+          ]
+        },
+        {
+          "index": 9,
+          "hash": "b1dd917dd0a8",
+          "file": "voiceover/Ep2Numero9/09-b1dd917dd0a8.mp3",
+          "speechStart": 0.2,
+          "duration": 2.08,
+          "wordStarts": [
+            0.2,
+            0.72,
+            0.827,
+            0.96,
+            1.2,
+            1.48,
+            1.92
+          ]
+        },
+        {
+          "index": 10,
+          "hash": "713c6100c0dd",
+          "file": "voiceover/Ep2Numero9/10-713c6100c0dd.mp3",
+          "speechStart": 0,
+          "duration": 4.08,
+          "wordStarts": [
+            0,
+            0.28,
+            0.4,
+            0.88,
+            1.04,
+            1.32,
+            1.56,
+            1.68,
+            1.84,
+            1.96,
+            2.4,
+            2.96,
+            3.08,
+            3.4,
+            3.48,
+            3.48
+          ]
+        },
+        {
+          "index": 11,
+          "hash": "19c04906b46a",
+          "file": "voiceover/Ep2Numero9/11-19c04906b46a.mp3",
+          "speechStart": 0,
+          "duration": 5.44,
+          "wordStarts": [
+            0,
+            0.16,
+            0.48,
+            0.72,
+            0.96,
+            1.36,
+            1.6,
+            2,
+            2.16,
+            2.56,
+            2.72,
+            2.96,
+            3.12,
+            3.32,
+            3.6,
+            3.76,
+            3.92,
+            4.16,
+            4.56,
+            4.8,
+            4.92
+          ]
+        },
+        {
+          "index": 12,
+          "hash": "c3a6812dcee8",
+          "file": "voiceover/Ep2Numero9/12-c3a6812dcee8.mp3",
+          "speechStart": 0,
+          "duration": 5.28,
+          "wordStarts": [
+            0,
+            0.2,
+            0.48,
+            0.72,
+            1.28,
+            1.44,
+            1.76,
+            1.92,
+            2.08,
+            2.213,
+            2.76,
+            2.88,
+            3.28,
+            3.44,
+            3.76,
+            4.2,
+            4.347,
+            4.48,
+            4.48
+          ]
+        },
+        {
+          "index": 13,
+          "hash": "ec46d4fef1c6",
+          "file": "voiceover/Ep2Numero9/13-ec46d4fef1c6.mp3",
+          "speechStart": 0.133,
+          "duration": 2.8,
+          "wordStarts": [
+            0.133,
+            0.64,
+            0.72,
+            0.88,
+            1.32,
+            1.84,
+            1.96
+          ]
+        },
+        {
+          "index": 14,
+          "hash": "08e4099f07c9",
+          "file": "voiceover/Ep2Numero9/14-08e4099f07c9.mp3",
+          "speechStart": 0,
+          "duration": 2.88,
+          "wordStarts": [
+            0,
+            0.24,
+            0.4,
+            0.8,
+            1.08,
+            1.2,
+            1.68,
+            2,
+            2
+          ]
+        },
+        {
+          "index": 15,
+          "hash": "aa7a3f82dec0",
+          "file": "voiceover/Ep2Numero9/15-aa7a3f82dec0.mp3",
+          "speechStart": 0,
+          "duration": 5.12,
+          "wordStarts": [
+            0,
+            0.24,
+            0.48,
+            0.72,
+            1.2,
+            1.36,
+            1.52,
+            1.72,
+            1.88,
+            2,
+            2.12,
+            2.2,
+            2.32,
+            3.04,
+            3.24,
+            3.56,
+            3.64,
+            3.84,
+            4.2,
+            4.32,
+            4.88
+          ]
+        },
+        {
+          "index": 16,
+          "hash": "3dd43ea9be30",
+          "file": "voiceover/Ep2Numero9/16-3dd43ea9be30.mp3",
+          "speechStart": 0,
+          "duration": 6.8,
+          "wordStarts": [
+            0,
+            0.24,
+            0.44,
+            0.56,
+            0.84,
+            0.96,
+            1.04,
+            1.6,
+            1.76,
+            2.32,
+            2.76,
+            2.88,
+            3.6,
+            3.76,
+            4.08,
+            4.2,
+            4.72,
+            4.88,
+            5.04,
+            5.4,
+            5.6,
+            5.88,
+            6.04,
+            6.4
+          ]
+        },
+        {
+          "index": 17,
+          "hash": "239d23c35bb9",
+          "file": "voiceover/Ep2Numero9/17-239d23c35bb9.mp3",
+          "speechStart": 0.08,
+          "duration": 4.56,
+          "wordStarts": [
+            0.08,
+            0.32,
+            0.48,
+            0.76,
+            1.08,
+            1.573,
+            1.72,
+            1.84,
+            2.72,
+            2.88,
+            3.24,
+            3.44,
+            3.84,
+            3.84
+          ]
+        }
+      ]
+    },
+    "sounds": {
+      "impact": {
+        "file": "sfx/impact-b3caf5db1754.mp3",
+        "hash": "b3caf5db1754"
+      },
+      "whoosh": {
+        "file": "sfx/whoosh-29021630aede.mp3",
+        "hash": "29021630aede"
+      },
+      "tick": {
+        "file": "sfx/tick-79a8f27d6bf5.mp3",
+        "hash": "79a8f27d6bf5"
+      },
+      "glitch": {
+        "file": "sfx/glitch-d69c86c65530.mp3",
+        "hash": "d69c86c65530"
+      },
+      "click": {
+        "file": "sfx/click-794e54ceb2c2.mp3",
+        "hash": "794e54ceb2c2"
+      },
+      "stamp": {
+        "file": "sfx/stamp-ae15bc197533.mp3",
+        "hash": "ae15bc197533"
+      }
+    }
   }
 }
