@@ -8,7 +8,8 @@ Elle tournait sur l'ordinateur Windows de l'utilisateur via Remote Control.
 - Dossier de sortie : `%USERPROFILE%\Desktop\Claude Video Test\Smart short\` (projet Remotion dans `...\Claude Video Test\`).
 - Style : documentaire TikTok vertical, sombre et doré, marque originale **SMART SHORT** (logo éclair dans un anneau doré). Pas de branding PRISMA (simple référence de style), pas de filigrane TikTok.
 - Durée visée : idéalement **1 min 30 à 2 min**, jamais moins de **1 min 01**.
-- Voix off : **uniquement Cartesia**, voix « Vincent » `80e11491-2d8a-4361-ac61-c4f3e0a4f7e7`, modèle sonic-3, langue fr. Toutes les vidéos en Vincent.
+- Voix off épisodes 1–3 : Cartesia « Vincent » `80e11491-2d8a-4361-ac61-c4f3e0a4f7e7` (sonic-3, fr).
+- **À partir de l'épisode 4 (17/11/2026) : ElevenLabs, voix « Hugo Doré » `6DEjyaHWnTHsvXM5Byys`, modèle eleven_v4, fr.** Clé ElevenLabs enregistrée dans l'environnement cloud (injectée par le proxy, jamais affichée). Forfait Creator.
 - Clé `CARTESIA_API_KEY` dans `.env` : ne jamais lire ni afficher `.env`, l'utiliser seulement via `node --env-file=.env`.
 - Crédits Cartesia : il en restait **~170** à la fin (insuffisant pour une nouvelle vidéo). Recharger avant la prochaine.
 - Les scripts fournis contiennent des indications visuelles entre crochets ([CARTE …], [DATE EN GRAND …], [ÉTIQUETTE : RAPPORTÉ/ÉTABLI/MYTHE ?], etc.), à traduire en scènes ; elles ne sont pas lues par la voix.
@@ -32,16 +33,15 @@ Elle tournait sur l'ordinateur Windows de l'utilisateur via Remote Control.
 - Envoi au téléphone limité à 30 Mo : faire une copie mobile
   `ffmpeg -c:v libx264 -preset slow -b:v 2000k -maxrate 2500k -bufsize 5000k -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart`.
 
-## À faire : épisodes 4, 5 et 6 (scripts reçus le 17/11/2026)
-Scripts complets : `memoire/scripts-episodes-4-5-6.txt` (avec sources, hashtags et légendes TikTok).
+## Épisodes 4, 5 et 6 (17/11/2026) — projet `smart-short/` dans ce dépôt
+Scripts : `memoire/scripts-episodes-4-5-6.txt`. Le code Smart Short d'origine étant sur le PC, le style a été recréé dans `smart-short/` (Remotion 4.0.544), voix Hugo Doré.
 
-| Épisode | Script | Voix off (hors crochets) | Crédits Cartesia estimés |
+| Épisode | Composition | Fichier | Durée |
 |---|---|---|---|
-| 04 | Le mot qui a déformé la démocratie (gerrymandering, 1812) | 227 mots, 1 346 car. | ~1 350 |
-| 05 | Le jour où l'Islande s'est arrêtée (24 octobre 1975) | 207 mots, 1 193 car. | ~1 200 |
-| 06 | L'empereur qui n'était pas petit (Napoléon, 1,68 m) | 218 mots, 1 398 car. | ~1 400 |
+| 04 | Ep04Gerrymandering — Le mot qui a déformé la démocratie | `out/ep04-gerrymandering.mp4` | ~1 min 31 |
+| 05 | Ep05Islande — Le jour où l'Islande s'est arrêtée | `out/ep05-islande.mp4` | ~1 min 29 |
+| 06 | Ep06Napoleon — L'empereur qui n'était pas petit | `out/ep06-napoleon.mp4` | ~1 min 36 |
 
-- Total estimé : environ **3 950 crédits** (1 crédit ≈ 1 caractère, d'après le refus de la vidéo 3). Il en reste ~170 : **recharger Cartesia avant de commencer**.
-- Durée attendue : environ 70–75 s à la vitesse 0.8, et environ 1 min 30 à 0.6 avec des pauses. Les trois tiennent au-dessus de 1 min 01.
-- Numérotation : « épisode 04 », « épisode 05 », « épisode 06 », même style que les vidéos 1 à 3.
-- Bloqué le 17/11 : la session cloud n'avait pas accès au PC Windows (aucun dossier partagé par Remote Control).
+- Les nombres sont écrits en toutes lettres dans `speech` ; « Gerry » est prononcé « Guerry » (g dur d'origine).
+- Prononciation vérifiée par transcription ElevenLabs (scribe_v1).
+- Environ 4 300 caractères ElevenLabs consommés.
