@@ -31,3 +31,17 @@ Elle tournait sur l'ordinateur Windows de l'utilisateur via Remote Control.
 - Rendu : `npx remotion render <Comp> "Smart short/<nom>.mp4" --log=error` en arrière-plan (25–35 min pour ~3 000 images).
 - Envoi au téléphone limité à 30 Mo : faire une copie mobile
   `ffmpeg -c:v libx264 -preset slow -b:v 2000k -maxrate 2500k -bufsize 5000k -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart`.
+
+## À faire : épisodes 4, 5 et 6 (scripts reçus le 17/11/2026)
+Scripts complets : `memoire/scripts-episodes-4-5-6.txt` (avec sources, hashtags et légendes TikTok).
+
+| Épisode | Script | Voix off (hors crochets) | Crédits Cartesia estimés |
+|---|---|---|---|
+| 04 | Le mot qui a déformé la démocratie (gerrymandering, 1812) | 227 mots, 1 346 car. | ~1 350 |
+| 05 | Le jour où l'Islande s'est arrêtée (24 octobre 1975) | 207 mots, 1 193 car. | ~1 200 |
+| 06 | L'empereur qui n'était pas petit (Napoléon, 1,68 m) | 218 mots, 1 398 car. | ~1 400 |
+
+- Total estimé : environ **3 950 crédits** (1 crédit ≈ 1 caractère, d'après le refus de la vidéo 3). Il en reste ~170 : **recharger Cartesia avant de commencer**.
+- Durée attendue : environ 70–75 s à la vitesse 0.8, et environ 1 min 30 à 0.6 avec des pauses. Les trois tiennent au-dessus de 1 min 01.
+- Numérotation : « épisode 04 », « épisode 05 », « épisode 06 », même style que les vidéos 1 à 3.
+- Bloqué le 17/11 : la session cloud n'avait pas accès au PC Windows (aucun dossier partagé par Remote Control).
