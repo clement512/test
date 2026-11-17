@@ -68,7 +68,7 @@ const TacticalTablet: React.FC<{ start: number }> = ({ start }) => {
 };
 
 /** Outro : appel à l'action avec tablette tactique et bouton "ABONNE-TOI" cliqué par un curseur. */
-export const Outro: React.FC<{ def: OutroDef }> = ({ def }) => {
+export const Outro: React.FC<{ def: OutroDef; handle?: string }> = ({ def, handle }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -164,6 +164,26 @@ export const Outro: React.FC<{ def: OutroDef }> = ({ def }) => {
           </div>
         </div>
       </div>
+
+      {handle && (
+        <div
+          style={{
+            position: "absolute",
+            top: 1575,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            fontFamily: FONT_DISPLAY,
+            fontWeight: 900,
+            fontSize: 44,
+            color: COLORS.cyan,
+            opacity: btn,
+            textShadow: glow(COLORS.cyan, 10),
+          }}
+        >
+          {handle}
+        </div>
+      )}
 
       {/* Curseur */}
       {cursorIn > 0 && (

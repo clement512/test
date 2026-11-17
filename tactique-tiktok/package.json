@@ -6,11 +6,12 @@
   "scripts": {
     "start": "remotion studio",
     "studio": "remotion studio",
-    "render": "remotion render TactiqueDemo out/tactique-demo.mp4",
-    "still": "remotion still TactiqueDemo out/still.png --frame=600",
+    "render": "remotion render Remake433vs442 out/remake-433-vs-442.mp4",
+    "still": "remotion still Remake433vs442 out/still.png --frame=600",
     "typecheck": "tsc --noEmit",
     "build": "npm run audio && npm run render",
-    "audio": "NODE_USE_ENV_PROXY=1 tsx scripts/audio.ts"
+    "audio": "NODE_USE_ENV_PROXY=1 tsx scripts/audio.ts",
+    "render:demo": "remotion render TactiqueDemo out/tactique-demo.mp4"
   },
   "license": "UNLICENSED",
   "dependencies": {

@@ -5,7 +5,8 @@ Ce projet génère des vidéos d'analyse tactique de football au format vertical
 ```bash
 npm install
 npm start          # Remotion Studio (prévisualisation) sur http://localhost:3000
-npm run render     # rend out/tactique-demo.mp4
+npm run render     # rend le remake : out/remake-433-vs-442.mp4
+npm run render:demo # rend la démo : out/tactique-demo.mp4
 npm run still      # image fixe (frame 600) dans out/still.png
 npm run typecheck
 ```
@@ -54,11 +55,26 @@ npm run build            # audio puis rendu MP4
 - **Musique** (`meta.music`, optionnelle et désactivée dans la démo) : si tu l'ajoutes, elle est générée par ElevenLabs Music à la durée exacte de la vidéo, et son volume baisse automatiquement quand la voix parle (ducking).
 - **Clé API** : lue dans `ELEVENLABS_API_KEY`. Dans l'environnement cloud Claude Code, c'est le proxy réseau qui l'injecte. Le script npm utilise la syntaxe `VAR=… cmd` ; sous Windows, lance `tsx scripts/audio.ts` directement.
 
+## Remake d'une vidéo existante (mode speech-to-speech)
+
+`src/scripts/remake433.ts` refait à l'identique la vidéo « 4-3-3 vs 4-4-2 » d'origine, signée @clemitch.
+
+- **L'enregistrement d'origine** se place dans `reference/` (dossier non versionné), puis on le déclare dans `meta.voice.referenceAudio` avec `mode: "speech-to-speech"`.
+- **`npm run audio`** enchaîne quatre étapes :
+  1. isolation de la voix, pour retirer la musique et les bruitages ;
+  2. conversion dans la voix choisie par ElevenLabs, qui conserve exactement les intonations, les pauses et le minutage ;
+  3. transcription mot à mot ;
+  4. découpe en une réplique par sous-titre, chacune placée à son instant d'origine.
+- **Pas de recalage :** les instants du scénario sont directement ceux de la vidéo d'origine.
+- **Prérequis :** cette étape utilise `ffmpeg` et `ffprobe`, qui doivent être installés sur la machine.
+- **Pseudo en filigrane :** `meta.handle` (ici `@clemitch`) s'affiche en bas à droite et dans l'outro.
+
 ## Architecture
 
 ```
 src/
-  scriptData.ts        ← le scénario (données uniquement)
+  scriptData.ts        ← le scénario de la démo (données uniquement)
+  scripts/remake433.ts ← le remake de la vidéo d'origine
   videos.ts            ← registre des vidéos (une composition par entrée)
   audioLibrary.ts      ← bibliothèque d'effets sonores
   generated/audio.json ← produit par `npm run audio`

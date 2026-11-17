@@ -24,6 +24,13 @@ export const buildTimeMap = (script: ScriptData, audio?: GeneratedAudio | null) 
     return { map: identity, duration: S, placed: [] as PlacedVoiceLine[] };
   }
 
+  // Mode speech-to-speech : les clips sont déjà à leurs instants d'origine → pas de recalage
+  if (lines.every((l) => l.fixedStart !== undefined)) {
+    const placedFixed = lines.map((l) => ({ ...l, start: l.fixedStart! }));
+    const lastEnd = Math.max(...placedFixed.map((l) => l.start + l.duration));
+    return { map: (t: number) => t, duration: Math.max(S, lastEnd + endHold), placed: placedFixed };
+  }
+
   const knots: Knot[] = [{ s: 0, v: 0 }];
   const placed: PlacedVoiceLine[] = [];
   // Chaque clip démarre juste après la fin du précédent (rire ou souffle d'attaque inclus) ;
@@ -84,7 +91,7 @@ export const retimeScript = (script: ScriptData, map: (t: number) => number): Sc
     chapters: script.chapters.map((c) => ({ ...c, from: map(c.from) })),
     pills: script.pills.map(T),
     subtitles: script.subtitles.map(T),
-    titleCards: script.titleCards.map(T),
+    titleCards: script.titleCards.map((c) => ({ ...T(c), pillAt: c.pillAt === undefined ? undefined : map(c.pillAt) })),
     sfx: script.sfx?.map((x) => (x.at === undefined ? x : { ...x, at: map(x.at) })),
     stamps: script.stamps?.map((x) => (x.at === undefined ? x : { ...x, at: map(x.at) })),
     agenda: script.agenda?.map(T),

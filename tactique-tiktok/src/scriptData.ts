@@ -18,7 +18,7 @@ import type { ArrowDef, NeonColor, PlayerDef, ScriptData } from "./types";
 // ---------------------------------------------------------------------------
 
 /** Relie une liste de joueurs par des segments sans pointe (ex: lignes d'une formation). */
-const chain = (
+export const chain = (
   ids: string[],
   color: NeonColor,
   from: number,
@@ -37,7 +37,7 @@ const chain = (
   }));
 
 /** Ligne de passe cyan entre deux joueurs. */
-const pass = (from: string, to: string, at: number, until = at + 1.6): ArrowDef => ({
+export const pass = (from: string, to: string, at: number, until = at + 1.6): ArrowDef => ({
   from: at,
   to: until,
   start: from,
@@ -52,7 +52,7 @@ const pass = (from: string, to: string, at: number, until = at + 1.6): ArrowDef 
 // ---------------------------------------------------------------------------
 
 /** Équipe A — 4-3-3 (nous, jaune), attaque vers le haut. */
-const teamA: PlayerDef[] = [
+export const teamA: PlayerDef[] = [
   { id: "A1", number: 1, pos: { x: 34, y: 99 } },
   { id: "A4", number: 4, pos: { x: 26, y: 87 } },
   { id: "A5", number: 5, pos: { x: 42, y: 87 } },
@@ -67,7 +67,7 @@ const teamA: PlayerDef[] = [
 ].map((p, i) => ({ ...p, team: "A" as const, appearAt: 0.55 + i * 0.07 }));
 
 /** Équipe B — 4-4-2 (adversaire, rose). */
-const teamB: PlayerDef[] = [
+export const teamB: PlayerDef[] = [
   { id: "BG", pos: { x: 34, y: 5 } },
   { id: "BD1", pos: { x: 11, y: 22 } },
   { id: "BD2", pos: { x: 26, y: 20 } },
@@ -82,8 +82,8 @@ const teamB: PlayerDef[] = [
 ].map((p, i) => ({ ...p, team: "B" as const, appearAt: 1.25 + i * 0.07 }));
 
 // Essuie-glace des deux milieux centraux roses (séquence 2)
-const WIPER_LEFT = { BM2: { x: 20, y: 43 }, BM3: { x: 33, y: 43 } };
-const WIPER_RIGHT = { BM2: { x: 35, y: 43 }, BM3: { x: 48, y: 43 } };
+export const WIPER_LEFT = { BM2: { x: 20, y: 43 }, BM3: { x: 33, y: 43 } };
+export const WIPER_RIGHT = { BM2: { x: 35, y: 43 }, BM3: { x: 48, y: 43 } };
 const wiperArrows = (at: number, dir: "left" | "right"): ArrowDef[] =>
   (["BM2", "BM3"] as const).map((id) => {
     const l = WIPER_LEFT[id].x + 2;

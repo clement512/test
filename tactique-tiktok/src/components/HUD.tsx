@@ -5,7 +5,7 @@ import { COLORS, FONT_MONO } from "../theme";
 const pad = (n: number) => String(Math.floor(n)).padStart(2, "0");
 
 /** Overlay permanent : titre, timecode REC dynamique, crochets de viseur, barre de progression. */
-export const HUD: React.FC<{ title: string; prefix?: string }> = ({ title, prefix = "ANALYSE TACTIQUE" }) => {
+export const HUD: React.FC<{ title: string; prefix?: string; handle?: string }> = ({ title, prefix = "ANALYSE TACTIQUE", handle }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width } = useVideoConfig();
 
@@ -76,6 +76,26 @@ export const HUD: React.FC<{ title: string; prefix?: string }> = ({ title, prefi
         />
         REC {mm}:{ss}:{ff}
       </div>
+
+      {/* Pseudo en filigrane */}
+      {handle && (
+        <div
+          style={{
+            position: "absolute",
+            right: 70,
+            bottom: 300,
+            fontFamily: FONT_MONO,
+            fontWeight: 700,
+            fontSize: 30,
+            letterSpacing: 1,
+            color: "#fff",
+            opacity: 0.85,
+            textShadow: `0 0 10px ${COLORS.cyan}, 0 2px 4px #000`,
+          }}
+        >
+          {handle}
+        </div>
+      )}
 
       {/* Barre de progression */}
       <div style={{ position: "absolute", left: 0, bottom: 0, height: 8, width, background: "rgba(0,240,255,0.08)" }} />

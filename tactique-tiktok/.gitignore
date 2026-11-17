@@ -3,3 +3,6 @@ out
 .DS_Store
 out-render.log
 studio.log
+
+.cache
+reference

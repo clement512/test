@@ -175,10 +175,10 @@ export const TacticalVideo: React.FC<{
         {script.chapters.map((d, i) => (
           <ChapterBanner key={`ch${i}`} def={d} />
         ))}
-        {script.outro && <Outro def={script.outro} />}
+        {script.outro && <Outro def={script.outro} handle={script.meta.handle} />}
         <KineticSubtitles items={script.subtitles} voice={voice} />
         <TransitionFlash at={script.meta.transitions ?? []} />
-        <HUD title={script.meta.title} prefix={script.meta.hudPrefix} />
+        <HUD title={script.meta.title} prefix={script.meta.hudPrefix} handle={script.meta.handle} />
 
         {script.meta.audio && <Audio src={staticFile(script.meta.audio)} />}
 

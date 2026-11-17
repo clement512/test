@@ -187,6 +187,8 @@ export type AgendaDef = Timed & {
 export type TitleCardDef = Timed & {
   lines: { text: string; color: NeonColor; size?: number }[];
   pill?: string;
+  /** Instant d'apparition de la pilule (s). Défaut : from + 0.55. */
+  pillAt?: number;
 };
 
 export type OutroDef = {
@@ -235,6 +237,8 @@ export type ScriptData = {
     wordPunches?: boolean;
     /** Instants (s) où jouer le flash de transition entre séquences. */
     transitions?: number[];
+    /** Pseudo affiché en filigrane (ex: "@clemitch"). */
+    handle?: string;
   };
   players: PlayerDef[];
   moves: MoveKeyframe[];
@@ -260,6 +264,16 @@ export type ScriptData = {
 export type VoiceConfig = {
   provider: "elevenlabs";
   voiceId: string;
+  /**
+   * "tts" (défaut) : chaque réplique est synthétisée à partir de `speech`.
+   * "speech-to-speech" : on part d'un enregistrement de référence (`referenceAudio`) dont on isole
+   * la voix, puis ElevenLabs la convertit dans la voix `voiceId` en gardant exactement les
+   * intonations, les pauses et le minutage. Les répliques sont ensuite découpées et placées à leurs
+   * instants d'origine.
+   */
+  mode?: "tts" | "speech-to-speech";
+  /** Enregistrement de référence (chemin relatif à la racine du projet), pour le mode speech-to-speech. */
+  referenceAudio?: string;
   /** Défaut : "eleven_v4" (le plus expressif, accepte les balises [excited], [whispers]...). */
   modelId?: string;
   speed?: number;
@@ -291,6 +305,8 @@ export type VoiceLine = {
   duration: number;
   /** Début (s, relatif au clip) de chaque mot affiché, ou null si calage proportionnel. */
   wordStarts: number[] | null;
+  /** Mode speech-to-speech : instant d'origine (s) du début du clip dans la vidéo. */
+  fixedStart?: number;
 };
 
 /** Ligne de voix placée dans la vidéo (après recalage). */

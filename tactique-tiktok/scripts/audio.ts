@@ -11,12 +11,13 @@
  */
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { VIDEOS } from "../src/videos";
 import { resolveSounds } from "../src/audioLibrary";
 import { buildTimeMap } from "../src/lib/retime";
-import { displayWords, plainText, spaceTokens } from "../src/lib/words";
+import { displayWords, normWord, plainText, spaceTokens } from "../src/lib/words";
 import type { GeneratedAudio, ScriptData, SubtitleDef, VoiceLine } from "../src/types";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -162,6 +163,140 @@ const genVoice = async (s: ScriptData, prev?: GeneratedAudio["voice"]) => {
 };
 
 // ---------------------------------------------------------------------------
+// Voix — mode speech-to-speech (reprise d'un enregistrement de référence)
+// ---------------------------------------------------------------------------
+
+const postForm = async (path: string, form: FormData): Promise<Response> => {
+  for (let attempt = 1; ; attempt++) {
+    const res = await fetch(`${API}${path}`, { method: "POST", headers: { "xi-api-key": API_KEY }, body: form });
+    if (res.ok) return res;
+    const msg = await res.text();
+    if (attempt < 4 && (res.status === 429 || res.status >= 500)) {
+      await new Promise((r) => setTimeout(r, 2000 * attempt));
+      continue;
+    }
+    throw new Error(`ElevenLabs ${path} → ${res.status} : ${msg.slice(0, 400)}`);
+  }
+};
+
+const fileBlob = (p: string) => new Blob([readFileSync(p)], { type: "audio/mpeg" });
+
+type SttWord = { text: string; start: number; end: number; type: string };
+
+const genVoiceSTS = async (s: ScriptData, prev?: GeneratedAudio["voice"]) => {
+  const v = s.meta.voice!;
+  if (!v.referenceAudio) throw new Error("mode speech-to-speech : meta.voice.referenceAudio manquant");
+  const refPath = join(ROOT, v.referenceAudio);
+  if (!existsSync(refPath)) throw new Error(`Enregistrement de référence introuvable : ${refPath}`);
+  const modelId = v.modelId ?? "eleven_multilingual_sts_v2";
+  const cacheDir = join(ROOT, ".cache/audio", s.meta.id);
+  mkdirSync(cacheDir, { recursive: true });
+  const refHash = createHash("sha1").update(readFileSync(refPath)).digest("hex").slice(0, 12);
+  const convHash = hashOf([refHash, v.voiceId, modelId, v.stability, v.similarityBoost, v.style]);
+
+  // 1. Isolation de la voix (retire musique et bruitages de la référence)
+  const isoPath = join(cacheDir, `iso-${refHash}.mp3`);
+  if (FORCE || !existsSync(isoPath)) {
+    const f = new FormData();
+    f.append("audio", fileBlob(refPath), "reference.mp3");
+    writeFileSync(isoPath, Buffer.from(await (await postForm("/audio-isolation", f)).arrayBuffer()));
+    console.log("  voix isolée ✔");
+  }
+  // 2. Conversion dans la voix cible (intonations et minutage conservés)
+  const convPath = join(cacheDir, `conv-${convHash}.mp3`);
+  if (FORCE || !existsSync(convPath)) {
+    const f = new FormData();
+    f.append("audio", fileBlob(isoPath), "voice.mp3");
+    f.append("model_id", modelId);
+    f.append(
+      "voice_settings",
+      JSON.stringify({ stability: v.stability ?? 0.5, similarity_boost: v.similarityBoost ?? 0.85, style: v.style ?? 0.2, use_speaker_boost: true }),
+    );
+    writeFileSync(convPath, Buffer.from(await (await postForm(`/speech-to-speech/${v.voiceId}?output_format=mp3_44100_128`, f)).arrayBuffer()));
+    console.log("  voix convertie ✔");
+  }
+  // 3. Transcription mot à mot (minutage exact)
+  const sttPath = join(cacheDir, `stt-${convHash}.json`);
+  if (FORCE || !existsSync(sttPath)) {
+    const f = new FormData();
+    f.append("file", fileBlob(convPath), "voice.mp3");
+    f.append("model_id", "scribe_v1");
+    f.append("language_code", "fra");
+    f.append("timestamps_granularity", "word");
+    writeFileSync(sttPath, JSON.stringify(await (await postForm("/speech-to-text", f)).json()));
+    console.log("  transcription ✔");
+  }
+  const stt = JSON.parse(readFileSync(sttPath, "utf8")) as { words: SttWord[] };
+  const sttWords = stt.words.filter((w) => w.type === "word" && normWord(w.text) !== "");
+
+  // 4. Alignement sous-titres ↔ mots transcrits, par "unités" (traits d'union découpés, chiffres
+  //    écrits en lettres) pour supporter "4-3-3" ↔ "quatre trois trois", "90" ↔ "quatre-vingt-dix"...
+  const NUM: Record<string, string> = {
+    "0": "zéro", "1": "un", "2": "deux", "3": "trois", "4": "quatre", "5": "cinq", "6": "six", "7": "sept",
+    "8": "huit", "9": "neuf", "10": "dix", "11": "onze", "20": "vingt", "30": "trente", "40": "quarante",
+    "50": "cinquante", "60": "soixante", "90": "quatre-vingt-dix", "100": "cent",
+  };
+  const units = (word: string) =>
+    normWord(word)
+      .split("-")
+      .flatMap((p) => (NUM[p] ?? p).split("-"))
+      .filter((p) => p !== "");
+  const sttUnits = sttWords.flatMap((w) => units(w.text).map((u) => ({ u, start: w.start, end: w.end })));
+  const subs = s.subtitles;
+  let k = 0;
+  const spans = subs.map((sub, i) => {
+    const words = displayWords(sub.text);
+    const starts: number[] = new Array(words.length).fill(-1);
+    let first = -1;
+    let last = 0;
+    words.forEach((w, j) => {
+      const us = units(w.text);
+      if (!us.length) return;
+      const seg = sttUnits.slice(k, k + us.length);
+      if (seg.length < us.length) throw new Error(`Réplique ${i} : plus assez de mots transcrits ("${sub.text}")`);
+      if (seg[0].u[0] !== us[0][0]) console.warn(`  ⚠ réplique ${i} : "${w.text}" aligné sur "${seg[0].u}"`);
+      starts[j] = seg[0].start;
+      if (first < 0) first = seg[0].start;
+      last = seg[seg.length - 1].end;
+      k += us.length;
+    });
+    for (let j = 0; j < words.length; j++) if (starts[j] < 0) starts[j] = j > 0 ? starts[j - 1] : first;
+    return { first, last, starts };
+  });
+  if (k !== sttUnits.length) console.warn(`  ⚠ ${sttUnits.length - k} mot(s) transcrit(s) non utilisé(s) en fin de piste`);
+
+  const trackLen = parseFloat(
+    execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", convPath]).toString(),
+  );
+  const cuts = spans.map((sp, i) => (i === 0 ? Math.max(0, sp.first - 0.05) : (spans[i - 1].last + sp.first) / 2));
+  const dir = `voiceover/${s.meta.id}`;
+  mkdirSync(publicPath(dir), { recursive: true });
+  const cache = new Map((prev?.lines ?? []).map((l) => [l.index, l]));
+  const lines: VoiceLine[] = spans.map((sp, i) => {
+    const cut = cuts[i];
+    const end = cuts[i + 1] ?? trackLen;
+    const hash = hashOf([convHash, subs[i].text, cut.toFixed(3), end.toFixed(3)]);
+    const file = `${dir}/${String(i).padStart(2, "0")}-${hash}.mp3`;
+    if (FORCE || cache.get(i)?.hash !== hash || !existsSync(publicPath(file))) {
+      execFileSync("ffmpeg", ["-v", "error", "-y", "-i", convPath, "-ss", cut.toFixed(3), "-to", end.toFixed(3), "-c:a", "libmp3lame", "-b:a", "160k", publicPath(file)]);
+    }
+    return {
+      index: i,
+      hash,
+      file,
+      fixedStart: +cut.toFixed(3),
+      speechStart: +(sp.first - cut).toFixed(3),
+      duration: +(sp.last - cut).toFixed(3),
+      wordStarts: sp.starts.map((t) => +(t - cut).toFixed(3)),
+    };
+  });
+  lines.forEach((l, i) => console.log(`  voix [${i}] ${(l.fixedStart ?? 0).toFixed(2)} s  ${plainText(subs[i].text)}`));
+  const keep = new Set(lines.map((l) => l.file.split("/").pop()));
+  for (const f of readdirSync(publicPath(dir))) if (!keep.has(f)) unlinkSync(publicPath(`${dir}/${f}`));
+  return { voice: { voiceId: v.voiceId, modelId, lines }, chars: 0 };
+};
+
+// ---------------------------------------------------------------------------
 // Effets sonores
 // ---------------------------------------------------------------------------
 
@@ -235,7 +370,7 @@ const run = async () => {
     const prev = existing[s.meta.id] ?? {};
     const audio: GeneratedAudio = {};
     if (s.meta.voice) {
-      const r = await genVoice(s, prev.voice);
+      const r = s.meta.voice.mode === "speech-to-speech" ? await genVoiceSTS(s, prev.voice) : await genVoice(s, prev.voice);
       audio.voice = r.voice;
       chars += r.chars;
     }

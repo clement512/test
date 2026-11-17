@@ -442,7 +442,7 @@ export const TitleCard: React.FC<{ def: TitleCardDef }> = ({ def }) => {
       })}
       {def.pill && (
         <div style={{ marginTop: 26 }}>
-          <TopPillInline text={def.pill} start={def.from + 0.55} />
+          <TopPillInline text={def.pill} start={def.pillAt ?? def.from + 0.55} />
         </div>
       )}
     </div>
