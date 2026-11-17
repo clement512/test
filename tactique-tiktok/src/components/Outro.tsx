@@ -99,7 +99,7 @@ export const Outro: React.FC<{ def: OutroDef; handle?: string }> = ({ def, handl
     <AbsoluteFill>
       <AbsoluteFill style={{ background: `rgba(3,8,16,${0.82 * bg})`, backdropFilter: `blur(${6 * bg}px)` }} />
       <div style={{ position: "absolute", top: 250, left: 0, right: 0, textAlign: "center", fontFamily: FONT_DISPLAY, fontWeight: 900 }}>
-        <div style={{ fontSize: Math.min(72, Math.floor(1700 / def.titleTop.length)), color: "#fff", transform: `scale(${title})`, textShadow: "0 6px 0 #000" }}>{def.titleTop}</div>
+        <div style={{ fontSize: Math.min(72, Math.floor(1350 / def.titleTop.length)), color: "#fff", transform: `scale(${title})`, textShadow: "0 6px 0 #000" }}>{def.titleTop}</div>
         <div style={{ fontSize: Math.min(120, Math.floor(1300 / def.titleHighlight.length)), color: COLORS.yellow, transform: `scale(${title2})`, textShadow: `${glow(COLORS.yellow, 14)}, 0 8px 0 #000`, lineHeight: 1.05 }}>
           {def.titleHighlight}
         </div>
