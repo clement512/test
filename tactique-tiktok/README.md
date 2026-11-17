@@ -43,7 +43,7 @@ npm run audio -- --force # régénère tout
 npm run build            # audio puis rendu MP4
 ```
 
-**C'est la voix qui donne le rythme.** Le scénario est écrit en « temps scénario ». Une fois la voix générée, `lib/retime.ts` enchaîne les répliques sans blanc et recale tous les instants du scénario sur la durée réelle de chaque réplique : déplacements, flèches, caméra, bannières, effets sonores. La vidéo dure donc exactement le temps de la narration, ici environ 55 s. Le script affiche la durée finale et prévient si elle dépasse 61 s.
+**C'est la voix qui donne le rythme.** Le scénario est écrit en « temps scénario ». Une fois la voix générée, `lib/retime.ts` enchaîne les répliques sans blanc et recale tous les instants du scénario sur la durée réelle de chaque réplique : déplacements, flèches, caméra, bannières, effets sonores. La vidéo dure donc exactement le temps de la narration, ici environ 57 s. Le script affiche la durée finale et prévient si elle dépasse 61 s.
 
 - **Voix** (`meta.voice`) : `eleven_v4` avec Corentin (`IHngRooVccHyPqB4uQkG`). Le ton se règle réplique par réplique avec des balises dans `speech` : `[excited]`, `[confident]`, `[dramatic]`, `[laughing]`, `[shouting]`… On peut aussi y écrire les chiffres en toutes lettres (« 4-3-3 » devient « quatre-trois-trois »), en gardant le même nombre de mots que `text`.
 - **Sous-titres** : chaque groupe de mots apparaît au moment exact où il est prononcé, d'après le minutage renvoyé par ElevenLabs. Chaque mot `*surligné*` déclenche en plus un « punch » de caméra (petit zoom et secousse) ; `meta.wordPunches: false` le désactive.
