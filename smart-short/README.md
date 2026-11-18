@@ -28,3 +28,8 @@ Dans l'environnement cloud, ajouter `--browser-executable=/opt/pw-browsers/chrom
 - `scripts/voice.ts` : ElevenLabs text-to-speech avec minutage, une réplique par fichier dans `public/voice/`.
 - `public/sfx/` : bruitages repris du projet tactique-tiktok.
 - Sans musique : à ajouter dans TikTok.
+
+## Cartes plein écran (depuis l'épisode 7)
+
+`src/geo/GeoMap.tsx` dessine de vraies cartes (d3-geo) en noir et or : régions surlignées lumineuses, fleuves animés, étiquettes (`tag`, `big`, `pin`, `soft`) et caméra animée (`camAt`, clés `{ at, lon, lat, zoom }`).
+Un épisode exporte un `Backdrop` (voir `src/scenes/ep07.tsx`) : il est rendu sous les scènes pendant toute la vidéo, et `useGlobalCue()("scene", "mot")` cale la caméra et les surlignages sur la voix. `dim` assombrit la carte quand une scène pose des cartes par-dessus.

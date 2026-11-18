@@ -24,6 +24,8 @@ export type Episode = {
   gold: string[];
   segments: Segment[];
   next?: string;
+  /** Vitesse de la voix ElevenLabs (0.7–1.2). */
+  voiceSpeed?: number;
 };
 
 export type VoiceWord = { w: string; s: number; e: number };

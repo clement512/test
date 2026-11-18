@@ -9,7 +9,9 @@
     "typecheck": "tsc --noEmit",
     "render:ep4": "remotion render Ep04Gerrymandering out/ep04-gerrymandering.mp4",
     "render:ep5": "remotion render Ep05Islande out/ep05-islande.mp4",
-    "render:ep6": "remotion render Ep06Napoleon out/ep06-napoleon.mp4"
+    "render:ep6": "remotion render Ep06Napoleon out/ep06-napoleon.mp4",
+    "render:ep7": "remotion render Ep07Poubelle out/ep07-poubelle.mp4",
+    "render:ep8": "remotion render Ep08VoteSecret out/ep08-vote-secret.mp4"
   },
   "license": "UNLICENSED",
   "dependencies": {
@@ -19,11 +21,14 @@
     "@fontsource/playfair-display": "^5.3.0",
     "@remotion/cli": "^4.0.544",
     "@remotion/fonts": "^4.0.544",
+    "d3-geo": "^3.1.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "remotion": "^4.0.544"
   },
   "devDependencies": {
+    "@types/d3-geo": "^3.1.1",
+    "@types/geojson": "^7946.0.16",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "tsx": "^4.23.15",

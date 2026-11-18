@@ -23,6 +23,31 @@ export const useCue = () => {
   };
 };
 export const useSceneDur = () => useContext(SegmentContext)!.dur;
+/** Image (locale) de la fin du dernier mot prononcé dans la scène. */
+export const useSegEnd = () => {
+  const ctx = useContext(SegmentContext)!;
+  return Math.round(ctx.seg.words[ctx.seg.words.length - 1].e * FPS);
+};
+
+/* ------------------------------------------------------------------ */
+/* Minutage global (pour le fond de carte continu)                     */
+/* ------------------------------------------------------------------ */
+export const TrackContext = createContext<VoiceSegment[]>([]);
+/** Image globale où commence un mot d'une scène (ou le début de la scène si `word` est omis). */
+export const useGlobalCue = () => {
+  const segs = useContext(TrackContext);
+  return (segId: string, word?: string, n = 1, offset = 0) => {
+    const seg = segs.find((s) => s.id === segId);
+    if (!seg) throw new Error(`Scène inconnue : ${segId}`);
+    if (!word) return Math.round(seg.start * FPS) + offset;
+    const target = normWord(word);
+    let k = 0;
+    for (const w of seg.words) {
+      if (normWord(w.w) === target && ++k === n) return Math.round((seg.start + w.s) * FPS) + offset;
+    }
+    throw new Error(`Mot introuvable dans ${segId} : « ${word} »`);
+  };
+};
 
 /* ------------------------------------------------------------------ */
 /* Fond                                                                */

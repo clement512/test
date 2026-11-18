@@ -1,0 +1,83 @@
+import type { Episode } from "./types";
+
+export const EP08: Episode = {
+  id: "Ep08VoteSecret",
+  number: "08",
+  when: "1856",
+  title: "LE VOTE SECRET N'A PAS DE DATE DE NAISSANCE",
+  voiceSpeed: 0.92,
+  gold: [
+    "l'isoloir", "personne", "récente", "disputée", "1856,", "colonies", "britanniques", "l'australie.",
+    "tasmanie", "secret.", "première", "victoria", "pionnière,", "william", "nicholson,", "melbourne.",
+    "l'australie-méridionale,", "modèle", "l'état,", "croix", "massachusetts", "d'australian", "ballot",
+    "mythe", "2006", "confusion", "distincte.", "seule", "défendu,", "arraché,", "copié.",
+  ],
+  segments: [
+    {
+      id: "hook",
+      chapter: "L'ACCROCHE",
+      badge: "LECTURE SMART",
+      text: "Dans l'isoloir, personne ne sait pour qui vous votez. Cette évidence est pourtant récente, et son origine est plus disputée qu'on ne le pense.",
+      pauseAfter: 0.2,
+    },
+    {
+      id: "colonies",
+      chapter: "1856",
+      badge: "ÉTABLI",
+      text: "Pour comprendre, il faut remonter à 1856, dans les colonies britanniques du sud de l'Australie.",
+      speech: "Pour comprendre, il faut remonter à mille-huit-cent-cinquante-six, dans les colonies britanniques du sud de l'Australie.",
+      pauseAfter: 0.3,
+    },
+    {
+      id: "tasmanie",
+      chapter: "7 FÉVRIER 1856",
+      badge: "ÉTABLI",
+      text: "La Tasmanie adopte une loi de vote secret. Des recherches récentes ont redonné à cette colonie la première place.",
+      pauseAfter: 0.3,
+    },
+    {
+      id: "victoria",
+      chapter: "19 MARS 1856",
+      badge: "RAPPORTÉ",
+      text: "Puis la Victoria promulgue la sienne. Longtemps, elle a été présentée comme pionnière, portée par William Nicholson, ancien maire de Melbourne.",
+      pauseAfter: 0.3,
+    },
+    {
+      id: "sa",
+      chapter: "2 AVRIL 1856",
+      badge: "ÉTABLI",
+      text: "L'Australie-Méridionale, elle, change le modèle : son bulletin est imprimé par l'État, et l'électeur marque une croix face au nom choisi.",
+      pauseAfter: 0.3,
+    },
+    {
+      id: "usa",
+      chapter: "1888",
+      badge: "ÉTABLI",
+      text: "Le Massachusetts adopte ce modèle, qui prend le nom d'« Australian ballot » aux États-Unis.",
+      speech: "Le Massachusetts adopte ce modèle, qui prend le nom d'« Australian ballot » aux États-Unis.",
+      pauseAfter: 0.3,
+    },
+    {
+      id: "myth",
+      chapter: "LE MYTHE",
+      badge: "MYTHE ?",
+      text: "Le mythe veut que le modèle australien soit le vote secret.",
+      pauseAfter: 0.2,
+    },
+    {
+      id: "fact",
+      chapter: "CE QUI EST ÉTABLI",
+      badge: "ÉTABLI",
+      text: "Un article universitaire de 2006 explique qu'il s'agit d'une confusion : le bulletin officiel est une innovation distincte.",
+      speech: "Un article universitaire de deux-mille-six explique qu'il s'agit d'une confusion : le bulletin officiel est une innovation distincte.",
+      pauseAfter: 0.3,
+    },
+    {
+      id: "end",
+      chapter: "À VOUS",
+      badge: "LECTURE SMART",
+      text: "Le vote secret n'a donc pas une seule date de naissance. Il a été défendu, arraché, puis copié.",
+      pauseAfter: 3.6,
+    },
+  ],
+};

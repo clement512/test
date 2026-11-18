@@ -1,14 +1,25 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
-import { Background, buildGroups, Header, Outro, SceneWrap, SegmentContext, Subtitles } from "./frame";
+import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { Background, buildGroups, TrackContext, Header, Outro, SceneWrap, SegmentContext, Subtitles } from "./frame";
 import { FPS } from "./theme";
 import { Sfx } from "./ui";
 import { normWord } from "./lib/words";
 import type { Episode, VoiceTrack } from "./episodes/types";
 
+const TailFade: React.FC<{ len: number; children: React.ReactNode }> = ({ len, children }) => {
+  const f = useCurrentFrame();
+  const o = interpolate(f, [len - 26, len - 6], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return <AbsoluteFill style={{ opacity: o }}>{children}</AbsoluteFill>;
+};
+
 export type SceneMap = Record<string, React.FC>;
 
-export const SmartShort: React.FC<{ episode: Episode; track: VoiceTrack; scenes: SceneMap }> = ({ episode, track, scenes }) => {
+export const SmartShort: React.FC<{ episode: Episode; track: VoiceTrack; scenes: SceneMap; backdrop?: React.FC }> = ({
+  episode,
+  track,
+  scenes,
+  backdrop: Backdrop,
+}) => {
   const fr = (s: number) => Math.round(s * FPS);
   const outroFrom = fr(track.voiceEnd + 0.5);
   const starts = track.segments.map((s) => fr(s.start));
@@ -16,8 +27,16 @@ export const SmartShort: React.FC<{ episode: Episode; track: VoiceTrack; scenes:
   const groups = buildGroups(track.segments, gold);
   const chapters = episode.segments.map((s, i) => ({ from: starts[i], chapter: s.chapter, badge: s.badge }));
   return (
+    <TrackContext.Provider value={track.segments}>
     <AbsoluteFill>
       <Background />
+      {Backdrop ? (
+        <Sequence durationInFrames={outroFrom + 10} name="carte">
+          <TailFade len={outroFrom + 10}>
+            <Backdrop />
+          </TailFade>
+        </Sequence>
+      ) : null}
       {track.segments.map((seg, i) => {
         const from = i === 0 ? 0 : starts[i] - 6;
         const to = i < track.segments.length - 1 ? starts[i + 1] + 2 : outroFrom + 8;
@@ -50,5 +69,6 @@ export const SmartShort: React.FC<{ episode: Episode; track: VoiceTrack; scenes:
       <Sfx at={outroFrom} name="riser" volume={0.3} />
       <Sfx at={outroFrom + 36} name="impact" volume={0.35} />
     </AbsoluteFill>
+    </TrackContext.Provider>
   );
 };

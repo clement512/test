@@ -45,3 +45,19 @@ Scripts : `memoire/scripts-episodes-4-5-6.txt`. Le code Smart Short d'origine é
 - Les nombres sont écrits en toutes lettres dans `speech` ; « Gerry » est prononcé « Guerry » (g dur d'origine).
 - Prononciation vérifiée par transcription ElevenLabs (scribe_v1).
 - Environ 4 300 caractères ElevenLabs consommés.
+
+## Épisodes 7 et 8 (18/11/2026) — nouveau style « cartes plein écran »
+Scripts : `memoire/scripts-episodes-7-8.txt`. Inspirations Pinterest de l'utilisateur : cartes plein écran,
+régions surlignées lumineuses, fleuves qui brillent, étiquettes, grands chiffres, zooms de caméra — **en gardant noir et or**.
+
+| Épisode | Composition | Fichier | Durée |
+|---|---|---|---|
+| 07 | Ep07Poubelle — La poubelle porte un nom | `out/ep07-poubelle.mp4` | ~1 min 05 |
+| 08 | Ep08VoteSecret — Le vote secret n'a pas de date de naissance | `out/ep08-vote-secret.mp4` | ~1 min 15 |
+
+- Moteur de carte : `smart-short/src/geo/GeoMap.tsx` (d3-geo, Mercator). Données dans `src/geo/` : pays Natural Earth 50m,
+  états d'Australie et des États-Unis, départements français (gregoiredavid/france-geojson), Seine et Marne.
+- Un épisode peut exporter un `Backdrop` : fond de carte continu, caméra (`camAt`) et surlignages calés sur la voix via `useGlobalCue()`.
+- Voix Hugo Doré à la vitesse 0.85 (ép. 7) et 0.92 (ép. 8) ; scripts courts, donc vidéos plus courtes que 1 min 30.
+- Question finale affichée à l'écran sans voix (3,6 s de pause après la dernière phrase).
+- Son normalisé à -14 LUFS (standard TikTok) pour toutes les vidéos.

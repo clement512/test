@@ -38,7 +38,7 @@ type Alignment = {
   character_end_times_seconds: number[];
 };
 
-const tts = async (text: string): Promise<{ audio: Buffer; alignment: Alignment }> => {
+const tts = async (text: string, speed: number): Promise<{ audio: Buffer; alignment: Alignment }> => {
   for (let attempt = 1; ; attempt++) {
     const res = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}/with-timestamps?output_format=mp3_44100_128`,
@@ -49,7 +49,7 @@ const tts = async (text: string): Promise<{ audio: Buffer; alignment: Alignment 
           text,
           model_id: MODEL,
           language_code: "fr",
-          voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0, use_speaker_boost: true, speed: SPEED },
+          voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0, use_speaker_boost: true, speed },
         }),
       },
     );
@@ -101,7 +101,8 @@ const buildEpisode = async (ep: Episode) => {
     const speech = normalizeText(seg.speech ?? seg.text);
     if (tokensOf(speech).length !== display.length)
       throw new Error(`${ep.id}/${seg.id} : speech a ${tokensOf(speech).length} mots, text en a ${display.length}`);
-    const hash = hashOf([speech, VOICE_ID, MODEL, SPEED]);
+    const speed = ep.voiceSpeed ?? SPEED;
+    const hash = hashOf(speed === 1 ? [speech, VOICE_ID, MODEL, SPEED] : [speech, VOICE_ID, MODEL, speed]);
     const file = `voice/${ep.id}/${seg.id}-${hash}.mp3`;
     const cachePath = join(ROOT, "public", file.replace(/\.mp3$/, ".json"));
     let timing: { s: number; e: number }[];
@@ -109,7 +110,7 @@ const buildEpisode = async (ep: Episode) => {
       timing = JSON.parse(readFileSync(cachePath, "utf8"));
     } else {
       process.stdout.write(`  ${ep.id}/${seg.id} (${speech.length} car.)… `);
-      const { audio, alignment } = await tts(speech);
+      const { audio, alignment } = await tts(speech, speed);
       chars += speech.length;
       writeFileSync(join(ROOT, "public", file), audio);
       timing = wordsFromAlignment(alignment);
